@@ -1,0 +1,569 @@
+[
+  {
+    "id": "N02",
+    "file": "01_Current_Client/N02_Draft_IMA_Schedule_A_investment_guidelines_and_service_annex.pdf",
+    "kind": "Contract",
+    "date": "2026-09-10",
+    "status": "current",
+    "case": "NEW",
+    "passages": [
+      "N02\u00a71",
+      "N02\u00a72",
+      "N02\u00a73",
+      "N02\u00a74"
+    ],
+    "pages": 1,
+    "sha256": "a7d5a034c550c1187498952f0dabdd07ea08dfe063192fea9418162f0fd221f1"
+  },
+  {
+    "id": "N03",
+    "file": "01_Current_Client/N03_Trustee_investment_policy_approved_client_policy_excerpt.pdf",
+    "kind": "Policy",
+    "date": "2026-08-28",
+    "status": "current",
+    "case": "NEW",
+    "passages": [
+      "N03\u00a71",
+      "N03\u00a72",
+      "N03\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "392f327d1620ecc7a2883220fc32b589b916118cf60f1c176c6e47aa26881526"
+  },
+  {
+    "id": "N04",
+    "file": "01_Current_Client/N04_Indicative_transfer_list_and_data_quality_note.pdf",
+    "kind": "Transition note",
+    "date": "2026-09-11",
+    "status": "current",
+    "case": "NEW",
+    "passages": [
+      "N04\u00a71",
+      "N04\u00a72",
+      "N04\u00a73"
+    ],
+    "pages": 2,
+    "sha256": "c05092a47fd8759710910355945d45a8abc0485f627bd6c38a162fdb52d3f65d"
+  },
+  {
+    "id": "N05",
+    "file": "01_Current_Client/N05_Opportunity_prerequisites_and_planning_boundary.pdf",
+    "kind": "Approval register",
+    "date": "2026-09-14",
+    "status": "current",
+    "case": "NEW",
+    "passages": [
+      "N05\u00a71",
+      "N05\u00a72",
+      "N05\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "67154184a1ed3365277faf9cbd9e55774d6b35c6eaa95bc24b0c6a3e271aa020"
+  },
+  {
+    "id": "O01",
+    "file": "02_Operating_Guidance/O01_Reporting_service_capability_matrix.pdf",
+    "kind": "Capability assessment",
+    "date": "2026-09-08",
+    "status": "current",
+    "case": "OPS",
+    "passages": [
+      "O01\u00a71",
+      "O01\u00a72",
+      "O01\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "9bc9bc484781cd45f87ae02b6572e5639a00fdbf1d0615da8ab4546f283f78f4"
+  },
+  {
+    "id": "O02",
+    "file": "02_Operating_Guidance/O02_Archived_reporting_capability_pilot_description.pdf",
+    "kind": "Capability assessment",
+    "date": "2025-05-05",
+    "status": "superseded",
+    "case": "OPS",
+    "passages": [
+      "O02\u00a71",
+      "O02\u00a72"
+    ],
+    "pages": 1,
+    "sha256": "b3bc02a7136cba20755ccfd236ea5bbc6bc14db1ac9d8046b78188f9a2241262"
+  },
+  {
+    "id": "O03",
+    "file": "02_Operating_Guidance/O03_Guideline_implementation_dictionary_and_rule_change_controls.pdf",
+    "kind": "Rule dictionary",
+    "date": "2026-09-04",
+    "status": "current",
+    "case": "OPS",
+    "passages": [
+      "O03\u00a71",
+      "O03\u00a72",
+      "O03\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "24a93e14b7de551b16d38d816340af24fc20ef7c8f8306c6d8cf9e665d35b125"
+  },
+  {
+    "id": "O04",
+    "file": "02_Operating_Guidance/O04_Transition_and_derivatives_readiness_note.pdf",
+    "kind": "Operating note",
+    "date": "2026-09-07",
+    "status": "current",
+    "case": "OPS",
+    "passages": [
+      "O04\u00a71",
+      "O04\u00a72",
+      "O04\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "e08faed086d050e72b48ccafa49134a60797b700fb7d872758041a04eebdd049"
+  },
+  {
+    "id": "O05",
+    "file": "02_Operating_Guidance/O05_Swiss_client_review_routing_note.pdf",
+    "kind": "Review note",
+    "date": "2026-09-09",
+    "status": "current",
+    "case": "OPS",
+    "passages": [
+      "O05\u00a71",
+      "O05\u00a72"
+    ],
+    "pages": 1,
+    "sha256": "81d1ad0c141efc8a9994b223fef2220b422806d8cd95a864c6b01c0e211ffd9d"
+  },
+  {
+    "id": "H01-E",
+    "file": "03_Historical_Cases/H01-E_Alpinecrest_Foundation_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2025-06-18",
+    "status": "historical",
+    "case": "H01",
+    "passages": [
+      "H01-E\u00a71",
+      "H01-E\u00a72",
+      "H01-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "cf823ff25ddb3ac970fe230310b8905867e8400a2ea1ab5dbdbe59dd87a312f6"
+  },
+  {
+    "id": "H01-C",
+    "file": "03_Historical_Cases/H01-C_Alpinecrest_Foundation_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2025-06-18",
+    "status": "historical",
+    "case": "H01",
+    "passages": [
+      "H01-C\u00a71",
+      "H01-C\u00a72",
+      "H01-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "122dd161c68ed0b3eb983428cac5074605c85f8f6dd2ee782ad9d6608da28097"
+  },
+  {
+    "id": "H02-E",
+    "file": "03_Historical_Cases/H02-E_Northbridge_Endowment_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2025-09-09",
+    "status": "historical",
+    "case": "H02",
+    "passages": [
+      "H02-E\u00a71",
+      "H02-E\u00a72",
+      "H02-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "4502bac16c65ebb3a2179beb8ed5c531f3ddbba0bc817e0e486a6b09f0af5d10"
+  },
+  {
+    "id": "H02-C",
+    "file": "03_Historical_Cases/H02-C_Northbridge_Endowment_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2025-09-09",
+    "status": "historical",
+    "case": "H02",
+    "passages": [
+      "H02-C\u00a71",
+      "H02-C\u00a72",
+      "H02-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "a45ff29cd5fda4b217e588eb039ba19d008852e49bb5d18026c62965b009fb4c"
+  },
+  {
+    "id": "H03-E",
+    "file": "03_Historical_Cases/H03-E_Seabrook_Insurance_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2025-11-21",
+    "status": "historical",
+    "case": "H03",
+    "passages": [
+      "H03-E\u00a71",
+      "H03-E\u00a72",
+      "H03-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "2d85803b01e510023ff767ded2d9fe4929edcb2df34eeec490e354d31ff0fd48"
+  },
+  {
+    "id": "H03-C",
+    "file": "03_Historical_Cases/H03-C_Seabrook_Insurance_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2025-11-21",
+    "status": "historical",
+    "case": "H03",
+    "passages": [
+      "H03-C\u00a71",
+      "H03-C\u00a72",
+      "H03-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "dab5af2ecf2cd4ed1afa8c1897c057d58e71664f67e72b9c314c89fbd1b56db2"
+  },
+  {
+    "id": "H04-E",
+    "file": "03_Historical_Cases/H04-E_Lakeshore_Pension_Trust_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-01-22",
+    "status": "historical",
+    "case": "H04",
+    "passages": [
+      "H04-E\u00a71",
+      "H04-E\u00a72",
+      "H04-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "553d07fcfee5e45a646d56179968b59a41c7dff081121baa1b5fb9e365141b71"
+  },
+  {
+    "id": "H04-C",
+    "file": "03_Historical_Cases/H04-C_Lakeshore_Pension_Trust_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-01-22",
+    "status": "historical",
+    "case": "H04",
+    "passages": [
+      "H04-C\u00a71",
+      "H04-C\u00a72",
+      "H04-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "a7f490f80d8d724d637a7f5a97d4ea35e312fc46459d5d99fe91b722582deb12"
+  },
+  {
+    "id": "H05-E",
+    "file": "03_Historical_Cases/H05-E_Rhinebridge_Pension_Foundation_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-02-13",
+    "status": "historical",
+    "case": "H05",
+    "passages": [
+      "H05-E\u00a71",
+      "H05-E\u00a72",
+      "H05-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "a50294b3c17d5720bf404ef9a55c8280931736e6483990264093505829186de5"
+  },
+  {
+    "id": "H05-C",
+    "file": "03_Historical_Cases/H05-C_Rhinebridge_Pension_Foundation_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-02-13",
+    "status": "historical",
+    "case": "H05",
+    "passages": [
+      "H05-C\u00a71",
+      "H05-C\u00a72",
+      "H05-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "89bd3951252dba2aeb9b3907a44857d92305121ae505879770ea45159eef99ac"
+  },
+  {
+    "id": "H06-E",
+    "file": "03_Historical_Cases/H06-E_Aster_Pension_Foundation_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-03-26",
+    "status": "historical",
+    "case": "H06",
+    "passages": [
+      "H06-E\u00a71",
+      "H06-E\u00a72",
+      "H06-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "5a16ca09f0a46b8e297bffd95d45b2900fd6b244a952e982433d9d8bd40500d4"
+  },
+  {
+    "id": "H06-C",
+    "file": "03_Historical_Cases/H06-C_Aster_Pension_Foundation_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-03-26",
+    "status": "historical",
+    "case": "H06",
+    "passages": [
+      "H06-C\u00a71",
+      "H06-C\u00a72",
+      "H06-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "c0f862c34e8586cdabc42ebc5d66bbf77760c2e6c75903ffbb20f17484819c42"
+  },
+  {
+    "id": "H07-E",
+    "file": "03_Historical_Cases/H07-E_Juniper_Charitable_Trust_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-04-17",
+    "status": "historical",
+    "case": "H07",
+    "passages": [
+      "H07-E\u00a71",
+      "H07-E\u00a72",
+      "H07-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "923350cb3ec8c4b200b85dbd6e5f65a7bd62470952bc7834b336cc637a5e9494"
+  },
+  {
+    "id": "H07-C",
+    "file": "03_Historical_Cases/H07-C_Juniper_Charitable_Trust_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-04-17",
+    "status": "historical",
+    "case": "H07",
+    "passages": [
+      "H07-C\u00a71",
+      "H07-C\u00a72",
+      "H07-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "f881fe45753035ebe9dc10abb4f2ec963f3fd0eb4be36fd4b9070d94b9a86d60"
+  },
+  {
+    "id": "H08-E",
+    "file": "03_Historical_Cases/H08-E_Cedar_Vale_Pension_Plan_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-05-08",
+    "status": "historical",
+    "case": "H08",
+    "passages": [
+      "H08-E\u00a71",
+      "H08-E\u00a72",
+      "H08-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "4d41af13e983f6d07c4768d31b688dd1dba59796f1f5a57b855bb3be193773a8"
+  },
+  {
+    "id": "H08-C",
+    "file": "03_Historical_Cases/H08-C_Cedar_Vale_Pension_Plan_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-05-08",
+    "status": "historical",
+    "case": "H08",
+    "passages": [
+      "H08-C\u00a71",
+      "H08-C\u00a72",
+      "H08-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "3bfab4499368400877679764a03d6b4725a5d76d66f21bc236c8eab281a0f2f1"
+  },
+  {
+    "id": "H09-E",
+    "file": "03_Historical_Cases/H09-E_Harbor_Civic_Reserve_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-05-29",
+    "status": "historical",
+    "case": "H09",
+    "passages": [
+      "H09-E\u00a71",
+      "H09-E\u00a72",
+      "H09-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "14b9cca9bbc97680a7579ac76944afd17ba2c8d5ab1b251ecb28860d91266720"
+  },
+  {
+    "id": "H09-C",
+    "file": "03_Historical_Cases/H09-C_Harbor_Civic_Reserve_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-05-29",
+    "status": "historical",
+    "case": "H09",
+    "passages": [
+      "H09-C\u00a71",
+      "H09-C\u00a72",
+      "H09-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "c3536313f1ab8e564ef10bb1d2ad7e43bc8d68d150c71f8f4f52670a1b31b7f7"
+  },
+  {
+    "id": "H10-E",
+    "file": "03_Historical_Cases/H10-E_Montrose_Retirement_Trust_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-06-12",
+    "status": "historical",
+    "case": "H10",
+    "passages": [
+      "H10-E\u00a71",
+      "H10-E\u00a72",
+      "H10-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "f0ab757df51b7388fbd93bb7b8ae52eb5c64f3ceb37a9df3a5a88a07b33a26b1"
+  },
+  {
+    "id": "H10-C",
+    "file": "03_Historical_Cases/H10-C_Montrose_Retirement_Trust_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-06-12",
+    "status": "historical",
+    "case": "H10",
+    "passages": [
+      "H10-C\u00a71",
+      "H10-C\u00a72",
+      "H10-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "bc79f12f70e9e7ef36212e2cd2f8dea85bbfe01c276b3cdb630b94b19bd18df6"
+  },
+  {
+    "id": "H11-E",
+    "file": "03_Historical_Cases/H11-E_Eastgate_University_Endowment_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-07-10",
+    "status": "historical",
+    "case": "H11",
+    "passages": [
+      "H11-E\u00a71",
+      "H11-E\u00a72",
+      "H11-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "890ec8e36923b92983edb90d45983bb2c7faaa5f15bdfba6a3411814e48711a8"
+  },
+  {
+    "id": "H11-C",
+    "file": "03_Historical_Cases/H11-C_Eastgate_University_Endowment_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-07-10",
+    "status": "historical",
+    "case": "H11",
+    "passages": [
+      "H11-C\u00a71",
+      "H11-C\u00a72",
+      "H11-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "f9126cce0084df6dc8d0e0930babc4e066b299b28eab30fc8402a39a0eed5fc2"
+  },
+  {
+    "id": "H12-E",
+    "file": "03_Historical_Cases/H12-E_Maple_Peak_Reserve_exception_or_preventive_action_record.pdf",
+    "kind": "Case record",
+    "date": "2026-07-31",
+    "status": "historical",
+    "case": "H12",
+    "passages": [
+      "H12-E\u00a71",
+      "H12-E\u00a72",
+      "H12-E\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "9241092e93d16886fd29c868bca4769a5fd48ed9325c5fb61db368b2e4e0ab23"
+  },
+  {
+    "id": "H12-C",
+    "file": "03_Historical_Cases/H12-C_Maple_Peak_Reserve_closure_and_lessons.pdf",
+    "kind": "Retrospective",
+    "date": "2026-07-31",
+    "status": "historical",
+    "case": "H12",
+    "passages": [
+      "H12-C\u00a71",
+      "H12-C\u00a72",
+      "H12-C\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "4b9f6204b7545e9d3c3e8036ea5e17275eebd28424177d400e8699ba082427a3"
+  },
+  {
+    "id": "H01-S",
+    "file": "03_Historical_Cases/H01-S_Alpinecrest_accepted_reporting_annex.pdf",
+    "kind": "Service annex",
+    "date": "2025-06-18",
+    "status": "historical",
+    "case": "H01",
+    "passages": [
+      "H01-S\u00a71",
+      "H01-S\u00a72"
+    ],
+    "pages": 1,
+    "sha256": "8c4706176ab4e8903456a946d5f834f36b097e62ab52c66266716866899dd1f7"
+  },
+  {
+    "id": "H02-G",
+    "file": "03_Historical_Cases/H02-G_Northbridge_restriction_redline_and_implementation_review.pdf",
+    "kind": "Guideline review",
+    "date": "2025-09-09",
+    "status": "historical",
+    "case": "H02",
+    "passages": [
+      "H02-G\u00a71",
+      "H02-G\u00a72",
+      "H02-G\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "eba58bafaa41b656b993bbde338b49d184c346019ca15d7331285163dca0de78"
+  },
+  {
+    "id": "H03-T",
+    "file": "03_Historical_Cases/H03-T_Seabrook_staged_transition_decision.pdf",
+    "kind": "Decision memo",
+    "date": "2025-11-21",
+    "status": "historical",
+    "case": "H03",
+    "passages": [
+      "H03-T\u00a71",
+      "H03-T\u00a72"
+    ],
+    "pages": 1,
+    "sha256": "10a74dbea81cfe7bca18382f95bf05ee7c284cc5e09542dea5b8806e92c5523a"
+  },
+  {
+    "id": "H05-S",
+    "file": "03_Historical_Cases/H05-S_Rhinebridge_service_acceptance_and_successful_outcome.pdf",
+    "kind": "Service acceptance",
+    "date": "2026-02-13",
+    "status": "historical",
+    "case": "H05",
+    "passages": [
+      "H05-S\u00a71",
+      "H05-S\u00a72",
+      "H05-S\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "e1e5915f94f2a15332fe9d14a1283174046a7efbceb7acd6cb21b4e42221dc7e"
+  },
+  {
+    "id": "H08-G",
+    "file": "03_Historical_Cases/H08-G_Cedar_Vale_coal_interpretation_and_data_exceptions.pdf",
+    "kind": "Guideline review",
+    "date": "2026-05-08",
+    "status": "historical",
+    "case": "H08",
+    "passages": [
+      "H08-G\u00a71",
+      "H08-G\u00a72",
+      "H08-G\u00a73"
+    ],
+    "pages": 1,
+    "sha256": "ad20e0a5f96c3bd870032f745113dad00a9c672557bc9765d6240dc55f72ef81"
+  }
+]

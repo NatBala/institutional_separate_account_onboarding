@@ -1,0 +1,13 @@
+dist/
+.env
+.env.*
+!.env.example
+.sites-runtime/
+node_modules/
+
+# Local runtime state and credentials
+.dev.vars
+.dev.vars.*
+coverage/
+*.log
+.openai/hosting.json

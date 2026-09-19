@@ -1,0 +1,17 @@
+{
+  "name": "institutional-onboarding",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "npm run build:live && node --test tests/*.test.mjs",
+    "test:startup": "node --test tests/startup.test.mjs",
+    "build:live": "node scripts/build.mjs --live",
+    "test:live": "npm run build:live && node --test tests/live.test.mjs"
+  },
+  "version": "1.0.0",
+  "description": "Separate-account onboarding workspace with evidence retrieval, agent workflows, risk analysis, and human review.",
+  "engines": {
+    "node": ">=22"
+  }
+}

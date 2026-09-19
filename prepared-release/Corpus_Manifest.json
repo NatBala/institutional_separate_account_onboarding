@@ -1,0 +1,2025 @@
+{
+  "label": "Entirely synthetic evidence corpus; no actual Capital Group records",
+  "as_of": "2026-09-14",
+  "historical_cases": [
+    {
+      "id": "H01",
+      "name": "Alpinecrest Foundation",
+      "closed": "2025-06-18",
+      "country": "Switzerland",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "CHF",
+      "reporting": "Weekly attribution",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": true,
+      "weeks": 10,
+      "aum": 220,
+      "events": {
+        "reporting": 12,
+        "guidelines": 5,
+        "transfer": 0,
+        "derivatives": 0,
+        "benchmark": 4
+      },
+      "summary": "Weekly CHF attribution was promised before its upstream data dependencies were validated.",
+      "lesson": "Client accepted Tuesday holdings and a monthly validated pack after an early service-design workshop.",
+      "limit": "Different custodian feed and reporting calendar; prior capability does not establish current feasibility.",
+      "records": [
+        [
+          "Intake note",
+          "The foundation requested weekly CHF attribution alongside a multicurrency bond mandate and mixed funding."
+        ],
+        [
+          "Exception review",
+          "Reporting validation began in week 8. The source feed could not support the requested Monday cutoff. Twelve business days of rework were recorded; this was not necessarily twelve days of overall launch delay."
+        ],
+        [
+          "Decision and outcome",
+          "Client Reporting and the RM obtained acceptance of weekly holdings plus a monthly pack. The retrospective recommended capability validation during intake. Benchmark mapping added four business days of work."
+        ]
+      ]
+    },
+    {
+      "id": "H02",
+      "name": "Northbridge Endowment",
+      "closed": "2025-09-09",
+      "country": "United States",
+      "type": "Endowment",
+      "strategy": "Global IG bonds",
+      "currency": "USD",
+      "reporting": "Monthly pack",
+      "funding": "Cash",
+      "derivatives": false,
+      "bespoke": true,
+      "weeks": 12,
+      "aum": 180,
+      "events": {
+        "reporting": 0,
+        "guidelines": 8,
+        "transfer": null,
+        "derivatives": null,
+        "benchmark": 0
+      },
+      "summary": "The policy excluded tobacco at >=5%, while the draft contract said >5%.",
+      "lesson": "Legal and investment compliance agreed the boundary, parent mapping and missing-data treatment before rule release.",
+      "limit": "US endowment with cash funding; it is not a Swiss legal or custody analogue.",
+      "records": [
+        [
+          "Intake note",
+          "The endowment provided its policy and a draft IMA for a global bond mandate with bespoke ESG restrictions."
+        ],
+        [
+          "Exception review",
+          "The exactly-5% tobacco boundary produced different results between the policy and draft contract. Guideline clarification required eight business days of rework."
+        ],
+        [
+          "Decision and outcome",
+          "Legal confirmed >=5%. The team tested below, at and above the threshold, preserved unknown values and documented issuer-parent mapping."
+        ]
+      ]
+    },
+    {
+      "id": "H03",
+      "name": "Seabrook Insurance",
+      "closed": "2025-11-21",
+      "country": "United Kingdom",
+      "type": "Insurance",
+      "strategy": "Global IG bonds",
+      "currency": "GBP",
+      "reporting": "Monthly pack",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": true,
+      "weeks": 8,
+      "aum": 300,
+      "events": {
+        "reporting": 0,
+        "guidelines": 4,
+        "transfer": 5,
+        "derivatives": 10,
+        "benchmark": 0
+      },
+      "summary": "In-kind exclusions and unfinished counterparty setup conflicted with the requested launch.",
+      "lesson": "The client accepted cash substitution and a separately approved bonds-only launch with derivatives disabled.",
+      "limit": "Insurance controls, base currency and counterparties differ from the present pension case.",
+      "records": [
+        [
+          "Intake note",
+          "Mixed cash and existing bonds were proposed for an eight-week launch with FX forwards and rate futures."
+        ],
+        [
+          "Exception review",
+          "Three transfer positions required disposition. Counterparty documentation consumed ten business days of additional work and was not ready for the target date."
+        ],
+        [
+          "Decision and outcome",
+          "The client and accountable owners approved a staged mandate and retained controls preventing derivative activation before later readiness approval."
+        ]
+      ]
+    },
+    {
+      "id": "H04",
+      "name": "Lakeshore Pension Trust",
+      "closed": "2026-01-22",
+      "country": "Switzerland",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "CHF",
+      "reporting": "Weekly attribution",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": true,
+      "weeks": 9,
+      "aum": 260,
+      "events": {
+        "reporting": 9,
+        "guidelines": 6,
+        "transfer": 7,
+        "derivatives": 8,
+        "benchmark": 3
+      },
+      "summary": "Reporting, guideline interpretation and derivative readiness were reviewed too late to meet the initial plan.",
+      "lesson": "A joint intake review exposed the shared data dependencies and produced a revised launch sequence.",
+      "limit": "A different custodian and earlier platform version; estimates are evidence for review, not a current commitment.",
+      "records": [
+        [
+          "Intake note",
+          "Swiss pension mandate with CHF reporting, weekly attribution, transferred bonds and bespoke exclusions."
+        ],
+        [
+          "Exception review",
+          "The team recorded reporting rework of nine business days, guideline clarification of six, transfer remediation of seven and derivatives rework of eight. These workstreams overlapped."
+        ],
+        [
+          "Decision and outcome",
+          "A coordinated review agreed report scope, tested the guideline boundary and separated derivative activation from cash-bond readiness. The original date moved by five business days; workstream days must not be added."
+        ]
+      ]
+    },
+    {
+      "id": "H05",
+      "name": "Rhinebridge Pension Foundation",
+      "closed": "2026-02-13",
+      "country": "Switzerland",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "CHF",
+      "reporting": "Weekly attribution",
+      "funding": "Cash",
+      "derivatives": true,
+      "bespoke": false,
+      "weeks": 12,
+      "aum": 240,
+      "events": {
+        "reporting": 0,
+        "guidelines": null,
+        "transfer": null,
+        "derivatives": 0,
+        "benchmark": 0
+      },
+      "summary": "A weekly CHF service was validated before commercial commitment and no reporting rework was recorded.",
+      "lesson": "Early capability testing and client sign-off were completed in week 1.",
+      "limit": "Cash-only funding and standard restrictions reduce its transfer and guideline relevance.",
+      "records": [
+        [
+          "Intake note",
+          "The client requested weekly CHF outputs with a global bond and derivative mandate. Funding was entirely cash."
+        ],
+        [
+          "Preventive action",
+          "Client Reporting tested a sample and agreed the supported service before the final commercial commitment. Derivatives setup began immediately."
+        ],
+        [
+          "Outcome",
+          "No reporting or derivatives exception was recorded. This successful case supports the preventive action, not an assumption that weekly attribution is always feasible."
+        ]
+      ]
+    },
+    {
+      "id": "H06",
+      "name": "Aster Pension Foundation",
+      "closed": "2026-03-26",
+      "country": "Switzerland",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "CHF",
+      "reporting": "Weekly attribution",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": false,
+      "weeks": 8,
+      "aum": 190,
+      "events": {
+        "reporting": 7,
+        "guidelines": null,
+        "transfer": 6,
+        "derivatives": 12,
+        "benchmark": 5
+      },
+      "summary": "A compressed launch exposed reporting-cycle and custody-data dependencies.",
+      "lesson": "Sequence service validation, custody data reconciliation and counterparty work during intake.",
+      "limit": "No bespoke restriction schedule; cannot support detailed ESG-language interpretation.",
+      "records": [
+        [
+          "Intake note",
+          "Eight-week timetable; CHF reporting; cash and in-kind assets; derivatives requested at launch."
+        ],
+        [
+          "Exception review",
+          "Missing transfer classifications caused six business days of rework. Reporting rework was seven and derivative setup rework was twelve; activities overlapped."
+        ],
+        [
+          "Decision and outcome",
+          "The team agreed staged delivery and introduced an early custody-file rehearsal and reporting data-contract check."
+        ]
+      ]
+    },
+    {
+      "id": "H07",
+      "name": "Juniper Charitable Trust",
+      "closed": "2026-04-17",
+      "country": "United States",
+      "type": "Endowment",
+      "strategy": "Global IG bonds",
+      "currency": "USD",
+      "reporting": "Monthly pack",
+      "funding": "Cash",
+      "derivatives": false,
+      "bespoke": true,
+      "weeks": 10,
+      "aum": 120,
+      "events": {
+        "reporting": 0,
+        "guidelines": 0,
+        "transfer": null,
+        "derivatives": null,
+        "benchmark": 0
+      },
+      "summary": "Clear restriction definitions and early boundary tests avoided guideline rework.",
+      "lesson": "Use a shared Legal/FI PC interpretation checklist before coding.",
+      "limit": "US cash-funded case with no derivatives; it has limited launch-sequencing relevance.",
+      "records": [
+        [
+          "Intake note",
+          "The client supplied a clear issuer-level restriction schedule for a cash-funded bond mandate."
+        ],
+        [
+          "Preventive action",
+          "Legal and investment compliance agreed provider, scope, thresholds and stale-data handling before coding."
+        ],
+        [
+          "Outcome",
+          "Boundary tests passed and no guideline clarification rework was recorded."
+        ]
+      ]
+    },
+    {
+      "id": "H08",
+      "name": "Cedar Vale Pension Plan",
+      "closed": "2026-05-08",
+      "country": "United States",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "USD",
+      "reporting": "Monthly pack",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": true,
+      "weeks": 10,
+      "aum": 280,
+      "events": {
+        "reporting": 0,
+        "guidelines": 7,
+        "transfer": 4,
+        "derivatives": 6,
+        "benchmark": 0
+      },
+      "summary": "Unclear ESG scopes and a late transfer-file screen caused avoidable clarification work.",
+      "lesson": "Screen indicative holdings and settle restriction definitions before the transition date is committed.",
+      "limit": "USD reporting; does not establish support for CHF reporting or Swiss-specific obligations.",
+      "records": [
+        [
+          "Intake note",
+          "Pension client with bespoke restrictions, transferred bonds and derivatives requested in ten weeks."
+        ],
+        [
+          "Exception review",
+          "Unmapped parent issuers and missing ESG fields were treated as unresolved. Guideline, transfer and derivative work added seven, four and six business days respectively."
+        ],
+        [
+          "Decision and outcome",
+          "The transition team obtained client approval to retain affected assets externally and replace them with cash."
+        ]
+      ]
+    },
+    {
+      "id": "H09",
+      "name": "Harbor Civic Reserve",
+      "closed": "2026-05-29",
+      "country": "United Kingdom",
+      "type": "Public reserve",
+      "strategy": "Global IG bonds",
+      "currency": "GBP",
+      "reporting": "Monthly pack",
+      "funding": "Mixed",
+      "derivatives": false,
+      "bespoke": false,
+      "weeks": 12,
+      "aum": 160,
+      "events": {
+        "reporting": 0,
+        "guidelines": null,
+        "transfer": 0,
+        "derivatives": null,
+        "benchmark": 0
+      },
+      "summary": "A complete reconciled custody file supported an uneventful in-kind transition.",
+      "lesson": "Obtain the sample file and agree the field definitions early.",
+      "limit": "Standard guidelines and no derivatives; a useful successful transfer comparator only.",
+      "records": [
+        [
+          "Intake note",
+          "Twelve-week bond onboarding with standard controls and mixed cash/in-kind funding."
+        ],
+        [
+          "Preventive action",
+          "The custodian provided mapped identifiers, position values, classifications and a sample acknowledgment before final scheduling."
+        ],
+        [
+          "Outcome",
+          "No transfer exception was recorded; account and custody records reconciled before release."
+        ]
+      ]
+    },
+    {
+      "id": "H10",
+      "name": "Montrose Retirement Trust",
+      "closed": "2026-06-12",
+      "country": "Switzerland",
+      "type": "Pension foundation",
+      "strategy": "Global IG bonds",
+      "currency": "CHF",
+      "reporting": "Weekly attribution",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": true,
+      "weeks": 10,
+      "aum": 230,
+      "events": {
+        "reporting": 11,
+        "guidelines": 0,
+        "transfer": 8,
+        "derivatives": 7,
+        "benchmark": 0
+      },
+      "summary": "The service request and incomplete transfer data created rework despite clear guideline language.",
+      "lesson": "Separate reporting capability evidence from a client request; screen the actual transfer data early.",
+      "limit": "Different data provider and custody feeds; clear restriction wording unlike the new draft.",
+      "records": [
+        [
+          "Intake note",
+          "Weekly CHF attribution with bespoke exclusions, existing bonds and FX forwards requested for launch."
+        ],
+        [
+          "Exception review",
+          "Reporting service negotiation required eleven business days; transfer-data remediation eight; derivatives preparation seven. Guideline interpretation itself had no rework."
+        ],
+        [
+          "Decision and outcome",
+          "The client accepted a supported service schedule and a cash substitution for unresolved transfer holdings."
+        ]
+      ]
+    },
+    {
+      "id": "H11",
+      "name": "Eastgate University Endowment",
+      "closed": "2026-07-10",
+      "country": "United States",
+      "type": "Endowment",
+      "strategy": "Global equities",
+      "currency": "USD",
+      "reporting": "Monthly pack",
+      "funding": "Cash",
+      "derivatives": false,
+      "bespoke": false,
+      "weeks": 12,
+      "aum": 90,
+      "events": {
+        "reporting": 0,
+        "guidelines": null,
+        "transfer": null,
+        "derivatives": null,
+        "benchmark": 0
+      },
+      "summary": "A standard cash-funded equity account required a different onboarding route.",
+      "lesson": "Do not force fixed-income, in-kind or derivative tasks into a case without those requirements.",
+      "limit": "Different asset class and client context; deliberately weak analogue for Alpenridge.",
+      "records": [
+        [
+          "Intake note",
+          "Standard global-equity mandate funded in cash with monthly USD reporting."
+        ],
+        [
+          "Setup note",
+          "No transferred securities, bespoke restriction interpretation or derivative activation was requested."
+        ],
+        [
+          "Outcome",
+          "The standard operational checklist was completed without the exception types tracked in this synthetic case set."
+        ]
+      ]
+    },
+    {
+      "id": "H12",
+      "name": "Maple Peak Reserve",
+      "closed": "2026-07-31",
+      "country": "United Kingdom",
+      "type": "Public reserve",
+      "strategy": "Global IG bonds",
+      "currency": "GBP",
+      "reporting": "Monthly pack",
+      "funding": "Mixed",
+      "derivatives": true,
+      "bespoke": false,
+      "weeks": 12,
+      "aum": 210,
+      "events": {
+        "reporting": 0,
+        "guidelines": null,
+        "transfer": 0,
+        "derivatives": 0,
+        "benchmark": 0
+      },
+      "summary": "A longer setup window and early confirmations supported the full mandate at launch.",
+      "lesson": "Keep a full-scope launch option when evidence supports its dependencies and the client accepts the date.",
+      "limit": "Standard service, longer timetable and GBP reporting reduce comparability to a compressed CHF case.",
+      "records": [
+        [
+          "Intake note",
+          "Mixed funding and derivatives with a twelve-week requested setup period."
+        ],
+        [
+          "Preventive action",
+          "Counterparty documentation, custody sample file and reporting service checks were completed early."
+        ],
+        [
+          "Outcome",
+          "No tracked transfer or derivatives rework was recorded. A longer target window is not itself proof of readiness."
+        ]
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "id": "N01",
+      "title": "Client request and relationship-manager handover",
+      "case": "NEW",
+      "kind": "Email",
+      "date": "2026-09-14",
+      "owner": "Maya Shah, Client RM",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/N01.eml",
+      "chunks": [
+        {
+          "id": "N01§1",
+          "heading": "Mandate and timetable",
+          "text": "Alpenridge Pension Foundation, Zurich, has selected us for a USD-equivalent 250 million global investment-grade bond separate account. Target funding is 23 November 2026. Financial reporting currency is CHF. The account is proposed to receive 200 million of existing bonds plus 50 million cash; these figures are USD equivalents and are not an FX conversion instruction."
+        },
+        {
+          "id": "N01§2",
+          "heading": "Service request",
+          "text": "The trustee pack is discussed on Mondays. Please provide weekly CHF performance, attribution and ESG analytics by Monday 08:00 Zurich, plus the usual month-end pack. The consultant says another Swiss pension client receives weekly reporting. Please check the exact service before confirming that we can match it."
+        },
+        {
+          "id": "N01§3",
+          "heading": "Restrictions and launch scope",
+          "text": "The investment policy excludes tobacco at five percent or more, and says no thermal coal. FX forwards and interest-rate futures are wanted from day one. The attached IMA may still contain an earlier tobacco threshold. Client wants to understand watch areas and the route to readiness before making further commitments."
+        },
+        {
+          "id": "N01§4",
+          "heading": "Planning question",
+          "text": "Which previous cases actually help us, what is different about this mandate, and which decisions should we bring forward? Please return a tailored plan with evidence and named human decision owners. Do not send anything to the client or create execution tasks yet."
+        }
+      ],
+      "sha256": "15ab064f9946eec563b73b3d132d09f745644e2267e5fb52208a82f971c5dd81"
+    },
+    {
+      "id": "N02",
+      "title": "Draft IMA — Schedule A, investment guidelines and service annex",
+      "case": "NEW",
+      "kind": "Contract",
+      "date": "2026-09-10",
+      "owner": "Legal",
+      "status": "current",
+      "version": "3.0",
+      "path": "corpus/N02.md",
+      "chunks": [
+        {
+          "id": "N02§1",
+          "heading": "Tobacco exclusion",
+          "text": "The Manager shall not purchase securities issued by companies deriving more than 5% of annual revenue from tobacco production. The schedule is silent on parent aggregation, data provider and unavailable revenue data."
+        },
+        {
+          "id": "N02§2",
+          "heading": "Thermal coal exclusion",
+          "text": "Investment in companies involved in thermal coal is prohibited. This draft does not define extraction, power generation, distribution, a revenue threshold, or treatment of mixed business models."
+        },
+        {
+          "id": "N02§3",
+          "heading": "Reporting and derivatives",
+          "text": "Weekly CHF performance, attribution and ESG analytics shall be delivered by Monday 08:00 Zurich. FX forwards and interest-rate futures are within the proposed permitted instruments. This document is unsigned; client correspondence alone does not update the contract."
+        },
+        {
+          "id": "N02§4",
+          "heading": "Draft precedence",
+          "text": "This is IMA draft version 3, not an executed instruction. Resolve conflicts against the client policy with Legal and the client. Prior client contract language is a precedent for review, not authority to modify this mandate."
+        }
+      ],
+      "sha256": "2111aeb6f36d6705180b192e7cd814fe1679bc4a479eb377549b1e6bd6b33d40"
+    },
+    {
+      "id": "N03",
+      "title": "Trustee investment policy — approved client policy excerpt",
+      "case": "NEW",
+      "kind": "Policy",
+      "date": "2026-08-28",
+      "owner": "Alpenridge trustees",
+      "status": "current",
+      "version": "2.0",
+      "path": "corpus/N03.md",
+      "chunks": [
+        {
+          "id": "N03§1",
+          "heading": "Threshold and scope",
+          "text": "Exclude companies deriving 5% or more of revenue from tobacco production. No thermal coal. The policy contains no explicit issuer-parent methodology, provider designation, stale-data rule, or definition of thermal-coal involvement."
+        },
+        {
+          "id": "N03§2",
+          "heading": "Portfolio objectives",
+          "text": "Global investment-grade fixed income with CHF investor reporting. A 5% single corporate-issuer limit is proposed; sovereign issuers are exempt from this cap only. Client-specific interpretation of excluded activities remains necessary."
+        },
+        {
+          "id": "N03§3",
+          "heading": "Authority",
+          "text": "This policy was approved by the fictional trustees. Legal must reconcile it with the unsigned IMA; the onboarding assistant cannot infer a new exclusion threshold or treat the more restrictive rule as automatically authorized."
+        }
+      ],
+      "sha256": "54d9399a4d6d55315f5147ffe72e0a006dc64a5e358d454ad00e762b603351d5"
+    },
+    {
+      "id": "N04",
+      "title": "Indicative transfer list and data-quality note",
+      "case": "NEW",
+      "kind": "Transition note",
+      "date": "2026-09-11",
+      "owner": "Transition Management",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/N04.md",
+      "chunks": [
+        {
+          "id": "N04§1",
+          "heading": "Funding arithmetic",
+          "text": "Indicative funding: USD-equivalent 200 million securities and 50 million cash, total 250 million. Twelve positions comprise two sovereigns of 55 million and 45 million, plus ten corporate bonds of 10 million each. Each corporate holding is 4% of the total proposed 250 million NAV."
+        },
+        {
+          "id": "N04§2",
+          "heading": "Potential watch positions",
+          "text": "Alder Tobacco Holdings: tobacco production 5.0%, thermal-coal extraction 0%, value 10 million. Granite Basin Resources: tobacco 0%, coal extraction 12%, value 10 million. Meridian Industrials: tobacco revenue missing, coal revenue missing, value 10 million. All names and identifiers are fictional."
+        },
+        {
+          "id": "N04§3",
+          "heading": "Data limits and disposition",
+          "text": "The other seven corporate issuers have known tobacco and coal-extraction revenue of 0%. Values are indicative and do not establish settlement eligibility. A missing field is unknown, not zero. No sale, rejection, retention or cash substitution has been authorized. Quantify scenarios and obtain client/PM decisions before transition instructions."
+        }
+      ],
+      "sha256": "ad2aa021c47a836ed65bd8351318e6d42211cfaf104d8c03abace477ea104ad4"
+    },
+    {
+      "id": "N05",
+      "title": "Opportunity prerequisites and planning boundary",
+      "case": "NEW",
+      "kind": "Approval register",
+      "date": "2026-09-14",
+      "owner": "GCS Operations",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/N05.md",
+      "chunks": [
+        {
+          "id": "N05§1",
+          "heading": "Prerequisites",
+          "text": "For this synthetic scenario only, the opportunity is won and IO vetting, CORG and applicable DAG/IOR approvals are recorded complete. Guideline, compliance, reporting and benchmark briefs have been returned with watch areas. Returned briefs do not establish that every open service question is resolved."
+        },
+        {
+          "id": "N05§2",
+          "heading": "Ownership and systems",
+          "text": "GCS Operations coordinates the plan; FI PAG coordinates the investment-side discussion; FI PC owns investment guideline implementation review. Execution remains in Appian and existing systems. Investor financial-account creation follows the Appian-to-Salesforce integration. This demonstration ends at a human-reviewed proposed workflow."
+        },
+        {
+          "id": "N05§3",
+          "heading": "Scope",
+          "text": "Use the five broad phases: information intake, account paperwork, operational setup, funding and post-funding. The seven workstreams can overlap. Propose which tasks move earlier because of the evidence; do not invent a universal order or an automatic release gate."
+        }
+      ],
+      "sha256": "480eebda61da16c58f6879423090cca9becf54e5e5d814a90e419aee81123a83"
+    },
+    {
+      "id": "N06",
+      "title": "Custodian sample-feed feasibility response",
+      "case": "NEW",
+      "kind": "Email",
+      "date": "2026-09-14",
+      "owner": "Orion Custody service team",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/N06.eml",
+      "chunks": [
+        {
+          "id": "N06§1",
+          "heading": "Current feed",
+          "text": "Orion Custody is a fictional service provider. Its indicative file for this mandate arrives Tuesday 06:00 Zurich and contains positions, currencies and prices. It does not contain transaction-level attribution inputs, benchmark returns or issuer ESG metrics."
+        },
+        {
+          "id": "N06§2",
+          "heading": "Unresolved onboarding checks",
+          "text": "We can supply an anonymized-format sample for reconciliation. The final account-level entitlements, identifiers and exception routing have not yet been tested. A sample-delivery statement is not acceptance of an ongoing service-level commitment."
+        }
+      ],
+      "sha256": "115bb7f7c8641c080dd7caa716cb8f416df6d6b4d16d3cda1ed5fcb80e355876"
+    },
+    {
+      "id": "N07",
+      "title": "Client clarification — weekly means holdings",
+      "case": "NEW",
+      "kind": "Email",
+      "date": "2026-09-15",
+      "owner": "Elena Weber, client investment office",
+      "status": "new evidence",
+      "version": "1.0",
+      "path": "corpus/N07.eml",
+      "chunks": [
+        {
+          "id": "N07§1",
+          "heading": "Scope correction",
+          "text": "To clarify our trustee request: weekly CHF holdings on Tuesday by 12:00 is acceptable. Performance, attribution and ESG analytics can be monthly on the fifth business day. Please amend the draft reporting annex accordingly. We have not changed the investment restrictions, funding mix or requested derivatives."
+        },
+        {
+          "id": "N07§2",
+          "heading": "Remaining decisions",
+          "text": "We still want a representative sample before acceptance of the service. Our email authorizes preparation of an amendment; the agreement must go through the usual signatures."
+        }
+      ],
+      "sha256": "01fe5e4a8f5ceba4d5069b3de574c4b2e37703bb24c9a3be9c6d3e718f954cc3"
+    },
+    {
+      "id": "N08",
+      "title": "Client transition alternative — cash funding and later derivatives",
+      "case": "NEW",
+      "kind": "Email",
+      "date": "2026-09-16",
+      "owner": "Elena Weber, client investment office",
+      "status": "new evidence",
+      "version": "1.0",
+      "path": "corpus/N08.eml",
+      "chunks": [
+        {
+          "id": "N08§1",
+          "heading": "Revised proposal",
+          "text": "Use USD-equivalent 250 million cash at inception. We will retain the legacy securities with the outgoing manager; do not transfer them. We accept planning for a cash-bond launch, with derivatives proposed for day 30 subject to investment-team suitability review, documentation and readiness. The reporting clarification in N07 remains in force."
+        },
+        {
+          "id": "N08§2",
+          "heading": "Limits",
+          "text": "This is a proposed revision requiring the IMA and implementation plan to align. Bespoke ESG restrictions remain unchanged. All-cash funding removes the proposed in-kind transfer screen from the launch path; it does not remove restrictions from subsequent purchases. Day 30 is a target, not a guarantee."
+        }
+      ],
+      "sha256": "0b0fb1cb502e4be0290c1295943adad938c23422b2f26fd01eca01a58c1db765"
+    },
+    {
+      "id": "O01",
+      "title": "Reporting service capability matrix",
+      "case": "OPS",
+      "kind": "Capability assessment",
+      "date": "2026-09-08",
+      "owner": "Client Reporting",
+      "status": "current",
+      "version": "2.0",
+      "path": "corpus/O01.md",
+      "chunks": [
+        {
+          "id": "O01§1",
+          "heading": "Available service",
+          "text": "For the synthetic global IG bond platform, CHF holdings can be produced weekly on Tuesday by 12:00, subject to a validated source feed. Validated performance, attribution and ESG analytics are available monthly on the fifth business day. Weekly analytics by Monday 08:00 are not a supported standard service."
+        },
+        {
+          "id": "O01§2",
+          "heading": "Dependency and approval",
+          "text": "Attribution needs validated transactions, benchmark returns, currency calculations and reconciliation. Holdings availability alone does not prove attribution feasibility. A bespoke weekly service requires a separate feasibility assessment and authorized commercial/service acceptance; no committed build date exists."
+        },
+        {
+          "id": "O01§3",
+          "heading": "Version authority",
+          "text": "Version 2 supersedes O02 for new onboarding plans. Historical examples remain useful for failure patterns and preventive actions, but cannot establish current platform capability."
+        }
+      ],
+      "sha256": "e46e3e536fd1ca04daea45e18ebd79c595bd0d102394a1c0324e6099d0027cc8"
+    },
+    {
+      "id": "O02",
+      "title": "Archived reporting capability — pilot description",
+      "case": "OPS",
+      "kind": "Capability assessment",
+      "date": "2025-05-05",
+      "owner": "Client Reporting",
+      "status": "superseded",
+      "version": "1.0",
+      "path": "corpus/O02.md",
+      "chunks": [
+        {
+          "id": "O02§1",
+          "heading": "Pilot wording",
+          "text": "Weekly CHF reporting is available for selected pension accounts in a controlled pilot. Coverage and manual preparation depend on the client feed. This sentence does not define holdings versus attribution."
+        },
+        {
+          "id": "O02§2",
+          "heading": "Retirement notice",
+          "text": "Superseded by O01. The manual pilot was not adopted as the standard service. Do not use this archived wording to make a new-client reporting commitment."
+        }
+      ],
+      "sha256": "c493f7718fa509fdb8dcb845456092155b5d6a16fd212131e317885bf3d61ebc"
+    },
+    {
+      "id": "O03",
+      "title": "Guideline implementation dictionary and rule-change controls",
+      "case": "OPS",
+      "kind": "Rule dictionary",
+      "date": "2026-09-04",
+      "owner": "FI PC",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/O03.md",
+      "chunks": [
+        {
+          "id": "O03§1",
+          "heading": "Field semantics",
+          "text": "TOB_PROD_REV_PCT: annual tobacco-production revenue percentage at the selected issuer mapping level. COAL_EXTRACT_REV_PCT: thermal-coal extraction revenue percentage. COAL_POWER_REV_PCT is a different field; extraction cannot stand in for generation. Missing provider values must remain null."
+        },
+        {
+          "id": "O03§2",
+          "heading": "Interpretation required",
+          "text": "Legal and FI PC must confirm activity definition, threshold operator, denominator, issuer/parent scope, provider, as-of date, missing-data behavior, passive breaches and any exemptions. Prior implementation code is evidence of one client interpretation, not a current instruction."
+        },
+        {
+          "id": "O03§3",
+          "heading": "Candidate validation",
+          "text": "Test below, at and above each threshold; missing and stale data; direct and parent mappings; and corporate/sovereign scope. Draft pseudocode is not native CSTAR code and cannot be loaded without review. This demo uses a proposed >30-calendar-day stale-data review threshold solely as an example for approval."
+        }
+      ],
+      "sha256": "fadeac3df564fde54dd680a433588822fc0fce550372f17cd310ec05bcbbddb6"
+    },
+    {
+      "id": "O04",
+      "title": "Transition and derivatives readiness note",
+      "case": "OPS",
+      "kind": "Operating note",
+      "date": "2026-09-07",
+      "owner": "Investment Operations",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/O04.md",
+      "chunks": [
+        {
+          "id": "O04§1",
+          "heading": "Parallel preparation",
+          "text": "Request indicative holdings and data-quality fields during intake. Obtain Legal/FI PC interpretation before a definitive exclusion screen. Custody and market-access work may proceed in parallel, but unresolved securities must have a client-approved disposition."
+        },
+        {
+          "id": "O04§2",
+          "heading": "Derivatives dependency",
+          "text": "FX forwards and rate futures require relevant documentation, counterparty/broker and operational readiness. A staged bond-only plan is an option only if PM and client accept the investment implications and enforceable controls prevent premature activation."
+        },
+        {
+          "id": "O04§3",
+          "heading": "Schedule use",
+          "text": "Case-study rework days measure workstream effort or elapsed remediation in the source record, not additive launch delay. Build an owner-reviewed dependency plan. Without current capacity, external response times and dated readiness evidence, no calibrated launch-date prediction is supported."
+        }
+      ],
+      "sha256": "2153bdce62f9efa85897104fb4182460672c92799ce7bebbc7c677bf69843dbe"
+    },
+    {
+      "id": "O05",
+      "title": "Swiss-client review routing note",
+      "case": "OPS",
+      "kind": "Review note",
+      "date": "2026-09-09",
+      "owner": "Legal and Client Reporting",
+      "status": "current",
+      "version": "1.0",
+      "path": "corpus/O05.md",
+      "chunks": [
+        {
+          "id": "O05§1",
+          "heading": "Country-specific review",
+          "text": "Swiss domicile and CHF reporting are routing signals for Legal and Client Reporting review. This fictional note does not assert a Swiss law requiring weekly reporting, a particular tax form or a specific investor classification. The weekly requirement in this case originates from the client request."
+        },
+        {
+          "id": "O05§2",
+          "heading": "Open classification questions",
+          "text": "Ask Legal to verify the entity, governing documents, permitted service and applicable requirements using authoritative current sources in a real onboarding. No regulation corpus is included in this synthetic demo. The assistant must report this evidence gap rather than invent a country-specific legal requirement."
+        }
+      ],
+      "sha256": "e31e334b71fdf920577375b648fe84992ead8dba141447849e6fce02907be443"
+    },
+    {
+      "id": "H01-I",
+      "title": "Alpinecrest Foundation — initial handover",
+      "case": "H01",
+      "kind": "Email",
+      "date": "2025-06-18",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H01-I.eml",
+      "chunks": [
+        {
+          "id": "H01-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "The foundation requested weekly CHF attribution alongside a multicurrency bond mandate and mixed funding."
+        },
+        {
+          "id": "H01-I§2",
+          "heading": "Mandate context",
+          "text": "Switzerland; Pension foundation; Global IG bonds; CHF reporting; requested Weekly attribution; mixed funding; derivatives requested; bespoke restrictions. Indicative mandate size 220 million USD equivalent and requested onboarding interval 10 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H01-I§3",
+          "heading": "Relevance limit",
+          "text": "Different custodian feed and reporting calendar; prior capability does not establish current feasibility."
+        }
+      ],
+      "sha256": "3b145e27495c3149ca4332d6e43646ffc4b6858f56a4b8bc4d5492bf7d1fb6f0"
+    },
+    {
+      "id": "H01-E",
+      "title": "Alpinecrest Foundation — exception or preventive-action record",
+      "case": "H01",
+      "kind": "Case record",
+      "date": "2025-06-18",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H01-E.md",
+      "chunks": [
+        {
+          "id": "H01-E§1",
+          "heading": "Observed event",
+          "text": "Reporting validation began in week 8. The source feed could not support the requested Monday cutoff. Twelve business days of rework were recorded; this was not necessarily twelve days of overall launch delay."
+        },
+        {
+          "id": "H01-E§2",
+          "heading": "Risk mechanism",
+          "text": "Weekly CHF attribution was promised before its upstream data dependencies were validated."
+        },
+        {
+          "id": "H01-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=12; guidelines=5; transfer=0; derivatives=0; benchmark=4. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "3e1f9622ba1f37619eaff3a923f70d408bd793546ac9120735e0af43a41656cf"
+    },
+    {
+      "id": "H01-C",
+      "title": "Alpinecrest Foundation — closure and lessons",
+      "case": "H01",
+      "kind": "Retrospective",
+      "date": "2025-06-18",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H01-C.md",
+      "chunks": [
+        {
+          "id": "H01-C§1",
+          "heading": "Resolution",
+          "text": "Client Reporting and the RM obtained acceptance of weekly holdings plus a monthly pack. The retrospective recommended capability validation during intake. Benchmark mapping added four business days of work."
+        },
+        {
+          "id": "H01-C§2",
+          "heading": "Reusable action",
+          "text": "Client accepted Tuesday holdings and a monthly validated pack after an early service-design workshop."
+        },
+        {
+          "id": "H01-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Different custodian feed and reporting calendar; prior capability does not establish current feasibility."
+        }
+      ],
+      "sha256": "5158f0ffd42da566a54d9eed96522501be669193a346e8bca655aadae280937e"
+    },
+    {
+      "id": "H02-I",
+      "title": "Northbridge Endowment — initial handover",
+      "case": "H02",
+      "kind": "Email",
+      "date": "2025-09-09",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H02-I.eml",
+      "chunks": [
+        {
+          "id": "H02-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "The endowment provided its policy and a draft IMA for a global bond mandate with bespoke ESG restrictions."
+        },
+        {
+          "id": "H02-I§2",
+          "heading": "Mandate context",
+          "text": "United States; Endowment; Global IG bonds; USD reporting; requested Monthly pack; cash funding; derivatives not requested; bespoke restrictions. Indicative mandate size 180 million USD equivalent and requested onboarding interval 12 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H02-I§3",
+          "heading": "Relevance limit",
+          "text": "US endowment with cash funding; it is not a Swiss legal or custody analogue."
+        }
+      ],
+      "sha256": "cb82a4a58717e55c2bbbff0604b72157c194156e3a87b8014f99908f618332d6"
+    },
+    {
+      "id": "H02-E",
+      "title": "Northbridge Endowment — exception or preventive-action record",
+      "case": "H02",
+      "kind": "Case record",
+      "date": "2025-09-09",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H02-E.md",
+      "chunks": [
+        {
+          "id": "H02-E§1",
+          "heading": "Observed event",
+          "text": "The exactly-5% tobacco boundary produced different results between the policy and draft contract. Guideline clarification required eight business days of rework."
+        },
+        {
+          "id": "H02-E§2",
+          "heading": "Risk mechanism",
+          "text": "The policy excluded tobacco at >=5%, while the draft contract said >5%."
+        },
+        {
+          "id": "H02-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=8; transfer=not applicable; derivatives=not applicable; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "342b84c0319e53107f8e5a4941b084200ac5c6cf39bac558fe92ae38f386d90d"
+    },
+    {
+      "id": "H02-C",
+      "title": "Northbridge Endowment — closure and lessons",
+      "case": "H02",
+      "kind": "Retrospective",
+      "date": "2025-09-09",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H02-C.md",
+      "chunks": [
+        {
+          "id": "H02-C§1",
+          "heading": "Resolution",
+          "text": "Legal confirmed >=5%. The team tested below, at and above the threshold, preserved unknown values and documented issuer-parent mapping."
+        },
+        {
+          "id": "H02-C§2",
+          "heading": "Reusable action",
+          "text": "Legal and investment compliance agreed the boundary, parent mapping and missing-data treatment before rule release."
+        },
+        {
+          "id": "H02-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "US endowment with cash funding; it is not a Swiss legal or custody analogue."
+        }
+      ],
+      "sha256": "49887e207d5a95d2f0951265d25b4a3d03e9af56d726475d8b37b56529e79a06"
+    },
+    {
+      "id": "H03-I",
+      "title": "Seabrook Insurance — initial handover",
+      "case": "H03",
+      "kind": "Email",
+      "date": "2025-11-21",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H03-I.eml",
+      "chunks": [
+        {
+          "id": "H03-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Mixed cash and existing bonds were proposed for an eight-week launch with FX forwards and rate futures."
+        },
+        {
+          "id": "H03-I§2",
+          "heading": "Mandate context",
+          "text": "United Kingdom; Insurance; Global IG bonds; GBP reporting; requested Monthly pack; mixed funding; derivatives requested; bespoke restrictions. Indicative mandate size 300 million USD equivalent and requested onboarding interval 8 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H03-I§3",
+          "heading": "Relevance limit",
+          "text": "Insurance controls, base currency and counterparties differ from the present pension case."
+        }
+      ],
+      "sha256": "3d89c10d409cab3c8ec8bf84feb391ed23d11a8f0fd46524a6b5f000f70ecf3e"
+    },
+    {
+      "id": "H03-E",
+      "title": "Seabrook Insurance — exception or preventive-action record",
+      "case": "H03",
+      "kind": "Case record",
+      "date": "2025-11-21",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H03-E.md",
+      "chunks": [
+        {
+          "id": "H03-E§1",
+          "heading": "Observed event",
+          "text": "Three transfer positions required disposition. Counterparty documentation consumed ten business days of additional work and was not ready for the target date."
+        },
+        {
+          "id": "H03-E§2",
+          "heading": "Risk mechanism",
+          "text": "In-kind exclusions and unfinished counterparty setup conflicted with the requested launch."
+        },
+        {
+          "id": "H03-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=4; transfer=5; derivatives=10; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "52a46446f051e27f3de1e3399c8644713dcb52fcff394b0e5a44a1e9ca1e5eb5"
+    },
+    {
+      "id": "H03-C",
+      "title": "Seabrook Insurance — closure and lessons",
+      "case": "H03",
+      "kind": "Retrospective",
+      "date": "2025-11-21",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H03-C.md",
+      "chunks": [
+        {
+          "id": "H03-C§1",
+          "heading": "Resolution",
+          "text": "The client and accountable owners approved a staged mandate and retained controls preventing derivative activation before later readiness approval."
+        },
+        {
+          "id": "H03-C§2",
+          "heading": "Reusable action",
+          "text": "The client accepted cash substitution and a separately approved bonds-only launch with derivatives disabled."
+        },
+        {
+          "id": "H03-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Insurance controls, base currency and counterparties differ from the present pension case."
+        }
+      ],
+      "sha256": "380e788e205779e26b20ccc8f7649ef1099fc3ab4cb603d0eaea3258843a24e9"
+    },
+    {
+      "id": "H04-I",
+      "title": "Lakeshore Pension Trust — initial handover",
+      "case": "H04",
+      "kind": "Email",
+      "date": "2026-01-22",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H04-I.eml",
+      "chunks": [
+        {
+          "id": "H04-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Swiss pension mandate with CHF reporting, weekly attribution, transferred bonds and bespoke exclusions."
+        },
+        {
+          "id": "H04-I§2",
+          "heading": "Mandate context",
+          "text": "Switzerland; Pension foundation; Global IG bonds; CHF reporting; requested Weekly attribution; mixed funding; derivatives requested; bespoke restrictions. Indicative mandate size 260 million USD equivalent and requested onboarding interval 9 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H04-I§3",
+          "heading": "Relevance limit",
+          "text": "A different custodian and earlier platform version; estimates are evidence for review, not a current commitment."
+        }
+      ],
+      "sha256": "cad155513fd2cc1cbff3a1a5df81932d6b7820ba78cc8af4934f3033f194e920"
+    },
+    {
+      "id": "H04-E",
+      "title": "Lakeshore Pension Trust — exception or preventive-action record",
+      "case": "H04",
+      "kind": "Case record",
+      "date": "2026-01-22",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H04-E.md",
+      "chunks": [
+        {
+          "id": "H04-E§1",
+          "heading": "Observed event",
+          "text": "The team recorded reporting rework of nine business days, guideline clarification of six, transfer remediation of seven and derivatives rework of eight. These workstreams overlapped."
+        },
+        {
+          "id": "H04-E§2",
+          "heading": "Risk mechanism",
+          "text": "Reporting, guideline interpretation and derivative readiness were reviewed too late to meet the initial plan."
+        },
+        {
+          "id": "H04-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=9; guidelines=6; transfer=7; derivatives=8; benchmark=3. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "01acb2430212ebb7ec9bf1318039f95329eb18b4a18e3537099369728f87683f"
+    },
+    {
+      "id": "H04-C",
+      "title": "Lakeshore Pension Trust — closure and lessons",
+      "case": "H04",
+      "kind": "Retrospective",
+      "date": "2026-01-22",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H04-C.md",
+      "chunks": [
+        {
+          "id": "H04-C§1",
+          "heading": "Resolution",
+          "text": "A coordinated review agreed report scope, tested the guideline boundary and separated derivative activation from cash-bond readiness. The original date moved by five business days; workstream days must not be added."
+        },
+        {
+          "id": "H04-C§2",
+          "heading": "Reusable action",
+          "text": "A joint intake review exposed the shared data dependencies and produced a revised launch sequence."
+        },
+        {
+          "id": "H04-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "A different custodian and earlier platform version; estimates are evidence for review, not a current commitment."
+        }
+      ],
+      "sha256": "6db8989c071e9bc44a19217434b3d44d3569da2395769a1357dcf7b621d8c72d"
+    },
+    {
+      "id": "H05-I",
+      "title": "Rhinebridge Pension Foundation — initial handover",
+      "case": "H05",
+      "kind": "Email",
+      "date": "2026-02-13",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H05-I.eml",
+      "chunks": [
+        {
+          "id": "H05-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "The client requested weekly CHF outputs with a global bond and derivative mandate. Funding was entirely cash."
+        },
+        {
+          "id": "H05-I§2",
+          "heading": "Mandate context",
+          "text": "Switzerland; Pension foundation; Global IG bonds; CHF reporting; requested Weekly attribution; cash funding; derivatives requested; standard restrictions. Indicative mandate size 240 million USD equivalent and requested onboarding interval 12 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H05-I§3",
+          "heading": "Relevance limit",
+          "text": "Cash-only funding and standard restrictions reduce its transfer and guideline relevance."
+        }
+      ],
+      "sha256": "233b271b536bfb6067cfcc34220aaab295e35c5419aced33dcde6c81b38d294e"
+    },
+    {
+      "id": "H05-E",
+      "title": "Rhinebridge Pension Foundation — exception or preventive-action record",
+      "case": "H05",
+      "kind": "Case record",
+      "date": "2026-02-13",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H05-E.md",
+      "chunks": [
+        {
+          "id": "H05-E§1",
+          "heading": "Observed event",
+          "text": "Client Reporting tested a sample and agreed the supported service before the final commercial commitment. Derivatives setup began immediately."
+        },
+        {
+          "id": "H05-E§2",
+          "heading": "Risk mechanism",
+          "text": "A weekly CHF service was validated before commercial commitment and no reporting rework was recorded."
+        },
+        {
+          "id": "H05-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=not applicable; transfer=not applicable; derivatives=0; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "c5046bab7627afad75a8f9d8a886fc631359e8f71d0d0d9191899a929dbd9676"
+    },
+    {
+      "id": "H05-C",
+      "title": "Rhinebridge Pension Foundation — closure and lessons",
+      "case": "H05",
+      "kind": "Retrospective",
+      "date": "2026-02-13",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H05-C.md",
+      "chunks": [
+        {
+          "id": "H05-C§1",
+          "heading": "Resolution",
+          "text": "No reporting or derivatives exception was recorded. This successful case supports the preventive action, not an assumption that weekly attribution is always feasible."
+        },
+        {
+          "id": "H05-C§2",
+          "heading": "Reusable action",
+          "text": "Early capability testing and client sign-off were completed in week 1."
+        },
+        {
+          "id": "H05-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Cash-only funding and standard restrictions reduce its transfer and guideline relevance."
+        }
+      ],
+      "sha256": "efc16ba7f85fd4f9993af0366839847d130e677b50f91f770a60e7d1ef606808"
+    },
+    {
+      "id": "H06-I",
+      "title": "Aster Pension Foundation — initial handover",
+      "case": "H06",
+      "kind": "Email",
+      "date": "2026-03-26",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H06-I.eml",
+      "chunks": [
+        {
+          "id": "H06-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Eight-week timetable; CHF reporting; cash and in-kind assets; derivatives requested at launch."
+        },
+        {
+          "id": "H06-I§2",
+          "heading": "Mandate context",
+          "text": "Switzerland; Pension foundation; Global IG bonds; CHF reporting; requested Weekly attribution; mixed funding; derivatives requested; standard restrictions. Indicative mandate size 190 million USD equivalent and requested onboarding interval 8 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H06-I§3",
+          "heading": "Relevance limit",
+          "text": "No bespoke restriction schedule; cannot support detailed ESG-language interpretation."
+        }
+      ],
+      "sha256": "30ccff6650164fa7750ac9deae95164f487288586ad32f905ca919dd169ed4bf"
+    },
+    {
+      "id": "H06-E",
+      "title": "Aster Pension Foundation — exception or preventive-action record",
+      "case": "H06",
+      "kind": "Case record",
+      "date": "2026-03-26",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H06-E.md",
+      "chunks": [
+        {
+          "id": "H06-E§1",
+          "heading": "Observed event",
+          "text": "Missing transfer classifications caused six business days of rework. Reporting rework was seven and derivative setup rework was twelve; activities overlapped."
+        },
+        {
+          "id": "H06-E§2",
+          "heading": "Risk mechanism",
+          "text": "A compressed launch exposed reporting-cycle and custody-data dependencies."
+        },
+        {
+          "id": "H06-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=7; guidelines=not applicable; transfer=6; derivatives=12; benchmark=5. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "8a9026cd7df3a891d1b8fcb11623a76744843863043cb5e2496130c5b2f6a67f"
+    },
+    {
+      "id": "H06-C",
+      "title": "Aster Pension Foundation — closure and lessons",
+      "case": "H06",
+      "kind": "Retrospective",
+      "date": "2026-03-26",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H06-C.md",
+      "chunks": [
+        {
+          "id": "H06-C§1",
+          "heading": "Resolution",
+          "text": "The team agreed staged delivery and introduced an early custody-file rehearsal and reporting data-contract check."
+        },
+        {
+          "id": "H06-C§2",
+          "heading": "Reusable action",
+          "text": "Sequence service validation, custody data reconciliation and counterparty work during intake."
+        },
+        {
+          "id": "H06-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "No bespoke restriction schedule; cannot support detailed ESG-language interpretation."
+        }
+      ],
+      "sha256": "b7c34a91746d717b74f984bdc162b80c15decd5cdbce369e0e65df800ef147ff"
+    },
+    {
+      "id": "H07-I",
+      "title": "Juniper Charitable Trust — initial handover",
+      "case": "H07",
+      "kind": "Email",
+      "date": "2026-04-17",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H07-I.eml",
+      "chunks": [
+        {
+          "id": "H07-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "The client supplied a clear issuer-level restriction schedule for a cash-funded bond mandate."
+        },
+        {
+          "id": "H07-I§2",
+          "heading": "Mandate context",
+          "text": "United States; Endowment; Global IG bonds; USD reporting; requested Monthly pack; cash funding; derivatives not requested; bespoke restrictions. Indicative mandate size 120 million USD equivalent and requested onboarding interval 10 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H07-I§3",
+          "heading": "Relevance limit",
+          "text": "US cash-funded case with no derivatives; it has limited launch-sequencing relevance."
+        }
+      ],
+      "sha256": "da7ba6402d8d8cf920841b560660956fd75468eb6c2a07d23923d6c1cdcf1b09"
+    },
+    {
+      "id": "H07-E",
+      "title": "Juniper Charitable Trust — exception or preventive-action record",
+      "case": "H07",
+      "kind": "Case record",
+      "date": "2026-04-17",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H07-E.md",
+      "chunks": [
+        {
+          "id": "H07-E§1",
+          "heading": "Observed event",
+          "text": "Legal and investment compliance agreed provider, scope, thresholds and stale-data handling before coding."
+        },
+        {
+          "id": "H07-E§2",
+          "heading": "Risk mechanism",
+          "text": "Clear restriction definitions and early boundary tests avoided guideline rework."
+        },
+        {
+          "id": "H07-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=0; transfer=not applicable; derivatives=not applicable; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "54f5f54c35b48fbf312a2eb202ab0d454be5b134a51356f864d96fd76e09ae9a"
+    },
+    {
+      "id": "H07-C",
+      "title": "Juniper Charitable Trust — closure and lessons",
+      "case": "H07",
+      "kind": "Retrospective",
+      "date": "2026-04-17",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H07-C.md",
+      "chunks": [
+        {
+          "id": "H07-C§1",
+          "heading": "Resolution",
+          "text": "Boundary tests passed and no guideline clarification rework was recorded."
+        },
+        {
+          "id": "H07-C§2",
+          "heading": "Reusable action",
+          "text": "Use a shared Legal/FI PC interpretation checklist before coding."
+        },
+        {
+          "id": "H07-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "US cash-funded case with no derivatives; it has limited launch-sequencing relevance."
+        }
+      ],
+      "sha256": "57a891af2e4123ada111eb0a11bdb657a9ac220ed9187e3438aea2b413802037"
+    },
+    {
+      "id": "H08-I",
+      "title": "Cedar Vale Pension Plan — initial handover",
+      "case": "H08",
+      "kind": "Email",
+      "date": "2026-05-08",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H08-I.eml",
+      "chunks": [
+        {
+          "id": "H08-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Pension client with bespoke restrictions, transferred bonds and derivatives requested in ten weeks."
+        },
+        {
+          "id": "H08-I§2",
+          "heading": "Mandate context",
+          "text": "United States; Pension foundation; Global IG bonds; USD reporting; requested Monthly pack; mixed funding; derivatives requested; bespoke restrictions. Indicative mandate size 280 million USD equivalent and requested onboarding interval 10 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H08-I§3",
+          "heading": "Relevance limit",
+          "text": "USD reporting; does not establish support for CHF reporting or Swiss-specific obligations."
+        }
+      ],
+      "sha256": "c23b4074865ea677f0f3fe9fc0c1c15da3789c4ee7069d8bbc0da645cb2d7bf7"
+    },
+    {
+      "id": "H08-E",
+      "title": "Cedar Vale Pension Plan — exception or preventive-action record",
+      "case": "H08",
+      "kind": "Case record",
+      "date": "2026-05-08",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H08-E.md",
+      "chunks": [
+        {
+          "id": "H08-E§1",
+          "heading": "Observed event",
+          "text": "Unmapped parent issuers and missing ESG fields were treated as unresolved. Guideline, transfer and derivative work added seven, four and six business days respectively."
+        },
+        {
+          "id": "H08-E§2",
+          "heading": "Risk mechanism",
+          "text": "Unclear ESG scopes and a late transfer-file screen caused avoidable clarification work."
+        },
+        {
+          "id": "H08-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=7; transfer=4; derivatives=6; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "1015fd65c58a5b8c68d05878dabd78e2358a3d966690f7a77815cad84786b608"
+    },
+    {
+      "id": "H08-C",
+      "title": "Cedar Vale Pension Plan — closure and lessons",
+      "case": "H08",
+      "kind": "Retrospective",
+      "date": "2026-05-08",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H08-C.md",
+      "chunks": [
+        {
+          "id": "H08-C§1",
+          "heading": "Resolution",
+          "text": "The transition team obtained client approval to retain affected assets externally and replace them with cash."
+        },
+        {
+          "id": "H08-C§2",
+          "heading": "Reusable action",
+          "text": "Screen indicative holdings and settle restriction definitions before the transition date is committed."
+        },
+        {
+          "id": "H08-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "USD reporting; does not establish support for CHF reporting or Swiss-specific obligations."
+        }
+      ],
+      "sha256": "50058762d6cc8585d75f6893c576e28990a6da72b26577e5d476f77532225492"
+    },
+    {
+      "id": "H09-I",
+      "title": "Harbor Civic Reserve — initial handover",
+      "case": "H09",
+      "kind": "Email",
+      "date": "2026-05-29",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H09-I.eml",
+      "chunks": [
+        {
+          "id": "H09-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Twelve-week bond onboarding with standard controls and mixed cash/in-kind funding."
+        },
+        {
+          "id": "H09-I§2",
+          "heading": "Mandate context",
+          "text": "United Kingdom; Public reserve; Global IG bonds; GBP reporting; requested Monthly pack; mixed funding; derivatives not requested; standard restrictions. Indicative mandate size 160 million USD equivalent and requested onboarding interval 12 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H09-I§3",
+          "heading": "Relevance limit",
+          "text": "Standard guidelines and no derivatives; a useful successful transfer comparator only."
+        }
+      ],
+      "sha256": "a6f89d7f333d1c3692260f2df4fd184d12d8ad7f98865836be22adf9f5a57dbe"
+    },
+    {
+      "id": "H09-E",
+      "title": "Harbor Civic Reserve — exception or preventive-action record",
+      "case": "H09",
+      "kind": "Case record",
+      "date": "2026-05-29",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H09-E.md",
+      "chunks": [
+        {
+          "id": "H09-E§1",
+          "heading": "Observed event",
+          "text": "The custodian provided mapped identifiers, position values, classifications and a sample acknowledgment before final scheduling."
+        },
+        {
+          "id": "H09-E§2",
+          "heading": "Risk mechanism",
+          "text": "A complete reconciled custody file supported an uneventful in-kind transition."
+        },
+        {
+          "id": "H09-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=not applicable; transfer=0; derivatives=not applicable; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "3e3d9d6637d5f73287cc04b7f3870892607c98a5f9daa378795f2bdf755f7169"
+    },
+    {
+      "id": "H09-C",
+      "title": "Harbor Civic Reserve — closure and lessons",
+      "case": "H09",
+      "kind": "Retrospective",
+      "date": "2026-05-29",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H09-C.md",
+      "chunks": [
+        {
+          "id": "H09-C§1",
+          "heading": "Resolution",
+          "text": "No transfer exception was recorded; account and custody records reconciled before release."
+        },
+        {
+          "id": "H09-C§2",
+          "heading": "Reusable action",
+          "text": "Obtain the sample file and agree the field definitions early."
+        },
+        {
+          "id": "H09-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Standard guidelines and no derivatives; a useful successful transfer comparator only."
+        }
+      ],
+      "sha256": "fde60447cbb9dc307c9a18de6d9f164472f728b1bbc09d513844119a5ae183cf"
+    },
+    {
+      "id": "H10-I",
+      "title": "Montrose Retirement Trust — initial handover",
+      "case": "H10",
+      "kind": "Email",
+      "date": "2026-06-12",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H10-I.eml",
+      "chunks": [
+        {
+          "id": "H10-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Weekly CHF attribution with bespoke exclusions, existing bonds and FX forwards requested for launch."
+        },
+        {
+          "id": "H10-I§2",
+          "heading": "Mandate context",
+          "text": "Switzerland; Pension foundation; Global IG bonds; CHF reporting; requested Weekly attribution; mixed funding; derivatives requested; bespoke restrictions. Indicative mandate size 230 million USD equivalent and requested onboarding interval 10 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H10-I§3",
+          "heading": "Relevance limit",
+          "text": "Different data provider and custody feeds; clear restriction wording unlike the new draft."
+        }
+      ],
+      "sha256": "34315e02ae0cb51c0af24eb4d57889fb02c9c9452f565f89ca15c22467f0aa0f"
+    },
+    {
+      "id": "H10-E",
+      "title": "Montrose Retirement Trust — exception or preventive-action record",
+      "case": "H10",
+      "kind": "Case record",
+      "date": "2026-06-12",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H10-E.md",
+      "chunks": [
+        {
+          "id": "H10-E§1",
+          "heading": "Observed event",
+          "text": "Reporting service negotiation required eleven business days; transfer-data remediation eight; derivatives preparation seven. Guideline interpretation itself had no rework."
+        },
+        {
+          "id": "H10-E§2",
+          "heading": "Risk mechanism",
+          "text": "The service request and incomplete transfer data created rework despite clear guideline language."
+        },
+        {
+          "id": "H10-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=11; guidelines=0; transfer=8; derivatives=7; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "cdd08b31221fe7ddd89b78f84e3f5cb6008dfc184170fc92b38f6bf12ad5a7a8"
+    },
+    {
+      "id": "H10-C",
+      "title": "Montrose Retirement Trust — closure and lessons",
+      "case": "H10",
+      "kind": "Retrospective",
+      "date": "2026-06-12",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H10-C.md",
+      "chunks": [
+        {
+          "id": "H10-C§1",
+          "heading": "Resolution",
+          "text": "The client accepted a supported service schedule and a cash substitution for unresolved transfer holdings."
+        },
+        {
+          "id": "H10-C§2",
+          "heading": "Reusable action",
+          "text": "Separate reporting capability evidence from a client request; screen the actual transfer data early."
+        },
+        {
+          "id": "H10-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Different data provider and custody feeds; clear restriction wording unlike the new draft."
+        }
+      ],
+      "sha256": "c75d96a8b9ef88988cbb28d0b6ad4f80523be4d8d2bc005f8f3d8167e8055299"
+    },
+    {
+      "id": "H11-I",
+      "title": "Eastgate University Endowment — initial handover",
+      "case": "H11",
+      "kind": "Email",
+      "date": "2026-07-10",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H11-I.eml",
+      "chunks": [
+        {
+          "id": "H11-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Standard global-equity mandate funded in cash with monthly USD reporting."
+        },
+        {
+          "id": "H11-I§2",
+          "heading": "Mandate context",
+          "text": "United States; Endowment; Global equities; USD reporting; requested Monthly pack; cash funding; derivatives not requested; standard restrictions. Indicative mandate size 90 million USD equivalent and requested onboarding interval 12 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H11-I§3",
+          "heading": "Relevance limit",
+          "text": "Different asset class and client context; deliberately weak analogue for Alpenridge."
+        }
+      ],
+      "sha256": "0395fc98688211f6b429f2f04bc8fa5f4a162e6b8a185c9a43e73d8623831688"
+    },
+    {
+      "id": "H11-E",
+      "title": "Eastgate University Endowment — exception or preventive-action record",
+      "case": "H11",
+      "kind": "Case record",
+      "date": "2026-07-10",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H11-E.md",
+      "chunks": [
+        {
+          "id": "H11-E§1",
+          "heading": "Observed event",
+          "text": "No transferred securities, bespoke restriction interpretation or derivative activation was requested."
+        },
+        {
+          "id": "H11-E§2",
+          "heading": "Risk mechanism",
+          "text": "A standard cash-funded equity account required a different onboarding route."
+        },
+        {
+          "id": "H11-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=not applicable; transfer=not applicable; derivatives=not applicable; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "6fb0974ed678e0c7654f9bf3f4eae20652972054208eceb6f9ebe6f0892c50fc"
+    },
+    {
+      "id": "H11-C",
+      "title": "Eastgate University Endowment — closure and lessons",
+      "case": "H11",
+      "kind": "Retrospective",
+      "date": "2026-07-10",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H11-C.md",
+      "chunks": [
+        {
+          "id": "H11-C§1",
+          "heading": "Resolution",
+          "text": "The standard operational checklist was completed without the exception types tracked in this synthetic case set."
+        },
+        {
+          "id": "H11-C§2",
+          "heading": "Reusable action",
+          "text": "Do not force fixed-income, in-kind or derivative tasks into a case without those requirements."
+        },
+        {
+          "id": "H11-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Different asset class and client context; deliberately weak analogue for Alpenridge."
+        }
+      ],
+      "sha256": "1a27cca752888e44f642ad77aa8380d9bad59024af4a9c963c09970b5a95304e"
+    },
+    {
+      "id": "H12-I",
+      "title": "Maple Peak Reserve — initial handover",
+      "case": "H12",
+      "kind": "Email",
+      "date": "2026-07-31",
+      "owner": "Historical Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H12-I.eml",
+      "chunks": [
+        {
+          "id": "H12-I§1",
+          "heading": "Archived intake excerpt",
+          "text": "Mixed funding and derivatives with a twelve-week requested setup period."
+        },
+        {
+          "id": "H12-I§2",
+          "heading": "Mandate context",
+          "text": "United Kingdom; Public reserve; Global IG bonds; GBP reporting; requested Monthly pack; mixed funding; derivatives requested; standard restrictions. Indicative mandate size 210 million USD equivalent and requested onboarding interval 12 weeks. Document date is the archive/closure date; the excerpt describes the earlier intake."
+        },
+        {
+          "id": "H12-I§3",
+          "heading": "Relevance limit",
+          "text": "Standard service, longer timetable and GBP reporting reduce comparability to a compressed CHF case."
+        }
+      ],
+      "sha256": "a590872b3aa93b4ff4072e49c790844f079c720ab11a2e8db3d12c417a70e907"
+    },
+    {
+      "id": "H12-E",
+      "title": "Maple Peak Reserve — exception or preventive-action record",
+      "case": "H12",
+      "kind": "Case record",
+      "date": "2026-07-31",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H12-E.md",
+      "chunks": [
+        {
+          "id": "H12-E§1",
+          "heading": "Observed event",
+          "text": "Counterparty documentation, custody sample file and reporting service checks were completed early."
+        },
+        {
+          "id": "H12-E§2",
+          "heading": "Risk mechanism",
+          "text": "A longer setup window and early confirmations supported the full mandate at launch."
+        },
+        {
+          "id": "H12-E§3",
+          "heading": "Outcome coding",
+          "text": "Synthetic recorded workstream rework, in business days: reporting=0; guidelines=not applicable; transfer=0; derivatives=0; benchmark=0. Zero means no recorded rework in this closed case; it is not a universal absence of risk. Workstream intervals can overlap."
+        }
+      ],
+      "sha256": "e3c1937b7c73c1e7ceeac02d4eff36a64ab00c4ba86867dc4913b3f6e12282d8"
+    },
+    {
+      "id": "H12-C",
+      "title": "Maple Peak Reserve — closure and lessons",
+      "case": "H12",
+      "kind": "Retrospective",
+      "date": "2026-07-31",
+      "owner": "Historical GCS Operations",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H12-C.md",
+      "chunks": [
+        {
+          "id": "H12-C§1",
+          "heading": "Resolution",
+          "text": "No tracked transfer or derivatives rework was recorded. A longer target window is not itself proof of readiness."
+        },
+        {
+          "id": "H12-C§2",
+          "heading": "Reusable action",
+          "text": "Keep a full-scope launch option when evidence supports its dependencies and the client accepts the date."
+        },
+        {
+          "id": "H12-C§3",
+          "heading": "Non-transferable assumptions",
+          "text": "Standard service, longer timetable and GBP reporting reduce comparability to a compressed CHF case."
+        }
+      ],
+      "sha256": "77f56bcae2ed93b55b3657199d233c6f4920a338fa0d15a8aea38bccc70096eb"
+    },
+    {
+      "id": "H01-S",
+      "title": "Alpinecrest — accepted reporting annex",
+      "case": "H01",
+      "kind": "Service annex",
+      "date": "2025-06-18",
+      "owner": "Historical Legal and Reporting",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H01-S.md",
+      "chunks": [
+        {
+          "id": "H01-S§1",
+          "heading": "Accepted definition",
+          "text": "The accepted service was weekly CHF holdings on Tuesday and a monthly validated performance/attribution pack. Weekly attribution was the initial request, not the ultimately delivered service."
+        },
+        {
+          "id": "H01-S§2",
+          "heading": "Operational difference",
+          "text": "The historical custodian supplied its positions on Monday evening and used an earlier reporting platform. Its timing and manual steps cannot establish current readiness for the Orion feed."
+        }
+      ],
+      "sha256": "183eefde3ee40c7ff661ef0509532106bde1e6c7c6cec943b759ae53c37db537"
+    },
+    {
+      "id": "H02-G",
+      "title": "Northbridge — restriction redline and implementation review",
+      "case": "H02",
+      "kind": "Guideline review",
+      "date": "2025-09-09",
+      "owner": "Historical Legal and FI PC",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H02-G.md",
+      "chunks": [
+        {
+          "id": "H02-G§1",
+          "heading": "Contract comparison",
+          "text": "Client policy: 5% or more tobacco production revenue. Unsigned IMA: more than 5%. Approved Northbridge wording: 5% or more. The difference affected the exactly-5% boundary and required explicit client/Legal confirmation."
+        },
+        {
+          "id": "H02-G§2",
+          "heading": "Approved implementation in that case",
+          "text": "Compare TOB_PROD_REV_PCT >= 5 on the approved issuer-parent mapping. Missing or stale values enter manual review. The historical client approved a 30-calendar-day data-age threshold. Those provider, mapping and freshness choices do not automatically apply to Alpenridge."
+        },
+        {
+          "id": "H02-G§3",
+          "heading": "Coal limitation",
+          "text": "Northbridge did not implement a thermal-coal restriction. Its tobacco code provides no evidence for a coal threshold or the meaning of involvement."
+        }
+      ],
+      "sha256": "1638076c6e8bb007df0cc80e2a6a1fff29600f707b3a1a25fa00d0348c590811"
+    },
+    {
+      "id": "H03-T",
+      "title": "Seabrook — staged transition decision",
+      "case": "H03",
+      "kind": "Decision memo",
+      "date": "2025-11-21",
+      "owner": "Historical PM and Client RM",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H03-T.md",
+      "chunks": [
+        {
+          "id": "H03-T§1",
+          "heading": "Client choice",
+          "text": "The client retained three unresolved positions outside the new account and substituted cash. The PM accepted a bond-only start while derivative documentation completed. Ten business days of derivative rework did not mean an automatic ten-day launch delay."
+        },
+        {
+          "id": "H03-T§2",
+          "heading": "Limits on reuse",
+          "text": "The team assessed currency and duration implications and enforced a derivative restriction until later readiness approval. A new pension mandate requires its own suitability and client decision; copying this decision would bypass accountability."
+        }
+      ],
+      "sha256": "03e803bc8689976038b6c7b4c2241052f43a67a8c0ee932b265d00f37e7bb6ac"
+    },
+    {
+      "id": "H05-S",
+      "title": "Rhinebridge — service acceptance and successful outcome",
+      "case": "H05",
+      "kind": "Service acceptance",
+      "date": "2026-02-13",
+      "owner": "Historical Client Reporting",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H05-S.md",
+      "chunks": [
+        {
+          "id": "H05-S§1",
+          "heading": "Requested versus accepted",
+          "text": "The intake used the phrase weekly attribution. During week 1 the client accepted weekly CHF holdings on Tuesday with monthly performance, attribution and ESG analytics. A sample was tested before the agreement was finalized."
+        },
+        {
+          "id": "H05-S§2",
+          "heading": "Counterevidence",
+          "text": "No reporting rework was recorded. This is a successful preventive-action case. It does not demonstrate weekly attribution capability. Keep it in a cohort of initial requests for weekly attribution; exclude it from any claim that full weekly attribution was delivered."
+        },
+        {
+          "id": "H05-S§3",
+          "heading": "Funding difference",
+          "text": "Funding was cash-only and the guideline schedule was standard. This case is useful for service-scope resolution; it is weak evidence for transferred holdings or bespoke ESG interpretation."
+        }
+      ],
+      "sha256": "d20d80c5f0bb6c81fe25d5f55e1f9a5311431bb32d7aa7b9011cd154524cc6e9"
+    },
+    {
+      "id": "H08-G",
+      "title": "Cedar Vale — coal interpretation and data exceptions",
+      "case": "H08",
+      "kind": "Guideline review",
+      "date": "2026-05-08",
+      "owner": "Historical FI PC and ESG",
+      "status": "historical",
+      "version": "1.0",
+      "path": "corpus/H08-G.md",
+      "chunks": [
+        {
+          "id": "H08-G§1",
+          "heading": "Coal interpretation in this case",
+          "text": "Cedar Vale explicitly approved thermal-coal extraction revenue >=10%, with power generation out of scope for that mandate. Its client specified parent aggregation. This is a negotiated client rule, not an industry definition of no thermal coal."
+        },
+        {
+          "id": "H08-G§2",
+          "heading": "Unresolved issuer data",
+          "text": "One issuer lacked ESG revenue classifications and another required parent mapping. Unknown values went to review; they were not treated as zero. Early review enabled the client to select cash substitution."
+        },
+        {
+          "id": "H08-G§3",
+          "heading": "Reuse limit",
+          "text": "Offer the definition and test pattern as an option for Alpenridge review. Do not infer that no thermal coal permits up to 10% or excludes only extraction; the new client could intend any involvement, generation as well, or a named issuer list."
+        }
+      ],
+      "sha256": "2e5c896e32aa56baf87d0437364c197b9d4efc387281d445905896cba1ea163f"
+    }
+  ],
+  "document_count": 54,
+  "chunk_count": 157,
+  "snapshot_rules": {
+    "initial": "2026-09-14",
+    "clarified": "2026-09-15",
+    "cash": "2026-09-16"
+  },
+  "method": "Prepared AI-authored case analysis with live local lexical retrieval and deterministic arithmetic. No hosted model calls or autonomous agents run in the browser."
+}
