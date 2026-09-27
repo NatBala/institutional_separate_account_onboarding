@@ -3,12 +3,14 @@
 const E=window.AGENT_DEMO;
 const roles=[['A1','Context agent','Interpret client intent'],['A2','Precedent agent','Find useful past cases'],['A3','Risk agent','Assess watch areas'],['A4','Restriction agent','Compare terms and tests'],['A5','Playbook agent','Compose the workflow'],['A6','Evidence reviewer','Challenge unsupported claims']].map(([id,name,purpose])=>({id,name,purpose}));
 const scenes=['initial','clarified','cash'];
-const event=(id,agent,type,title,detail,extra={})=>({id,agent,type,title,detail,duration:2400,...extra});
+// Three standard opening events at 3 seconds each give the audience about
+// nine seconds to follow the request before the first human checkpoint.
+const event=(id,agent,type,title,detail,extra={})=>({id,agent,type,title,detail,duration:3000,...extra});
 function mainEvents(scene){return [
- event('receive','A1','call','Client request received','The coordinator passes the client email, policy, IMA and transfer note to the Context agent.',{active:['A1'],evidence:['N01§1','N01§2'],handoff:'Client request → Context agent'}),
- event('context-read','A1','evidence','Read the client context','Separate requested service, investment intent and launch assumptions.',{evidence:['N01§2','N02§1','N03§1']}),
- event('context-output','A1','output','Client context prepared','The requested service, exact threshold conflict and unresolved coal scope are ready for review.',{artifact:'context',done:['A1'],duration:3000}),
- event('context-gate','H1','gate','Operations checks the interpreted request','Confirm that the assistant has understood the client before it selects historical precedents.',{gate:'context',evidence:['N01§2','N02§1','N03§1']}),
+ event('receive','A1','call','Onboarding document package received','The Context agent inventories the six current-client PDFs before extracting any requirement.',{active:['A1'],evidence:['N01§1','N02§1','N03§1','N04§1','N05§1','N06§1'],handoff:'Six onboarding PDFs → Context agent'}),
+ event('context-read','A1','evidence','Parse PDFs and fetch source evidence','Read text and tables from the request, IMA, policy, transfer file, planning boundary and custodian response. Preserve each source citation.',{evidence:['N01§2','N02§1','N03§1','N04§2','N05§1','N06§2']}),
+ event('context-output','A1','output','Five requirement areas identified','Classify reporting, restrictions, funding route, derivatives and legal applicability; surface cross-document conflicts for review.',{artifact:'context',done:['A1'],evidence:['N01§2','N02§1','N03§1','N04§2','N05§1','N06§2'],duration:3000}),
+ event('context-gate','H1','gate','Operations reviews the extracted requirements','Confirm the cited client facts and unresolved questions before historical cases are searched.',{gate:'context',evidence:['N01§2','N02§1','N03§1','N04§2','N05§1','N06§2']}),
  event('precedent-call','A2','call','Precedent agent receives the reviewed context','Search by decision area; whole-client similarity is only one signal.',{active:['A2'],handoff:'Reviewed context → Precedent agent'}),
  event('search-service','A2','search','Search reporting precedents','Retrieve exact passages about requested and accepted weekly CHF services.',{query:0,duration:3000}),
  event('search-rules','A2','search','Search restriction precedents','Find the tobacco operator conflict, coal definitions and missing-data patterns.',{query:1,duration:3000}),

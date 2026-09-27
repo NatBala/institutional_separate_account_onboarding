@@ -21,11 +21,12 @@ function openWorkspace(saved={}) {
   }
   const document=new Element();document.getElementById=id=>document.querySelector('#'+id);
   document.createElement=()=>new Element();document.activeElement=null;
-  const records=new Map([['sa-corpus-demo-v1',JSON.stringify(saved)]]);
+  const records=new Map([['sa-corpus-demo-v1',JSON.stringify(saved.view?{liveSeen:true,...saved}:saved)]]);
   const timers=new Map();let timerId=0;
   const context=vm.createContext({window:{scrollTo(){}},document,
     localStorage:{getItem:k=>records.get(k),setItem:(k,v)=>records.set(k,v)},
     setTimeout:fn=>{timers.set(++timerId,fn);return timerId;},clearTimeout:id=>timers.delete(id),
+    setInterval:fn=>{timers.set(++timerId,fn);return timerId;},clearInterval:id=>timers.delete(id),
     requestAnimationFrame:fn=>fn(),ResizeObserver:class {observe(){}disconnect(){}},
     Blob,URL,console,FormData
   });
@@ -38,12 +39,13 @@ function openWorkspace(saved={}) {
 }
 
 test('published scripts start for new and returning users and every saved view',()=>{
-  const views=['brief','run','riskmap','corpus','agents','cases','risks','rules','workflow','review','presenter'];
+  const views=['live','brief','run','riskmap','requirements','corpus','agents','cases','risks','rules','workflow','review'];
   for(const scenario of ['initial','clarified','cash'])for(const view of views){
     const w=openWorkspace({view,scenario});assert.match(w.app.innerHTML,/Separate Account/);
-    assert.match(w.app.innerHTML,/Run agents/);
+    assert.match(w.app.innerHTML,/Requirements evidence/);
     w.click(w.document,{view:'run'});assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'riskmap'});assert.match(w.document.getElementById('sa-route-risk').querySelector('#rr-columns').innerHTML,/Clarify restriction intent/);
+    w.click(w.document,{view:'requirements'});assert.match(w.app.innerHTML,/Requirements evidence register/);
     w.click(w.document,{view:'brief'});assert.match(w.app.innerHTML,/Alpenridge Pension Foundation/);
   }
 });
