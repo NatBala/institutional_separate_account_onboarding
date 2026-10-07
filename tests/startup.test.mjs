@@ -47,20 +47,24 @@ test('published scripts start for new and returning users and every saved view',
     w.click(w.document,{view:'system'});assert.match(w.app.innerHTML,/Operational risk agent/);assert.match(w.app.innerHTML,/Investment risk agent/);
     w.click(w.document,{view:'run'});assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'workflow'});const root=w.document.getElementById('wr-root');
-    assert.match(root.querySelector('#wr-flow').innerHTML,/Accept mandate annexes/);
-    assert.match(root.querySelector('#wr-sticky').innerHTML,/Projected funding date/);
-    assert.match(root.querySelector('#wr-body-reporting').innerHTML,/Why/);
+    assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date/i);
+    assert.match(root.innerHTML,/What this level means/);assert.match(root.innerHTML,/Why \+/);
+    w.click(root,{tab:'team'});assert.match(root.innerHTML,/Accept mandate annexes/);
+    w.click(root,{highlight:'all'});assert.match(root.innerHTML,/Portfolio management/);
+    w.click(root,{tab:'math'});assert.match(root.innerHTML,/Add the longest workstream, not the sum/);
+    w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);
   }
 });
 
-test('workflow business-day model uses the longest workstream, not the sum',()=>{
+test('onboarding business-day model uses the longest workstream, not the sum',()=>{
   const {context}=openWorkspace();const W=context.window.SA_WORKFLOW;
   const at=id=>W.compute(W.PRESETS.find(p=>p.id===id).levels);
   assert.deepEqual([...at('standard').total],[45,46]);
   assert.deepEqual([...at('initial').total],[50,58]);
   assert.deepEqual([...at('clarified').total],[50,58]);
   assert.deepEqual([...at('cash').total],[49,54]);
-  for(const p of W.PRESETS){const c=W.compute(p.levels);assert(c.add[1]<=c.naive[1]+3);assert(c.total[0]<=c.total[1]);}
+  for(const p of W.PRESETS){const c=W.compute(p.levels);assert(c.add[1]<=c.naive[1]+3);assert(c.total[0]<=c.total[1]);
+    assert.deepEqual(c.phases.reduce((t,x)=>[t[0]+x[0],t[1]+x[1]],[0,0]),[...c.total],'phase days must add up to the onboarding total');}
   for(const a of W.AREAS)for(const l of a.levels){const sum=l.parts.reduce((t,x)=>[t[0]+x[1],t[1]+x[2]],[0,0]);assert.deepEqual(sum,[...l.days],a.id);}
 });
 

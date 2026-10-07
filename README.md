@@ -7,7 +7,7 @@ An institutional separate-account onboarding workspace built around the fictiona
 - The current browser experience, in three tabs:
   1. **Multi-agent system**: what each agent does, what it hands off and where people decide.
   2. **Agent run**: an animated run that pauses after each agent and keeps every agent's output on the same screen.
-  3. **Workflow & risk**: Low / Medium / High sliders for five requirement areas. Each tile explains the level, the business days it adds and why, and what each team does. A launch timeline and a team-by-phase workflow update as you move them.
+  3. **Workflow & risk**: a single-screen console for the onboarding team. Set five requirement areas to Low, Medium or High and see the onboarding duration in business days (by phase), what each level means, why it adds the days it does, and which team does what. Onboarding days use the longest parallel workstream, not the sum.
 - Six agent roles: Context, Precedent, Operational risk, Investment risk, Playbook and Evidence Review.
 - A corpus of 54 source records, 157 passages and 12 historical clients.
 - Synthetic PDFs, including the draft IMA, investment policy, transfer list, operating guidance and case records, under `docs/synthetic-pdfs/`.
