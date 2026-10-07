@@ -4,8 +4,11 @@ An institutional separate-account onboarding workspace built around the fictiona
 
 ## Included
 
-- The current browser experience: client context, corpus search, historical cases, restriction analysis, workflow and risk views, and the **Run agents** sequence.
-- Six agent roles: Context, Precedent, Risk, Restriction, Playbook and Evidence Review.
+- The current browser experience, in three tabs:
+  1. **Multi-agent system**: what each agent does, what it hands off and where people decide.
+  2. **Agent run**: an animated run that pauses after each agent and keeps every agent's output on the same screen.
+  3. **Workflow & risk**: Low / Medium / High sliders for five requirement areas. Each tile explains the level, the business days it adds and why, and what each team does. A launch timeline and a team-by-phase workflow update as you move them.
+- Six agent roles: Context, Precedent, Operational risk, Investment risk, Playbook and Evidence Review.
 - A corpus of 54 source records, 157 passages and 12 historical clients.
 - Synthetic PDFs, including the draft IMA, investment policy, transfer list, operating guidance and case records, under `docs/synthetic-pdfs/`.
 - Two human checkpoints: confirm client context and review the proposed plan.

@@ -5,7 +5,7 @@ This implementation preserves the prepared replay and adds a separate Live agent
 ## Runtime
 
 - Cloudflare Worker-compatible backend using native fetch calls to the OpenAI Responses and Embeddings APIs.
-- Six logical model roles with strict structured-output schemas, original source IDs, and validation. The Risk and Restriction calls run concurrently.
+- Six logical model roles with strict structured-output schemas, original source IDs, and validation. The Operational risk and Investment risk calls run concurrently.
 - Exact cosine similarity over OpenAI passage embeddings, BM25-style keyword ranking, and reciprocal-rank fusion. This small 157-passage corpus needs no external vector database. Embedding indexes are cached by corpus hash, model, and evidence snapshot.
 - R2 stores run records, events, accepted outputs, model-call metadata, prior revisions, decisions, and embedding indexes. Conditional ETag writes prevent concurrent run updates from overwriting each other.
 - Private Sites authentication scopes every run to the authenticated user. Same-origin JSON requests are required for writes. The browser never receives model credentials.

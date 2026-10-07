@@ -1,5 +1,5 @@
 export const SNAPSHOTS={initial:'2026-09-14',clarified:'2026-09-15',cash:'2026-09-16'};
-export const ROLES=['Context','Precedent','Risk','Restriction','Playbook','Evidence reviewer'];
+export const ROLES=['Context','Precedent','Operational risk','Investment risk','Playbook','Evidence reviewer'];
 const str={type:'string'}, arr=items=>({type:'array',items}), obj=properties=>({type:'object',properties,required:Object.keys(properties),additionalProperties:false});
 const refs=arr(str);
 const fact=obj({label:str,value:str,status:str,sources:refs});

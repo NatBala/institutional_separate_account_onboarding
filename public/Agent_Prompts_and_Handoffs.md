@@ -55,7 +55,7 @@ Use handoff fields: retrievals[{question,query,candidates[{passage_id,quote}],se
 
 Human checkpoint: “Rhinebridge had no reporting rework. Does that invalidate the reporting watch area? Check its accepted service before answering.”
 
-## A3 — Risk agent
+## A3 — Operational risk agent
 
 ```text
 Combine the reviewed case comparisons with current client requirements and current operating guidance. Propose a short risk/watch-area register.
@@ -71,7 +71,7 @@ Use handoff fields: risks[{id,status,trigger_facts,inference,counterevidence,act
 
 Human checkpoint: confirm whether each inference is useful and whether the evidence is sufficient. Challenge any categorical prediction.
 
-## A4 — Restriction interpretation agent
+## A4 — Investment risk agent (restriction interpretation)
 
 ```text
 Compare N02/N03 with relevant prior contractual wording and implementation reviews. Produce proposed implementation language and explicit interpretation questions, not an approved rule.
