@@ -4,11 +4,13 @@ An institutional separate-account onboarding workspace built around the fictiona
 
 ## Included
 
-- The current browser experience, in three tabs:
-  1. **Multi-agent system**: what each agent does, what it hands off and where people decide.
-  2. **Agent run**: an animated run that pauses after each agent and keeps every agent's output on the same screen.
-  3. **Workflow & risk**: a single-screen console for the onboarding team. Set five requirement areas to Low, Medium or High and see the onboarding duration in business days (by phase), what each level means, why it adds the days it does, and which team does what. Onboarding days use the longest parallel workstream, not the sum.
-- Six agent roles: Context, Precedent, Operational risk, Investment risk, Playbook and Evidence Review.
+- The current browser experience, in five tabs:
+  1. **Onboarding status**: an operator view and a leadership view. The operator view shows Alpenridge as of Thu 8 Oct 2026: RAG status for each stage (Intake, Paperwork, Operational setup, Funding, Post-funding), with owner, team and escalation point; the root-cause issues that move the funding date and the reviews each needs; a task drill-down with due and forecast dates; the dependency chain (contract signed → funding setup → asset transfer → trading → reporting) with a delay what-if; escalation and communication paths; key players; and contractual versus non-contractual obligations. The leadership view shows the synthetic book of onboardings in flight: volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule.
+  2. **Onboarding framework**: one set of shared activities (AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account and system setup, reporting, funding, ongoing servicing). Configurable attributes add variations on top: vehicle (separate account, CIT, mutual fund), client type (direct, consultant-advised, OCIO, sub-advisory, omnibus, MEP/PEP), funding method, transition manager, reporting, restrictions and billing. Includes a client-structure lens and servicing ownership.
+  3. **Multi-agent system**: what each agent does, what it hands off and where people decide.
+  4. **Agent run**: an animated run that pauses after each agent and keeps every agent's output on the same screen.
+  5. **Workflow & risk**: a single-screen console for the onboarding team. Set five requirement areas to Low, Medium or High and see the onboarding duration in business days (by phase), each issue's impact in onboarding days and the reviews it needs, and which team does what. Onboarding days use the longest parallel workstream, not the sum.
+- Seven agent roles: Context, Precedent, Operational risk, Investment risk, Playbook, Key players (who owns what, who is blocked, who acts next, which contacts are missing) and Evidence Review.
 - A corpus of 54 source records, 157 passages and 12 historical clients.
 - Synthetic PDFs, including the draft IMA, investment policy, transfer list, operating guidance and case records, under `docs/synthetic-pdfs/`.
 - Two human checkpoints: confirm client context and review the proposed plan.
@@ -30,6 +32,8 @@ Open <http://localhost:8000>. The current workspace uses prepared agent outputs 
 | Path | Purpose |
 | --- | --- |
 | `prepared-release/` | Current standalone browser experience |
+| `prepared-release/onboarding-model.js` | Shared framework, attributes, Alpenridge task plan and schedule, escalation paths, book of onboardings |
+| `prepared-release/status-view.js`, `framework-view.js` | Onboarding status and Onboarding framework tabs |
 | `prepared-release/corpus/` | Individual source records and emails |
 | `public/` | Frontend that also includes the live agent workspace |
 | `server/core.mjs` | Schemas, instructions, retrieval, calculations and validation |

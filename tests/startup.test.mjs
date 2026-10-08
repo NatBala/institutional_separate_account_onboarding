@@ -40,11 +40,21 @@ function openWorkspace(saved={}) {
 
 test('published scripts start for new and returning users and every saved view',()=>{
   // Retired views from earlier releases must fall back to the first tab.
-  const views=['system','run','workflow','live','riskmap','brief'];
+  const views=['status','framework','system','run','workflow','live','riskmap','brief'];
   for(const scenario of ['initial','clarified','cash'])for(const view of views){
     const w=openWorkspace({view,scenario});assert.match(w.app.innerHTML,/Separate Account/);
     assert.match(w.app.innerHTML,/Multi-agent system/);assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace/);
-    w.click(w.document,{view:'system'});assert.match(w.app.innerHTML,/Operational risk agent/);assert.match(w.app.innerHTML,/Investment risk agent/);
+    w.click(w.document,{view:'status'});const st=w.document.getElementById('st-root');
+    assert.match(st.innerHTML,/Operator view/);assert.match(st.innerHTML,/PAPERWORK/);assert.match(st.innerHTML,/Issues affecting the timeline/);
+    for(const tab of ['deps','players','oblig','tasks'])w.click(st,{stTab:tab});
+    w.click(st,{stSimDays:'5'});w.click(st,{stTab:'deps'});assert.match(st.innerHTML,/Who gets notified/);
+    w.click(st,{stPersona:'leadership'});assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);
+    w.click(st,{stPersona:'operator'});
+    w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
+    assert.match(fw.innerHTML,/Client structure lens/);assert.match(fw.innerHTML,/Beneficial owner review/);
+    w.click(fw,{fwProfile:'omnibus'});assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
+    w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
+    w.click(w.document,{view:'system'});assert.match(w.app.innerHTML,/Operational risk agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/Key players agent/);
     w.click(w.document,{view:'run'});assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'workflow'});const root=w.document.getElementById('wr-root');
     assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date/i);
@@ -52,6 +62,7 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{tab:'team'});assert.match(root.innerHTML,/Accept mandate annexes/);
     w.click(root,{highlight:'all'});assert.match(root.innerHTML,/Portfolio management/);
     w.click(root,{tab:'math'});assert.match(root.innerHTML,/Add the longest workstream, not the sum/);
+    w.click(root,{tab:'area'});assert.match(root.innerHTML,/Impact:/);
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);
   }
 });
@@ -76,7 +87,7 @@ test('Run agents progresses to context and planning checkpoints',()=>{
   w.click(root,{runAction:'confirm-context'});
   for(let i=0;i<40&&!root.innerHTML.includes('Review the working planning draft');i++)w.click(root,{runAction:'step'});
   assert.match(root.innerHTML,/Review the working planning draft/);
-  assert.match(root.innerHTML,/Agent outputs · 6 of 6 ready/);
+  assert.match(root.innerHTML,/Agent outputs · 7 of 7 ready/);
 });
 
 test('playback pauses after each agent and keeps its output',()=>{
@@ -85,6 +96,26 @@ test('playback pauses after each agent and keeps its output',()=>{
   const drain=()=>{for(let i=0;i<40;i++){const [id,fn]=[...w.timers][0]||[];if(!id)return;w.timers.delete(id);fn();}};
   drain();assert.match(root.innerHTML,/Operations confirms the client context/);
   w.click(root,{runAction:'confirm-context'});drain();
-  assert.match(root.innerHTML,/Precedent agent finished/);assert.match(root.innerHTML,/Agent outputs · 2 of 6 ready/);
+  assert.match(root.innerHTML,/Precedent agent finished/);assert.match(root.innerHTML,/Agent outputs · 2 of 7 ready/);
   w.click(root,{runAction:'play'});drain();assert.match(root.innerHTML,/risk agent finished/);
+});
+
+test('Alpenridge status: RAG by stage, issue impact on the funding date, delay cascade',()=>{
+  const {context}=openWorkspace();const O=context.window.SA_ONBOARD;const s=O.schedule();
+  assert.equal(s.stages.map(x=>x.rag).join(),'green,amber,amber,red,grey');
+  assert.equal(s.funded-s.target,3,'overdue restriction confirmation moves funding three business days');
+  assert.equal(O.impact('P1'),3);assert.equal(O.impact('O4'),0,'a late task with slack does not move funding');
+  assert.equal(s.map.P2.status,'blocked');assert.equal(s.map.P1.status,'overdue');
+  assert.equal(O.criticalChain(s).map(r=>r.id).slice(0,5).join(),'I1,I5,P1,P2,P6');
+  const d=O.schedule(O.TASKS,{extra:{P6:5}});assert.equal(d.funded,s.funded+5);
+  const path=O.escalation(s.map.P1,s);assert(path[0].hit&&path.at(-1).hit,'funding date moved, so leadership is notified');
+  assert.equal(O.book().length,14);
+});
+
+test('one framework, many variations',()=>{
+  const {context}=openWorkspace();const O=context.window.SA_ONBOARD;
+  for(const p of O.PROFILES){const r=O.configure(p.cfg);assert.equal(r.acts.length,10);assert(r.servicing.service);}
+  const sa=O.configure(O.PROFILES[0].cfg);assert.equal(sa.conflicts.length,0);
+  const cit=O.configure({...O.PROFILES[0].cfg,vehicle:'cit'});assert(cit.conflicts.some(c=>/pooled/.test(c)));
+  const tm=O.configure({...O.PROFILES[0].cfg,funding:'inkind',tm:'yes'});assert(tm.acts.find(a=>a.id==='funding').changes.some(c=>/transition manager/i.test(c.text)));
 });

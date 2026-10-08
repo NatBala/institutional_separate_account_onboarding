@@ -1,7 +1,7 @@
 /* Presentation state machine. Agent invocations are simulated; search and checks execute locally. */
 (function(){
 const E=window.AGENT_DEMO;
-const roles=[['A1','Context agent','Interpret client intent'],['A2','Precedent agent','Find useful past cases'],['A3','Operational risk agent','Assess service, funding, readiness and legal risks'],['A4','Investment risk agent','Interpret restrictions and test their portfolio impact'],['A5','Playbook agent','Compose the workflow'],['A6','Evidence reviewer','Challenge unsupported claims']].map(([id,name,purpose])=>({id,name,purpose}));
+const roles=[['A1','Context agent','Interpret client intent'],['A2','Precedent agent','Find useful past cases'],['A3','Operational risk agent','Assess service, funding, readiness and legal risks'],['A4','Investment risk agent','Interpret restrictions and test their portfolio impact'],['A5','Playbook agent','Compose the workflow'],['A6','Key players agent','Map who owns, who is blocked, who acts next'],['A7','Evidence reviewer','Challenge unsupported claims']].map(([id,name,purpose])=>({id,name,purpose}));
 const scenes=['initial','clarified','cash'];
 // Three standard opening events at 3 seconds each give the audience about
 // nine seconds to follow the request before the first human checkpoint.
@@ -24,6 +24,7 @@ function mainEvents(scene){return [
  event('rule-output','A4','output','Investment risk assessed and handed off','Policy intent may be coded incorrectly until the tobacco operator and coal definition are approved. Legal / FI PC / client interpretation remains an explicit task.',{artifact:'rules',riskIds:['R2'],done:['A4'],evidence:['H08-G§3','O03§2']}),
  event('risk-complete','A3','output','Risk register completed','Readiness uncertainty and missing authoritative legal evidence remain visible. No numerical probability is invented.',{artifact:'risks',riskIds:['R4','R5'],done:['A3'],evidence:['O04§2','O05§2'],duration:3000}),
  ...planEvents(),
+ ...playersEvents(),
  ...criticEvents(),
  event('planning-gate','H2','gate','Human review of the proposed route','Inspect the evidence, challenge a precedent, and accept a working planning draft with unresolved decisions recorded.',{gate:'plan',duration:0})
  ];}
@@ -33,10 +34,14 @@ function planEvents(){return [
  event('plan-setup','A5','output','Connect parallel preparation work','Draft annexes, test the sample, validate rules and investigate operational readiness with explicit dependencies.',{artifact:'workflow',phases:['Paperwork','Operational setup'],duration:2800}),
  event('plan-complete','A5','output','Complete the five-phase proposal','Add human scope/funding decisions and first-cycle validation. Timing remains an owner-reviewed planning assumption.',{artifact:'workflow',phases:['Funding','Post-funding'],done:['A5'],duration:3200})
  ];}
+function playersEvents(){return [
+ event('players-call','A6','call','Key players agent receives the proposed route','Map every requirement and task to an accountable internal owner, an external contact and an escalation point.',{active:['A6'],handoff:'Proposed route → Key players agent'}),
+ event('players-output','A6','output','Accountability map ready','Who owns what, who is blocked, who must act next, and which contacts are missing from the onboarding package.',{artifact:'players',done:['A6'],evidence:['N01§1','N05§2','N06§1','N03§3'],duration:3400})
+ ];}
 function criticEvents(){return [
- event('critic-call','A6','call','Evidence reviewer checks the handoffs','Check source authority, counterexamples, interpretation boundaries and the workflow dependencies.',{active:['A6'],handoff:'Proposed route → Evidence reviewer'}),
- event('critic-findings','A6','output','Unsupported shortcuts challenged','A historical service is not current capability; 4/5 is not an 80% forecast; prior coal wording is not current-client authority.',{artifact:'critic',evidence:['H05-S§1','O01§1','H08-G§3'],duration:3400}),
- event('critic-complete','A6','output','Draft ready for human judgment','The working plan carries its evidence and open decisions. No contract, service or investment approval is inferred.',{done:['A6'],artifact:'review',duration:2200})
+ event('critic-call','A7','call','Evidence reviewer checks the handoffs','Check source authority, counterexamples, interpretation boundaries and the workflow dependencies.',{active:['A7'],handoff:'Accountability map + proposed route → Evidence reviewer'}),
+ event('critic-findings','A7','output','Unsupported shortcuts challenged','A historical service is not current capability; 4/5 is not an 80% forecast; prior coal wording is not current-client authority.',{artifact:'critic',evidence:['H05-S§1','O01§1','H08-G§3'],duration:3400}),
+ event('critic-complete','A7','output','Draft ready for human judgment','The working plan carries its evidence and open decisions. No contract, service or investment approval is inferred.',{done:['A7'],artifact:'review',duration:2200})
  ];}
 function updateEvents(before,after){const refs=after==='clarified'?['N07§1','N07§2']:['N08§1','N08§2'];return [
  event('new-evidence','A1','call','New client evidence invalidates the prior draft',after==='clarified'?'The client accepts Tuesday holdings and monthly analytics.':'The client proposes all-cash inception and separately reviewed later derivatives.',{active:['A1'],evidence:refs,handoff:'New client email → Context agent',duration:3000}),
@@ -46,7 +51,7 @@ function updateEvents(before,after){const refs=after==='clarified'?['N07§1','N0
  event('delta-cases','A2','output','Relevant precedent reassessed','The unchanged restriction comparison remains reusable. Reusing evidence does not approve the investment terms.',{artifact:'cases',done:['A2'],evidence:after==='clarified'?['N07§1','O01§1','H05-S§1']:['N08§1','O04§2','H03-T§2']}),
  event('delta-risk-call','A3','call','Operational risk agent reassesses the affected conclusions','Current requirements and dependencies determine which watch areas change.',{active:['A3'],handoff:'Revised context + evidence → Operational risk agent'}),
  event('delta-risk-output','A3','output','Risk register revised',after==='clarified'?'The reporting mismatch reduces; annex alignment and feed validation remain.':'In-kind screening leaves inception; derivative activation gets a separate route; ESG purchase checks remain.',{artifact:'risks',riskIds:['R1','R2','R3','R4','R5'],done:['A3'],evidence:refs,duration:3400}),
- ...planEvents(),...criticEvents(),
+ ...planEvents(),...playersEvents(),...criticEvents(),
  event('delta-review','H2','gate','Review the revised planning draft','Prior acceptance is superseded. Review the changes and preserve the unresolved legal, service and investment decisions.',{gate:'plan',duration:0})
  ];}
 function challengeEvents(){return [
@@ -55,12 +60,12 @@ function challengeEvents(){return [
  event('challenge-evidence','A2','output','Success is preserved as counterevidence','Rhinebridge agreed to weekly holdings and monthly analytics in week 1. Its success supports early scope agreement.',{artifact:'challenge',done:['A2'],evidence:['H05-S§1','H05-S§2'],duration:3400}),
  event('challenge-risk','A3','call','Operational risk agent reviews the challenge','A successful scope change does not establish support for the originally requested weekly attribution.',{active:['A3'],handoff:'Accepted service evidence → Operational risk agent'}),
  event('challenge-result','A3','output','Recommendation clarified','Keep the preventive-action precedent; preserve current capability limits and current-client validation requirements.',{artifact:'risks',riskIds:['R1','R2','R3','R4','R5'],done:['A3'],evidence:['H05-S§1','O01§1'],duration:3000}),
- ...planEvents(),...criticEvents(),
+ ...planEvents(),...playersEvents(),...criticEvents(),
  event('challenge-review','H2','gate','Human review after the challenge','The draft now explicitly carries the successful precedent and the limit on its reuse.',{gate:'plan',duration:0})
  ];}
 function create(context,mode='full',previous=null){
  const scene=context.scenario||'initial';
- const s={scene,revision:context.revision,mode,cursor:-1,playing:false,gate:null,accepted:false,challenged:mode==='challenge'||Boolean(previous?.challenged),speed:previous?.speed||1,stepByAgent:previous?previous.stepByAgent!==false:true,completed:[],focus:null,event:null,events:mode==='update'?updateEvents(previous.scene,scene):mode==='challenge'?challengeEvents():mainEvents(scene),status:Object.fromEntries(roles.map(r=>[r.id,'queued'])),outputs:{riskIds:[],phases:[],searches:[],context:false,cases:false,clauses:false,tests:false,rules:false,critic:false,review:false,challenge:false},log:[],rounds:previous?[...(previous.rounds||[]),{scene:previous.scene,revision:previous.revision,events:previous.log}]:[],before:previous?{scene:previous.scene,revision:previous.revision,risks:E.risks(previous.scene,context.excluded||[]).map(r=>({id:r.id,status:r.status})),tasks:E.workflow(previous.scene).map(t=>t.id)}:null,context};
+ const s={scene,revision:context.revision,mode,cursor:-1,playing:false,gate:null,accepted:false,challenged:mode==='challenge'||Boolean(previous?.challenged),speed:previous?.speed||1,stepByAgent:previous?previous.stepByAgent!==false:true,completed:[],focus:null,event:null,events:mode==='update'?updateEvents(previous.scene,scene):mode==='challenge'?challengeEvents():mainEvents(scene),status:Object.fromEntries(roles.map(r=>[r.id,'queued'])),outputs:{riskIds:[],phases:[],searches:[],context:false,cases:false,players:false,clauses:false,tests:false,rules:false,critic:false,review:false,challenge:false},log:[],rounds:previous?[...(previous.rounds||[]),{scene:previous.scene,revision:previous.revision,events:previous.log}]:[],before:previous?{scene:previous.scene,revision:previous.revision,risks:E.risks(previous.scene,context.excluded||[]).map(r=>({id:r.id,status:r.status})),tasks:E.workflow(previous.scene).map(t=>t.id)}:null,context};
  if(mode!=='full'){s.status.A4='reused';s.outputs.clauses=true;s.outputs.tests=true;s.outputs.rules=true;s.testResults=previous?.testResults||E.ruleChecks();if(mode==='challenge'){s.status.A1='reused';s.outputs.context=true;}}
  return s;
 }

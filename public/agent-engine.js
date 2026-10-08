@@ -52,6 +52,27 @@ function workflow(s='initial'){
  else rows.push(['T14','Post-funding','Review separate derivative activation readiness','PM + Legal + Operations','Proposed day 30; subject to readiness',['T09','T12'],'Do not treat the client’s day-30 proposal as an automatic activation date.',['N08§1','O04§2']]);
  return rows.map(([id,phase,task,owner,timing,depends,why,evidence])=>({id,phase,task,owner,timing,depends,why,evidence,status:'Proposed; human review required'}));
 }
+// Key players agent: who is accountable for each responsibility, who is blocked, who acts next, and which contacts are missing.
+function players(s='initial'){
+ const later=s!=='initial';
+ const rows=[
+  {area:'Relationship & client communication',internal:'Maya Shah, Client RM',team:'Client RM',ext:later?'Elena Weber, client investment office':'Client investment office (contact not yet named)',escalation:'Head of Institutional Relationships',evidence:['N01§1',...(later?['N07§1']:[])],gap:!later},
+  {area:'Plan coordination',internal:'GCS Operations onboarding lead',team:'GCS Operations',ext:'—',escalation:'Head of Institutional Onboarding',evidence:['N05§2']},
+  {area:'Contracting: IMA and annexes',internal:'Mandate counsel',team:'Legal',ext:'Client legal counsel (not named in the package)',escalation:'Head of Legal, Institutional',evidence:['N02§4',...(later?['N07§2']:[])],gap:true},
+  {area:'Investment restrictions',internal:'FI Portfolio Control; FI PAG for the investment discussion',team:'FI PC',ext:later?'Elena Weber; trustees approve the policy':'Client investment office; trustees approve the policy',escalation:'Head of FI Portfolio Control',evidence:['N05§2','N03§3']},
+  {area:'Reporting',internal:'Client Reporting',team:'Client Reporting',ext:'Client investment office; Orion Custody service team for the feed',escalation:'Head of Client Reporting',evidence:['N01§2','N06§1']},
+  {area:'Funding',internal:'Transition Management',team:'Operations & Transition',ext:s==='cash'?'Client; outgoing manager keeps the legacy securities':'Client; Orion Custody for the transfer file',escalation:'Head of Investment Operations',evidence:s==='cash'?['N08§1']:['N04§1','N06§2']},
+  {area:'Derivatives readiness',internal:'PM with Legal and Operations',team:'Portfolio management',ext:'Counterparties and brokers (not yet identified)',escalation:'Head of Investment Operations',evidence:['O04§2'],gap:true},
+  {area:'Legal applicability',internal:'Legal',team:'Legal',ext:'—',escalation:'Head of Legal, Institutional',evidence:['O05§2']},
+  {area:'AML/KYC & beneficial owners',internal:'AML/KYC Compliance',team:'AML/KYC Compliance',ext:'Foundation signatories (no KYC documents in the package)',escalation:'AML Officer',evidence:[],gap:true},
+  {area:'Billing',internal:'Billing team',team:'Billing',ext:'Client finance (not named in the package)',escalation:'Head of Billing Operations',evidence:[],gap:true},
+  {area:'Ongoing servicing',internal:'Maya Shah, Client RM',team:'Client RM',ext:'Investment consultant (unnamed), copied; trustees',escalation:'Head of Client Service',evidence:['N01§2'],gap:true}
+ ];
+ const tasks=workflow(s),open=new Set(tasks.filter(t=>t.phase==='Intake').map(t=>t.id));open.delete('T01');
+ const actNow=tasks.filter(t=>t.depends.every(d=>d==='T01')&&t.id!=='T01').map(t=>({id:t.id,who:t.owner,task:t.task}));
+ const blocked=tasks.filter(t=>t.depends.some(d=>open.has(d))).map(t=>({id:t.id,who:t.owner,task:t.task,waits:t.depends.filter(d=>open.has(d))}));
+ return {rows,actNow,blocked,gaps:rows.filter(r=>r.gap).map(r=>r.ext)};
+}
 const checks=[
  {claim:'A previous Swiss client proves weekly attribution is available.',verdict:'Unsupported',correction:'H05 accepted weekly holdings and monthly analytics. Current O01 governs capability.',evidence:['H05-S§1','O01§1']},
  {claim:'There is an 80% probability that this onboarding will be delayed.',verdict:'Unsupported',correction:'4/5 is reporting-rework incidence in a small selected synthetic cohort, not a calibrated new-client probability or launch-delay forecast.',evidence:['H01-E§3','H04-E§3','H05-E§3','H06-E§3','H10-E§3']},
@@ -65,7 +86,8 @@ function trace(s='initial',excluded=[]){return [
  {id:'A3',name:'Operational risk agent',capability:'Infer mechanisms and challenge with counterevidence',input:['A1','A2','O01','O03','O04','O05'],output:{risks:risks(s,excluded),cohort:cohort(excluded),forecast_limit:'No calibrated probability or committed completion date.'}},
  {id:'A4',name:'Investment risk agent',capability:'Translate intent into reviewable implementation options',input:['N02','N03','H02-G','H08-G','O03','N04'],output:{tobacco_options:['>5% follows the draft; exactly 5% is not excluded.','≥5% follows the client policy; exactly 5% is excluded.'],coal:'Unresolved: activity, operator, threshold, mapping and provider must be decided.',candidate:'Only for illustration after human selection: tobacco >=5; coal extraction >=10; missing or >30-day data => review.',conditional_impact:'20m excluded + 10m review, under that unapproved illustration.',evidence:['H02-G§1','H08-G§3','N04§2','O03§3']}},
  {id:'A5',name:'Playbook agent',capability:'Compose a route from interacting constraints',input:['A1','A3','A4'],output:{tasks:workflow(s),schedule:'Relative planning windows for owner review, not predicted durations.',changes:s==='initial'?['Bring reporting and guideline interpretation into intake.','Run feed testing and readiness discovery in parallel.']:s==='clarified'?['Replace reporting scope negotiation with annex alignment and sample acceptance.','Keep transfer, guideline and derivative decisions.']:['Remove the in-kind screen from the inception route.','Separate later derivative readiness from cash-bond inception.','Keep ESG rule validation for new purchases.']}},
- {id:'A6',name:'Evidence reviewer',capability:'Check authority, unsupported claims and dependencies',input:['A1–A5','cited passages'],output:{checks,decision:'Draft ready for human review; unresolved decisions remain.',automation_boundary:'No external messages, Appian tasks, contract execution or investment instructions.'}}
+ {id:'A6',name:'Key players agent',capability:'Map accountability, blockers and contacts',input:['A1','A5','N01','N03','N05','N06',...(s==='cash'?['N08']:[])],output:players(s)},
+ {id:'A7',name:'Evidence reviewer',capability:'Check authority, unsupported claims and dependencies',input:['A1–A6','cited passages'],output:{checks,decision:'Draft ready for human review; unresolved decisions remain.',automation_boundary:'No external messages, Appian tasks, contract execution or investment instructions.'}}
  ];}
 function screen({tobacco,coal,age=0,mapping=true}){
  if(!mapping||tobacco==null||coal==null||age==null||age>30)return 'REVIEW';
@@ -83,5 +105,5 @@ function ruleChecks(){return [
  {name:'Stale data',input:{tobacco:0,coal:0,age:31},expected:'REVIEW'},
  {name:'Unresolved mapping',input:{tobacco:0,coal:0,mapping:false},expected:'REVIEW'}
  ].map(t=>({...t,actual:screen(t.input)}));}
-window.AGENT_DEMO={dates,retrieve,get,eligible,queries,cases,cohort,risks,workflow,trace,checks,screen,ruleChecks};
+window.AGENT_DEMO={dates,retrieve,get,eligible,queries,cases,cohort,risks,workflow,players,trace,checks,screen,ruleChecks};
 })();
