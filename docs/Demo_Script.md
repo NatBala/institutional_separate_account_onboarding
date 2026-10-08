@@ -125,7 +125,7 @@ Each scene has three parts. **Click** says what to do on screen. **Say** is sugg
 
 **Point to the flow:** Context → H1 human check → Precedent → Operational risk and Investment risk in parallel → Playbook → **Key players** (new) → Evidence reviewer → H2 human review. If someone asks for detail, open *What each agent does*.
 
-**Click:** **Run agents**. Keep *Pause after each agent* ticked and the speed at *Standard 1×*.
+**Click:** scroll below the diagram and click **Run agents**. Keep *Pause after each agent* ticked and the speed at *Standard 1×*.
 
 | When this appears | Say | Point to |
 |---|---|---|
