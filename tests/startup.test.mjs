@@ -39,31 +39,35 @@ function openWorkspace(saved={}) {
 }
 
 test('published scripts start for new and returning users and every saved view',()=>{
-  // Retired views from earlier releases must fall back to the first tab.
-  const views=['status','framework','system','run','workflow','live','riskmap','brief'];
+  // Views from earlier releases map onto the story tabs or fall back to the portfolio.
+  const views=['portfolio','status','requirements','plan','whatif','framework','system','run','workflow','live','riskmap','brief'];
   for(const scenario of ['initial','clarified','cash'])for(const view of views){
-    const w=openWorkspace({view,scenario});assert.match(w.app.innerHTML,/Separate Account/);
-    assert.match(w.app.innerHTML,/Multi-agent system/);assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace/);
-    w.click(w.document,{view:'status'});const st=w.document.getElementById('st-root');
-    assert.match(st.innerHTML,/Operator view/);assert.match(st.innerHTML,/PAPERWORK/);assert.match(st.innerHTML,/Issues affecting the timeline/);
-    for(const tab of ['deps','players','oblig','tasks'])w.click(st,{stTab:tab});
-    w.click(st,{stSimDays:'5'});w.click(st,{stTab:'deps'});assert.match(st.innerHTML,/Who gets notified/);
-    w.click(st,{stPersona:'leadership'});assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);
-    w.click(st,{stPersona:'operator'});
-    w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
-    assert.match(fw.innerHTML,/Client structure lens/);assert.match(fw.innerHTML,/Beneficial owner review/);
-    w.click(fw,{fwProfile:'omnibus'});assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
-    w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
-    w.click(w.document,{view:'system'});assert.match(w.app.innerHTML,/Operational risk agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/Key players agent/);
-    w.click(w.document,{view:'run'});assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
-    w.click(w.document,{view:'workflow'});const root=w.document.getElementById('wr-root');
-    assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date/i);
+    const w=openWorkspace({view,scenario});
+    assert.match(w.app.innerHTML,/Onboarding portfolio/);assert.match(w.app.innerHTML,/Alpenridge Pension Foundation/);assert.match(w.app.innerHTML,/One framework, many variations/);
+    assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab/);
+    w.click(w.document,{view:'portfolio'});const st=w.document.getElementById('st-root');
+    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/Open Alpenridge/);
+    w.click(w.document,{view:'status'});
+    assert.match(st.innerHTML,/PAPERWORK/);assert.match(st.innerHTML,/Issues affecting the timeline/);assert.match(st.innerHTML,/Who acts next/);assert.match(st.innerHTML,/Escalation and communication/);
+    w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
+    w.click(w.document,{view:'requirements'});
+    assert.match(st.innerHTML,/What the client asked for/);assert.match(st.innerHTML,/Contractual obligations/);assert.match(st.innerHTML,/Key players/);
+    w.click(w.document,{view:'plan'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);
+    assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
+    w.click(w.document,{view:'whatif'});assert.match(st.innerHTML,/If a task slips/);
+    w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
+    const root=w.document.getElementById('wr-root');
+    assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date|Just added/i);
     assert.match(root.innerHTML,/What this level means/);assert.match(root.innerHTML,/Why \+/);
     w.click(root,{tab:'team'});assert.match(root.innerHTML,/Accept mandate annexes/);
     w.click(root,{highlight:'all'});assert.match(root.innerHTML,/Portfolio management/);
     w.click(root,{tab:'math'});assert.match(root.innerHTML,/Add the longest workstream, not the sum/);
     w.click(root,{tab:'area'});assert.match(root.innerHTML,/Impact:/);
-    w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);
+    w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
+    w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
+    assert.match(fw.innerHTML,/Client structure lens/);assert.match(fw.innerHTML,/Beneficial owner review/);
+    w.click(fw,{fwProfile:'omnibus'});assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
+    w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
   }
 });
 

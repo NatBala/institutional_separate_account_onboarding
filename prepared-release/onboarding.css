@@ -7,10 +7,6 @@
 .st-rag{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;border-radius:4px;padding:3px 8px;white-space:nowrap}
 .st-rag i{font-style:normal;font-size:.72rem}
 .st-green{background:var(--rag-green-bg);color:var(--rag-green)}.st-amber{background:var(--rag-amber-bg);color:var(--rag-amber)}.st-red{background:var(--rag-red-bg);color:var(--rag-red)}.st-grey{background:var(--rag-grey-bg);color:var(--rag-grey)}
-.st-persona{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-.st-persona button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 16px;text-align:left;color:var(--ink);font-weight:700}
-.st-persona button small{display:block;font-weight:400;color:var(--muted);font-size:.8rem;margin-top:2px}
-.st-persona button.active{border-color:var(--teal);box-shadow:inset 0 -3px 0 var(--teal);background:#f3fbfb}
 .st-account{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:9px;padding:18px 22px;margin-bottom:14px}
 .st-account h2{margin:6px 0 8px;font-size:1.35rem;letter-spacing:-.02em}
 .st-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0}.st-tags span{font-size:.78rem;background:#eef4f7;border-radius:4px;padding:3px 8px;color:#395b70}
@@ -98,6 +94,15 @@
 .st-check{width:20px;height:20px;border-radius:4px;display:grid;place-items:center;font-size:.75rem;font-weight:800}
 .st-c-green{background:var(--rag-green-bg);color:var(--rag-green)}.st-c-amber{background:var(--rag-amber-bg);color:var(--rag-amber)}.st-c-grey{background:var(--rag-grey-bg);color:var(--rag-grey)}
 .st-how{font-size:.82rem;background:#f5f8fa;border-radius:6px;padding:9px 11px;margin:10px 0 0;line-height:1.5}
+/* Story navigation and page sections */
+.nav-group{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:#7f9bad;font-weight:700;margin:14px 12px 2px}
+.nav-group:first-child{margin-top:0}
+.st-next{background:#fff;border:1px solid var(--line);border-radius:9px;padding:14px 16px;margin-bottom:16px}.st-next h3{font-size:1rem;margin:0 0 10px}.st-next .st-who{margin:0}
+.st-req td:first-child{width:150px}.st-req td{font-size:.86rem}
+.st-main>h3,.st-deps>h3{font-size:1.05rem;margin:0 0 4px}
+.wi-head{margin:26px 0 12px}.wi-head h2{font-size:1.05rem;margin:0 0 4px}.wi-head p{margin:0;color:var(--muted);font-size:.9rem}
+.sys-compact .split{align-items:baseline;flex-wrap:wrap}.sys-compact h2{margin:0 0 12px}
+.sys-more{margin-top:14px}.sys-more summary{cursor:pointer;font-weight:700;color:var(--teal);font-size:.9rem}.sys-more .sys-cards{margin-top:14px}
 /* Leadership */
 .st-lead>.eyebrow{margin-bottom:10px}
 .st-lead-kpis{grid-template-columns:repeat(5,minmax(0,1fr))}.st-lead-kpis strong small{font-size:.8rem;font-weight:500;color:var(--muted);letter-spacing:0}
