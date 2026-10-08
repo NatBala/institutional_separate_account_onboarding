@@ -50,12 +50,16 @@ test('published scripts start for new and returning users and every saved view',
     w.click(w.document,{view:'agents'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/data-start/);
     assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'output'});
-    for(const part of [/Produced by/,/PAPERWORK/,/Issues affecting the timeline/,/Who acts next/,/Escalation and communication/,/What the client asked for/,/Contractual obligations/,/Key players/,/What-if: if a task slips/])assert.match(st.innerHTML,part);
-    assert.match(w.app.innerHTML,/What-if: if the client’s requirements change/);
-    w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
-    w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);assert.match(st.innerHTML,/Thu 26 Nov<\/strong>/,'the plan & status section ignores the what-if');
+    // One screen: six cards with headline facts, no detail until a card is opened.
+    for(const part of [/Funding forecast/,/Client requirements/,/Obligations/,/Risks &amp; date impact/,/Plan &amp; status/,/Key players/,/What-if/,/Context agent/,/Key players agent/,/\+3 days<small>to onboarding/])assert.match(st.innerHTML,part);
+    assert.doesNotMatch(st.innerHTML,/ob-drawer|Escalation and communication|What the client asked for/);
+    const open=(id,re)=>{w.click(st,{stOpen:id});assert.match(st.innerHTML,/ob-drawer/);assert.match(st.innerHTML,re);};
+    open('req',/What the client asked for/);open('oblig',/Contractual obligations/);open('risk',/Risk register handed over by the risk agents/);
+    open('plan',/Escalation and communication/);w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
+    open('players',/Who acts next/);
+    open('whatif',/If a task slips/);w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
     w.click(st,{stSim:'O4'});assert.match(st.innerHTML,/Unchanged: the delay is absorbed by slack/);
-    const root=w.document.getElementById('wr-root');
+    const root=st.querySelector('#wr-root');
     assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date|Just added/i);
     assert.match(root.innerHTML,/What this level means/);assert.match(root.innerHTML,/Why \+/);
     w.click(root,{tab:'team'});assert.match(root.innerHTML,/Accept mandate annexes/);
@@ -63,6 +67,7 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{tab:'math'});assert.match(root.innerHTML,/Add the longest workstream, not the sum/);
     w.click(root,{tab:'area'});assert.match(root.innerHTML,/Impact:/);
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
+    w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
     assert.match(fw.innerHTML,/Client structure lens/);assert.match(fw.innerHTML,/Beneficial owner review/);
     w.click(fw,{fwProfile:'omnibus'});assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);

@@ -8,7 +8,7 @@ The full walkthrough takes about 25 minutes. A 10-minute version is near the end
 |---|---|---|---|
 | 1 | 01 Onboarding portfolio | The whole book, and why Alpenridge needs help | 3 min |
 | 2 | 02 Multi-agent system | The seven agents, then running them live | 10 min |
-| 3 | 03 Agent output | What the agents produced, and how the plan is tracking | 8 min |
+| 3 | 03 Agent output | One screen: six cards, one per output; open any card for the detail | 8 min |
 | + | 04 One framework, many variations | How the same approach covers every client structure | 3 min |
 
 Each scene has three parts:
@@ -110,83 +110,72 @@ Leave *Pause after each agent* ticked and the speed at *Standard 1×*. The run p
 
 ## Scene 5 · Agent output (8 minutes)
 
-**Screen:** 03 Agent output. Jump links at the top take you to each section. Each section is tagged *Produced by …* with the agent that made it.
+**Screen:** 03 Agent output. It fits on one screen:
+- a headline band at the top;
+- six cards below it, in the order the agents ran;
+- on each card, the agent that produced it and two or three headline facts.
 
-**Say (bridge):**
-> "The agents built this plan in mid-September, and the team has worked it since. This is where it stands on Thursday 8 October."
+**Click** a card to open its full detail in a side panel. **Next →** steps to the next output, **←** goes back, and **Esc** or **×** returns to the board.
 
-### 5a · Plan & status *(Playbook agent + Key players agent)*
+**Say (bridge, pointing at the band):**
+> "The agents built this plan in mid-September, and the team has worked it since. Here's the headline as of Thursday 8 October. Funding is forecast for Thursday 26 November, three business days after the client's date. Intake is done, Paperwork and Ops setup are at risk, and Funding is off track."
 
-> "Here's the 30-second read. The client asked for funding on Monday 23 November. We now forecast Thursday 26 November, three business days late. There are 14 open tasks: two overdue and two blocked."
+**Say (walking the six cards without opening them, about 1 minute):**
+> "These are the six things the agents produced:
+> - the client requirements: eight extracted, two still waiting on the client;
+> - the obligations: seven contractual and six non-contractual;
+> - one open risk that costs three days;
+> - the plan and its status;
+> - nine responsibilities, each with an owner, a contact and an escalation point;
+> - and a what-if: if the IMA signing slips five days, funding moves to 3 December."
 
-**Stage cards** (each shows the owner, team and escalation point):
+Then open the cards in order. **Next →** in the panel keeps you on track.
 
-| Stage | Status |
-|---|---|
-| Intake | 🟢 Complete |
-| Paperwork | 🟡 At risk |
-| Ops setup | 🟡 At risk |
-| Funding | 🔴 Off track |
-| Post-funding | ⚪ Not started |
+### Card 1 · Client requirements *(A1 Context agent)*
+> "This is the client requirement the Context agent extracted: what the client asked for, and where each ask stands now. Every line has a source."
 
-> "Funding is red because the client's date will be missed. We allow no tolerance on funding, because that date is a commitment to the client."
-
-**Issues affecting the timeline:**
-> "This is the issue the agents flagged on day one. The tobacco and coal restriction is still unclear. It adds three onboarding days, and clearing it needs a Legal review, a Portfolio Control review and a clarification from the client. Next to it, system records are three days overdue but have no effect on the date, because there's slack in the work that follows."
-
-**Who acts next:**
-- Elena Weber at the client needs to act on P1.
-- Mandate counsel is blocked on Schedule A until P1 comes in.
-- Elena Weber is also the person we need to contact.
-
-**Drill-down, with P1 on the right:**
-> "P1 was due on 6 October, and 15 later tasks are waiting on it. Here's the escalation so far. The owner flagged it. The onboarding lead was told when it was one day overdue. The RM is chasing at two days. Next, the client is told about the date impact on Friday 9 October. The Head of Onboarding already knows, because the funding date has moved."
-
-### 5b · Requirements & obligations *(Context agent + Evidence reviewer)*
-
-> "This is the client requirement the Context agent extracted: what the client asked for, and where each request stands now. Every line has a source."
-
-**Point to:**
+Point to these rows:
 - Reporting: agreed on 15 Sep.
 - Tobacco and coal: 2 days overdue.
-- Funding and derivatives: both changed on 16 Sep.
+- Funding and derivatives: changed on 16 Sep.
 
-**Obligations:**
-> "Contractual obligations are the ones written into the IMA, Schedule A and the service annex. Missing one is a breach. Portfolio Control monitors them, and changing one needs Legal. Non-contractual expectations are a relationship risk instead. The RM owns those and can renegotiate them."
+### Card 2 · Obligations *(A1 Context agent + A7 Evidence reviewer)*
+> "Contractual obligations are the ones in the IMA, Schedule A and the service annex. Missing one is a breach. Portfolio Control monitors them, and any change needs Legal. Non-contractual expectations are a relationship risk. The RM owns those and can renegotiate them."
 
-### 5c · Key players *(Key players agent)*
+### Card 3 · Risks & date impact *(A3 Operational risk + A4 Investment risk agents)*
+> "This is the issue the agents flagged on day one. The tobacco and coal restriction is still unclear. It adds three onboarding days, and it needs a Legal review, a Portfolio Control review and a client clarification. Next to it, system records are three days overdue but have no effect on the date, because there's slack after them. Underneath is the full risk register the agents handed over."
 
-> "For each responsibility you can see the internal owner, the external contact, the escalation point and the next action. Servicing ownership is here too. After funding, Maya Shah services the account, the consultant is copied in, and the client's investment office gives instructions."
+### Card 4 · Plan & status *(A5 Playbook agent)*
+> "This is the plan the Playbook agent proposed, and where it stands. Each stage shows its owner, team and escalation point."
 
-### 5d · What-if: if a task slips *(Playbook agent)*
+Point to the P1 detail on the right:
+> "P1 was due on 6 October, and 15 later tasks are waiting on it. Here's the escalation so far. The owner flagged it. The onboarding lead was told at one day overdue. The RM is chasing at two days. *Next*, the client is told about the date impact, on Friday 9 October."
 
-**Point to the chain:**
+**Optional click:** the **FUNDING** stage card, to show the funding tasks and their dates.
 
-| Milestone | Forecast |
-|---|---|
-| Contract signed | Wed 28 Oct |
-| Funding setup | Wed 11 Nov |
-| Cash instructions | Wed 25 Nov |
-| Funded | Thu 26 Nov |
-| Trading | Tue 1 Dec |
-| Reporting | Thu 3 Dec |
+### Card 5 · Key players *(A6 Key players agent)*
 
-**Click:** the task is already set to **P6 · IMA executed**. Click **+5 days**.
-> "If the trustees need five more days to sign, funding moves to 3 December. Thirteen tasks move, and Paperwork and Ops setup turn red. And this shows who gets told, in what order."
+- **Who acts next.** Elena Weber at the client must act on P1. Mandate counsel is blocked until she does.
+- **The table.**
+  > "For each responsibility: the internal owner, the external contact, the escalation point and the next action. After funding, Maya Shah services the account, and the consultant is copied."
 
-**Optional:** choose **O4 · Create system records**, then click **+5 days**.
-> "The same delay on a task with slack after it doesn't move the date."
+### Card 6 · What-if *(A5 Playbook + A3/A4 risk agents)*
 
-### 5e · What-if: if the client's requirements change *(Operational + Investment risk agents)*
+**If a task slips.** The task is already set to **P6 · IMA executed**. Click **+5 days**.
+> "If the trustees need five more days to sign, funding moves to 3 December. Thirteen tasks move, and Paperwork and Ops setup turn red. And here's who gets told, in order."
 
-**Click:** **Start from evidence → 14 Sep · Initial request**. This matters if you ran N07 in Scene 4.
-> "This is the risk agents' view. Each requirement area is set to Low, Medium or High. The areas run in parallel, so the total follows the longest one: 50 to 58 business days, against a 45-day standard route."
+Optional: choose **O4 · Create system records** and **+5 days**.
+> "The same delay on a task with slack doesn't move the date."
 
-**Click:** **Investment restrictions**.
-> "Tobacco restriction unclear, thermal coal undefined. That adds one to two onboarding days. It's three to six days of work, but most of it runs alongside longer workstreams. Clearing it needs Legal, Portfolio Control, the client and a decision from the portfolio manager."
+**If the client's requirements change.** Scroll down in the panel.
 
-**Click:** **Start from evidence → 16 Sep · Cash + later derivatives**.
-> "With all-cash funding and derivatives later, it's 49 to 54 days."
+If you ran N07 in Scene 4, first set **Start from evidence** to **14 Sep · Initial request**.
+> "Here, each requirement area is set to Low, Medium or High. The areas run in parallel, so the total follows the longest one: 50 to 58 business days, against a 45-day standard route."
+
+Click **Investment restrictions**:
+> "This adds one to two onboarding days. It's three to six days of work, but most of it runs alongside longer workstreams."
+
+Click **Back to all outputs** to return to the board.
 
 ---
 
@@ -224,8 +213,8 @@ Leave *Pause after each agent* ticked and the speed at *Standard 1×*. The run p
 1. Scene 2, portfolio ending on Alpenridge: 1 minute.
 2. Scene 3, meet the agents, diagram only: 1 minute.
 3. Scene 4, run to the first acceptance at 2× speed, skipping the challenge and N07: 4 minutes.
-4. Scene 5a, the 30-second read and the tobacco issue: 2 minutes.
-5. Scene 5d, delay P6 by 5 days: 1 minute.
+4. Scene 5, the band and the six cards, without opening them: 1.5 minutes.
+5. Scene 5, open card 6 and delay P6 by 5 days: 1.5 minutes.
 6. Close: 1 minute.
 
 ---
@@ -250,10 +239,10 @@ Leave *Pause after each agent* ticked and the speed at *Standard 1×*. The run p
 | Feedback | Scene |
 |---|---|
 | Executive view first, then a specific client | 2 → 4 → 5 |
-| Client requirement → precedent → risk → workflow → what-if | 4, then 5b, 5d, 5e |
-| Key players agent | 3, 4, 5c |
-| Progress, not only risk; RAG status | 5a |
-| Dependencies and timeline impact | 5a, 5d, 5e |
-| Escalation and communication | 5a, 5d |
-| Contractual vs non-contractual obligations | 5b |
+| Client requirement → precedent → risk → workflow → what-if | 4, then cards 1, 3, 4, 6 |
+| Key players agent | 3, 4, card 5 |
+| Progress, not only risk; RAG status | 5 (band), card 4 |
+| Dependencies and timeline impact | Cards 3, 4, 6 |
+| Escalation and communication | Cards 4, 6 |
+| Contractual vs non-contractual obligations | Card 2 |
 | One framework, many variations; beyond CITs and separate accounts | 2, 6 |

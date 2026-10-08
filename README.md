@@ -7,12 +7,13 @@ An institutional separate-account onboarding workspace built around the fictiona
 - The current browser experience, in three steps plus a framework tab:
   1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Alpenridge leads into the agents.
   2. **Multi-agent system**: the seven-agent flow with a **Run agents** button, and the animated run underneath. The run pauses after each agent (client requirement → precedent → risk → workflow → key players → evidence review) and stops at two human checkpoints. When the plan is accepted it links to the output.
-  3. **Agent output**: what the agents produced for Alpenridge, each section labelled with the agent that produced it:
-     - Plan & status (Playbook + Key players agents), as of Thu 8 Oct 2026: stage RAG with owner, team and escalation point; issues tied to onboarding days and the reviews each needs; who acts next; a stage drill-down with each task's escalation path.
-     - Requirements & obligations (Context agent + Evidence reviewer): what the client asked for and where each ask stands; contractual versus non-contractual obligations.
-     - Key players (Key players agent), including servicing ownership.
-     - What-if: if a task slips (Playbook agent): dependency chain, knock-on dates, who gets notified.
-     - What-if: if the client's requirements change (Operational + Investment risk agents): Low/Medium/High per area → onboarding days, each issue's impact and who does what. Onboarding days use the longest parallel workstream, not the sum.
+  3. **Agent output**: what the agents produced for Alpenridge, on one screen. A headline band (funding forecast against the client's date, with the five stage lights) sits above six cards in the order the agents ran. Each card names the agent that produced it, shows two or three headline facts, and opens its full detail in a side panel with previous/next navigation:
+     1. Client requirements (Context agent): what the client asked for and where each ask stands.
+     2. Obligations (Context agent + Evidence reviewer): contractual versus non-contractual.
+     3. Risks & date impact (Operational + Investment risk agents): root-cause issues tied to onboarding days and the reviews each needs, plus the risk register from the run.
+     4. Plan & status (Playbook agent), as of Thu 8 Oct 2026: stage RAG with owner, team and escalation point; stage drill-down with each task's escalation path.
+     5. Key players (Key players agent): who acts now, who is blocked, and the owner, contact and escalation point for each responsibility, including servicing.
+     6. What-if (Playbook + risk agents): if a task slips (dependency chain, knock-on dates, who gets notified) and if the client's requirements change (Low/Medium/High per area → onboarding days; the longest parallel workstream, not the sum).
   4. **One framework, many variations**: shared activities (AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account and system setup, reporting, funding, ongoing servicing) with configurable attributes: vehicle (separate account, CIT, mutual fund), client type (direct, consultant-advised, OCIO, sub-advisory, omnibus, MEP/PEP), funding method, transition manager, reporting, restrictions and billing.
 - Seven agent roles: Context, Precedent, Operational risk, Investment risk, Playbook, Key players (who owns what, who is blocked, who acts next, which contacts are missing) and Evidence Review.
 - A corpus of 54 source records, 157 passages and 12 historical clients.

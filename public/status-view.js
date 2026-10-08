@@ -1,5 +1,5 @@
-/* Two pages. portfolio = every onboarding in flight. output = what the agents produced for Alpenridge:
-   plan & status, requirements & obligations, key players, and the task-slip what-if. */
+/* Two pages. portfolio = every onboarding in flight. output = what the agents produced for Alpenridge,
+   as a one-screen board of six cards; each card opens its full detail in a side panel. */
 (function(){
 const O=window.SA_ONBOARD;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -44,7 +44,7 @@ const REQUIREMENTS=[
 ];
 const markup='<div id="st-root" class="st"></div>';
 function mount(root,opt={}){
- const state={page:opt.page==='output'?'output':'portfolio',stage:null,task:'P1',simTask:'P6',simDays:0};
+ const state={page:opt.page==='output'?'output':'portfolio',open:null,lastOpen:null,stage:null,task:'P1',simTask:'P6',simDays:0};
  const sched=()=>O.schedule(O.TASKS,{extra:state.simDays?{[state.simTask]:state.simDays}:{}});
  const base=O.schedule();
  state.stage=base.stages.find(x=>!x.complete&&x.rag!=='grey')?.index??1;
@@ -90,14 +90,34 @@ function mount(root,opt={}){
  function obligationsPane(){const col=(title,sub,rows,how)=>`<section class="st-oblig"><h4>${title}</h4><p class="smalltext">${sub}</p><ul>${rows.map(([t,st,r,refs])=>`<li><span class="st-check st-c-${r}" aria-hidden="true">${r==='green'?'✓':r==='amber'?'!':'○'}</span><div><b>${esc(t)}</b><small>${esc(st)}</small>${cites(refs)}</div></li>`).join('')}</ul><p class="st-how"><b>How risk is judged:</b> ${how}</p></section>`;
   return `<section class="panel"><h3>Obligations</h3><p class="smalltext">Contractual and non-contractual obligations carry different risks, so they are tracked separately.</p><div class="st-oblig-grid">${col('Contractual obligations','Written into the IMA, Schedule A or the service annex. Binding once signed.',OBLIGATIONS.contractual,'a miss is a contract or guideline breach. FI Portfolio Control monitors with coded rules; any change needs Legal and a signed amendment.')}${col('Non-contractual expectations','Requested or promised in conversation. Not in the contract.',OBLIGATIONS.non,'a miss is a service or relationship risk. The Client RM owns these and can renegotiate without a contract amendment.')}</div></section>`;}
  function requirementsTable(){return `<section class="panel"><h3>What the client asked for, and where it stands</h3><div class="tablewrap"><table class="st-table st-req"><thead><tr><th>Requirement</th><th>Client asked</th><th>Where it stands now</th><th>Status</th></tr></thead><tbody>${REQUIREMENTS.map(([area,ask,askRefs,now,nowRefs,rag,label])=>`<tr><td><b>${esc(area)}</b></td><td>${esc(ask)}${cites(askRefs)}</td><td>${esc(now)}${cites(nowRefs)}</td><td>${ragChip(rag,label)}</td></tr>`).join('')}</tbody></table></div></section>`;}
- const by=names=>`<span class="out-by">Produced by ${names.map(n=>`<b>${esc(n)}</b>`).join(' + ')}</span>`;
- const sec=(id,title,agents,sub,body)=>`<section class="out-sec" id="out-${id}"><header class="out-head"><h2>${title}</h2>${by(agents)}<p>${sub}</p></header>${body}</section>`;
- function outputPage(){const s0=O.schedule(),s=sched();
-  return `<div class="out-intro"><p>Everything below came out of the agent run for Alpenridge: built from the onboarding documents and 12 past cases, approved at the two human checkpoints, and tracked by the team since. Status as of ${O.fmt(O.AS_OF)} 2026.</p><nav class="out-jump" aria-label="Jump to">${[['plan','Plan & status'],['req','Requirements & obligations'],['players','Key players'],['whatif','What-if: a task slips'],['reqchange','What-if: requirements change']].map(([id,l])=>`<a href="#out-${id}">${l}</a>`).join('')}</nav></div>
-  ${sec('plan','Plan & status',['Playbook agent','Key players agent'],'The five-stage plan the agents proposed, and where it stands today: stage status, the issues that move the funding date, who acts next and how each item escalates.',`${summary(s0)}${stageStrip(s0)}${issues(s0)}${whoActs(s0)}<section class="panel st-main"><div class="st-tasks"><div>${taskTable(s0)}</div>${taskDetail(s0)}</div></section>`)}
-  ${sec('req','Requirements & obligations',['Context agent','Evidence reviewer'],'What the client asked for and where each ask stands, with the obligations that follow. Every line cites its source document.',`${requirementsTable()}${obligationsPane()}`)}
-  ${sec('players','Key players',['Key players agent'],'For each responsibility: the internal owner, the external contact, the escalation point and the next action.',playersTable(s0))}
-  ${sec('whatif','What-if: if a task slips',['Playbook agent'],'The plan’s dependencies. An early delay moves everything after it unless there is slack. Pick a task and add a delay.',`<section class="panel st-main">${depsPane(s)}</section>`)}`;}
+ /* ---------- Agent output: one-screen board, detail in a side panel ---------- */
+ const AGENT_IDS={'Context agent':'A1','Precedent agent':'A2','Operational risk agent':'A3','Investment risk agent':'A4','Playbook agent':'A5','Key players agent':'A6','Evidence reviewer':'A7'};
+ const OUTS=[['req','Client requirements',['Context agent']],['oblig','Obligations',['Context agent','Evidence reviewer']],['risk','Risks & date impact',['Operational risk agent','Investment risk agent']],['plan','Plan & status',['Playbook agent']],['players','Key players',['Key players agent']],['whatif','What-if',['Playbook agent','Operational risk agent','Investment risk agent']]];
+ const by=names=>`<span class="ob-by">${names.map(n=>`<span><i>${AGENT_IDS[n]}</i>${esc(n)}</span>`).join('')}</span>`;
+ const line=(cls,text)=>`<li class="ob-${cls}">${text}</li>`;
+ function summaryFor(id,s){
+  const open=s.rows.filter(r=>!r.done&&r.stage<4),over=open.filter(r=>r.status==='overdue').length,blocked=open.filter(r=>r.status==='blocked').length;
+  const roots=s.rows.filter(r=>!r.done&&r.own>0&&r.stage<4).map(r=>({r,imp:O.impact(r.id)})).sort((a,b)=>b.imp-a.imp);
+  if(id==='req'){const settled=REQUIREMENTS.filter(r=>r[5]==='green').length;return `<strong class="ob-big">${REQUIREMENTS.length}<small>requirements extracted · ${settled} settled · ${REQUIREMENTS.length-settled} waiting</small></strong><ul>${line('warn','Tobacco &amp; coal: client confirmation 2 days overdue')}${line('ok','Reporting, funding and derivatives agreed or updated')}</ul>`;}
+  if(id==='oblig'){const c=OBLIGATIONS.contractual,n=OBLIGATIONS.non;return `<strong class="ob-big">${c.length} + ${n.length}<small>contractual + non-contractual</small></strong><ul>${line('warn',`${c.filter(x=>x[2]==='amber').length} contractual terms waiting on the client`)}${line('info','Quarterly review is an expectation, not in the contract')}</ul>`;}
+  if(id==='risk'){const top=roots[0],rest=roots.slice(1);return `<strong class="ob-big bad">+${top?top.imp:0} days<small>to onboarding from one open risk</small></strong><ul>${line('warn',`${esc(top.r.issue||top.r.title)}: needs Legal, Portfolio Control and the client`)}${rest[0]?line('ok',`${esc(rest[0].r.issue||rest[0].r.title)}: no date impact`):''}</ul>`;}
+  if(id==='plan')return `<strong class="ob-big bad">${O.fmt(s.funded)}<small>forecast funding · client target ${O.fmt(s.target)}</small></strong><ul>${line('note',`${open.length} open tasks · ${over} overdue · ${blocked} blocked`)}${line('warn',`Contract signed ${O.fmt(s.map.P6.forecast,false)}, ${s.map.P6.forecast-s.map.P6.due} days after plan`)}</ul>`;
+  if(id==='players'){const p=players(s);return `<strong class="ob-big">${O.PLAYERS.length}<small>responsibilities, each with owner, contact and escalation</small></strong><ul>${p.now[0]?line('warn',`Act now: ${esc(p.now[0][0].split(',')[0])} on ${p.now[0][1].id}`):''}${p.blocked[0]?line('warn',`Blocked: ${esc(p.blocked[0][0])}, waits on ${p.blocked[0][1].openDeps.join(', ')}`):''}</ul>`;}
+  if(id==='whatif'){const d=O.schedule(O.TASKS,{extra:{P6:5}}),W=window.SA_WORKFLOW,cash=W?W.compute(W.PRESETS.find(p=>p.id==='cash').levels).total:null;return `<strong class="ob-big">${O.fmt(d.funded)}<small>funding if IMA signing slips 5 days</small></strong><ul>${line('warn','Paperwork and Ops setup turn red')}${cash?line('note',`Requirements view: ${cash[0]}–${cash[1]} business days`):''}</ul>`;}
+  return '';}
+ function board(){const s=O.schedule();
+  return `<div class="ob-band"><strong>Funding forecast ${O.fmt(s.funded)} <em>+${s.funded-s.target} business days</em> <small>client target ${O.fmt(s.target)} · as of ${O.fmt(O.AS_OF)}</small></strong><div class="ob-lights">${s.stages.map(st=>ragChip(st.rag,st.short)).join('')}</div></div>
+  <div class="ob-grid">${OUTS.map(([id,title,agents],i)=>`<button type="button" class="ob-card ${state.open===id?'sel':''}" data-st-open="${id}"><header><span class="ob-n">${i+1}</span><h3>${esc(title)}</h3></header>${by(agents)}<div class="ob-body">${summaryFor(id,s)}</div><span class="ob-more">Open →</span></button>`).join('')}</div>`;}
+ function riskRegister(){const E=window.AGENT_DEMO;if(!E)return'';return `<section class="panel"><h3>Risk register handed over by the risk agents</h3><p class="smalltext">From the agent run on the 16 Sep evidence.</p>${E.risks('cash').map(r=>`<div class="ob-risk"><div class="split"><b>${r.id} · ${esc(r.title)}</b><span class="badge ${/High/.test(r.status)?'amber':'teal'}">${esc(r.status)}</span></div><p>${esc(r.fact)}</p><p><b>Recommended action:</b> ${esc(r.action)}</p>${cites(r.evidence.slice(0,3))}</div>`).join('')}</section>`;}
+ function detail(id){const s0=O.schedule();
+  if(id==='req')return requirementsTable();
+  if(id==='oblig')return obligationsPane();
+  if(id==='risk')return issues(s0)+riskRegister();
+  if(id==='plan')return `${summary(s0)}${stageStrip(s0)}<section class="panel st-main"><div class="st-tasks"><div>${taskTable(s0)}</div>${taskDetail(s0)}</div></section>`;
+  if(id==='players')return whoActs(s0)+playersTable(s0);
+  return `<h3 class="ob-sub">If a task slips</h3><section class="panel st-main">${depsPane(sched())}</section><h3 class="ob-sub">If the client’s requirements change</h3><p class="smalltext">Set each requirement area to Low, Medium or High to see the onboarding days, each issue’s impact and who does what. Starts from the evidence snapshot selected at the top (14–16 Sep).</p><div id="wr-root" class="wrc"></div>`;}
+ function drawer(){const i=OUTS.findIndex(o=>o[0]===state.open),[id,title,agents]=OUTS[i],prev=OUTS[i-1],next=OUTS[i+1];
+  return `<div class="ob-backdrop" data-st-close></div><aside class="ob-drawer" role="dialog" aria-modal="true" aria-label="${esc(title)}"><header class="ob-dhead"><div class="ob-dtitle"><span class="ob-n">${i+1}</span><div><h2>${esc(title)}</h2>${by(agents)}</div></div><div class="ob-dnav">${prev?`<button type="button" class="btn small" data-st-open="${prev[0]}">← ${esc(prev[1])}</button>`:''}<span>${i+1} of ${OUTS.length}</span>${next?`<button type="button" class="btn small primary" data-st-open="${next[0]}">Next: ${esc(next[1])} →</button>`:`<button type="button" class="btn small primary" data-st-close>Back to all outputs</button>`}<button type="button" class="ob-x" data-st-close aria-label="Close">×</button></div></header><div class="ob-dbody">${detail(id)}</div></aside>`;}
  /* ---------- Leadership view ---------- */
  function leadership(){const B=O.book(),late=B.filter(x=>x.slip>0),red=B.filter(x=>x.rag==='red'),amber=B.filter(x=>x.rag==='amber'),aum=B.reduce((t,x)=>t+x.aum,0),soon=B.filter(x=>x.target-O.AS_OF<=30&&x.stage<4);
   const bar=(items,key,labels)=>{const max=Math.max(...Object.keys(labels).map(k=>items.filter(x=>x[key]===k).length));return Object.entries(labels).map(([k,l])=>{const xs=items.filter(x=>x[key]==k),n=xs.length;return `<div class="st-bar-row"><span>${esc(l)}</span><div class="st-bar" title="${esc(l)}: ${n} in flight · ${xs.filter(x=>x.rag==='red').length} off track · ${xs.filter(x=>x.rag==='amber').length} at risk">${['red','amber','green','grey'].map(r=>{const c=xs.filter(x=>x.rag===r).length;return c?`<i class="st-${r}" style="width:${c/max*100}%"></i>`:'';}).join('')}</div><b>${n}</b></div>`;}).join('');};
@@ -110,16 +130,25 @@ function mount(root,opt={}){
   <section class="panel"><h3>Where onboardings sit, and the bottleneck</h3><div class="st-funnel">${stages.map(x=>`<div class="st-funnel-col ${x===neck?'neck':''}"><b>${x.n}</b><div class="st-funnel-bar"><i style="height:${x.n/Math.max(...stages.map(y=>y.n))*100}%"></i></div><span>${esc(x.st.name)}</span><small>${x.bad?`${x.bad} need attention`:'All on track'}</small></div>`).join('')}</div><p class="smalltext"><b>Bottleneck: ${esc(neck.st.name)}.</b> ${neck.bad} of ${neck.n} onboardings there are at risk or off track. Teams most often waited on: ${waits.slice(0,3).map(([t,n])=>`${esc(O.TEAMS[t])} (${n})`).join(', ')}.</p></section>
   <section class="panel"><h3>Risk concentration</h3><p class="smalltext">At-risk or off-track onboardings by main risk area and vehicle.</p><table class="st-heat"><thead><tr><th>Risk area</th>${vs.map(v=>`<th>${VEH[v]}</th>`).join('')}</tr></thead><tbody>${risks.map(r=>`<tr><td>${r}</td>${vs.map(v=>{const n=cell(r,v);return `<td><span class="st-heat-cell" style="--a:${n/mx}" title="${esc(r)} · ${VEH[v]}: ${n}">${n||'·'}</span></td>`;}).join('')}</tr>`).join('')}</tbody></table></section></div>
   <section class="panel"><h3>Behind schedule</h3><div class="tablewrap"><table class="st-table"><thead><tr><th>Client</th><th>Vehicle</th><th>Client type</th><th>Stage</th><th>Status</th><th>Target</th><th>Forecast</th><th>Main risk</th><th>Waiting on</th></tr></thead><tbody>${late.sort((a,b)=>b.slip-a.slip).map(x=>`<tr class="${x.live?'st-live':''}"><td><b>${esc(x.name)}</b>${x.live?' <button type="button" class="btn small primary" data-view="agents">See how the agents build its plan →</button>':''}</td><td>${VEH[x.vehicle]}</td><td>${esc(REL[x.relationship])}</td><td>${esc(O.STAGES[x.stage].name)}</td><td>${ragChip(x.rag)}</td><td>${O.fmt(x.target)}</td><td><b class="bad">${O.fmt(x.target+x.slip)}</b> <small>+${x.slip}d</small></td><td>${esc(x.risk)}</td><td>${esc(O.TEAMS[x.waiting])}</td></tr>`).join('')}</tbody></table></div></section></div>`;}
- function render(){root.innerHTML=state.page==='portfolio'?leadership():outputPage();}
- function onClick(e){const b=e.target.closest('button,[data-st-task]');if(b&&b.dataset.view)return;if(!b||!root.contains(b)||b.dataset.source)return;const d=b.dataset;
+ let disposeWr=null;
+ function render(){const body=root.querySelector?.('.ob-dbody'),keep=body&&state.lastOpen===state.open?body.scrollTop:0;
+  if(disposeWr){disposeWr();disposeWr=null;}
+  root.innerHTML=state.page==='portfolio'?leadership():board()+(state.open?drawer():'');
+  if(state.open==='whatif'&&opt.mountWorkflow){const el=root.querySelector('#wr-root');if(el)disposeWr=opt.mountWorkflow(el);}
+  const nb=state.open&&root.querySelector?.('.ob-dbody');if(nb)nb.scrollTop=keep;
+  state.lastOpen=state.open;document.body?.classList?.toggle('ob-lock',Boolean(state.open));}
+ function onClick(e){const b=e.target.closest('button,[data-st-task],[data-st-close]');if(b&&b.dataset.view)return;if(!b||!root.contains(b)||b.dataset.source)return;const d=b.dataset;
+  if(d.stOpen){state.open=d.stOpen;render();return;}
+  if(d.stClose!==undefined){state.open=null;render();return;}
   if(d.stStage){state.stage=Number(d.stStage);const first=O.schedule().stages[state.stage].tasks.find(t=>!t.done)||O.schedule().stages[state.stage].tasks[0];state.task=first.id;render();return;}
   if(d.stSimDays){state.simDays=Number(d.stSimDays);render();return;}
   if(d.stSim){const t=O.TASKS.find(x=>x.id===d.stSim);if(t.done==null&&t.stage<4){state.simTask=t.id;if(!state.simDays)state.simDays=5;render();}return;}
-  if(d.stTask){state.task=d.stTask;state.stage=O.TASKS.find(t=>t.id===d.stTask).stage;render();}}
+  if(d.stTask){state.task=d.stTask;state.stage=O.TASKS.find(t=>t.id===d.stTask).stage;if(state.page==='output')state.open='plan';render();}}
  function onChange(e){if(e.target.hasAttribute?.('data-st-sim-task')){state.simTask=e.target.value;if(!state.simDays)state.simDays=5;render();}}
  function onKey(e){if(e.key==='Enter'&&e.target.dataset?.stTask){state.task=e.target.dataset.stTask;render();}}
- render();root.addEventListener('click',onClick);root.addEventListener('change',onChange);root.addEventListener('keydown',onKey);
- return ()=>{root.removeEventListener('click',onClick);root.removeEventListener('change',onChange);root.removeEventListener('keydown',onKey);};
+ function onEsc(e){if(e.key==='Escape'&&state.open){state.open=null;render();}}
+ render();root.addEventListener('click',onClick);root.addEventListener('change',onChange);root.addEventListener('keydown',onKey);document.addEventListener('keydown',onEsc);
+ return ()=>{if(disposeWr)disposeWr();document.removeEventListener('keydown',onEsc);document.body?.classList?.remove('ob-lock');root.removeEventListener('click',onClick);root.removeEventListener('change',onChange);root.removeEventListener('keydown',onKey);};
 }
 window.SA_STATUS={markup,mount};
 })();
