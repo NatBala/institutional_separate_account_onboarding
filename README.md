@@ -4,16 +4,16 @@ An institutional separate-account onboarding workspace built around the fictiona
 
 ## Included
 
-- The current browser experience, in six tabs that follow the story from the whole book down to one client:
-  - **Portfolio**
-    1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Opens Alpenridge.
-  - **Alpenridge Pension Foundation**
-    2. **Status & next actions**: status as of Thu 8 Oct 2026. RAG status for each stage with owner, team and escalation point; the root-cause issues that move the funding date and the reviews each needs; who acts now, who is blocked and who must be contacted; a stage drill-down with due and forecast dates and each task's escalation path.
-    3. **Requirements & obligations**: what the client asked for and where each ask stands, contractual versus non-contractual obligations, and the key players for each responsibility, including servicing.
-    4. **How the plan was built**: the seven-agent flow and an animated run that pauses after each agent (client requirement → precedent → risk → workflow).
-    5. **What-if**: if a task slips (dependency chain, knock-on dates, who gets notified) and if the client's requirements change (Low/Medium/High per area → onboarding days, each issue's impact and the reviews it needs, who does what). Onboarding days use the longest parallel workstream, not the sum.
-  - **Across all clients**
-    6. **One framework, many variations**: shared activities (AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account and system setup, reporting, funding, ongoing servicing) with configurable attributes: vehicle (separate account, CIT, mutual fund), client type (direct, consultant-advised, OCIO, sub-advisory, omnibus, MEP/PEP), funding method, transition manager, reporting, restrictions and billing.
+- The current browser experience, in three steps plus a framework tab:
+  1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Alpenridge leads into the agents.
+  2. **Multi-agent system**: the seven-agent flow with a **Run agents** button, and the animated run underneath. The run pauses after each agent (client requirement → precedent → risk → workflow → key players → evidence review) and stops at two human checkpoints. When the plan is accepted it links to the output.
+  3. **Agent output**: what the agents produced for Alpenridge, each section labelled with the agent that produced it:
+     - Plan & status (Playbook + Key players agents), as of Thu 8 Oct 2026: stage RAG with owner, team and escalation point; issues tied to onboarding days and the reviews each needs; who acts next; a stage drill-down with each task's escalation path.
+     - Requirements & obligations (Context agent + Evidence reviewer): what the client asked for and where each ask stands; contractual versus non-contractual obligations.
+     - Key players (Key players agent), including servicing ownership.
+     - What-if: if a task slips (Playbook agent): dependency chain, knock-on dates, who gets notified.
+     - What-if: if the client's requirements change (Operational + Investment risk agents): Low/Medium/High per area → onboarding days, each issue's impact and who does what. Onboarding days use the longest parallel workstream, not the sum.
+  4. **One framework, many variations**: shared activities (AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account and system setup, reporting, funding, ongoing servicing) with configurable attributes: vehicle (separate account, CIT, mutual fund), client type (direct, consultant-advised, OCIO, sub-advisory, omnibus, MEP/PEP), funding method, transition manager, reporting, restrictions and billing.
 - Seven agent roles: Context, Precedent, Operational risk, Investment risk, Playbook, Key players (who owns what, who is blocked, who acts next, which contacts are missing) and Evidence Review.
 - A corpus of 54 source records, 157 passages and 12 historical clients.
 - Synthetic PDFs, including the draft IMA, investment policy, transfer list, operating guidance and case records, under `docs/synthetic-pdfs/`.
@@ -37,9 +37,9 @@ Open <http://localhost:8000>. The current workspace uses prepared agent outputs 
 | --- | --- |
 | `prepared-release/` | Current standalone browser experience |
 | `prepared-release/onboarding-model.js` | Shared framework, attributes, Alpenridge task plan and schedule, escalation paths, book of onboardings |
-| `prepared-release/status-view.js` | Portfolio, Status & next actions, Requirements & obligations, and the task-slip what-if |
+| `prepared-release/status-view.js` | Onboarding portfolio and the Agent output page |
 | `prepared-release/framework-view.js` | One framework, many variations |
-| `docs/Demo_Script.md` | Presenter script for the six-tab walkthrough |
+| `docs/Demo_Script.md` | Presenter script for the walkthrough |
 | `prepared-release/corpus/` | Individual source records and emails |
 | `public/` | Frontend that also includes the live agent workspace |
 | `server/core.mjs` | Schemas, instructions, retrieval, calculations and validation |

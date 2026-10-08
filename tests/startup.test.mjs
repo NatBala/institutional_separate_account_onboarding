@@ -39,23 +39,22 @@ function openWorkspace(saved={}) {
 }
 
 test('published scripts start for new and returning users and every saved view',()=>{
-  // Views from earlier releases map onto the story tabs or fall back to the portfolio.
-  const views=['portfolio','status','requirements','plan','whatif','framework','system','run','workflow','live','riskmap','brief'];
+  // Views from earlier releases map onto the three steps or fall back to the portfolio.
+  const views=['portfolio','agents','output','framework','status','requirements','plan','whatif','system','run','workflow','live','riskmap','brief'];
   for(const scenario of ['initial','clarified','cash'])for(const view of views){
     const w=openWorkspace({view,scenario});
-    assert.match(w.app.innerHTML,/Onboarding portfolio/);assert.match(w.app.innerHTML,/Alpenridge Pension Foundation/);assert.match(w.app.innerHTML,/One framework, many variations/);
-    assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab/);
+    for(const tab of [/Onboarding portfolio/,/Multi-agent system/,/Agent output/,/One framework, many variations/])assert.match(w.app.innerHTML,tab);
+    assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab|How the plan was built/);
     w.click(w.document,{view:'portfolio'});const st=w.document.getElementById('st-root');
-    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/Open Alpenridge/);
-    w.click(w.document,{view:'status'});
-    assert.match(st.innerHTML,/PAPERWORK/);assert.match(st.innerHTML,/Issues affecting the timeline/);assert.match(st.innerHTML,/Who acts next/);assert.match(st.innerHTML,/Escalation and communication/);
-    w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
-    w.click(w.document,{view:'requirements'});
-    assert.match(st.innerHTML,/What the client asked for/);assert.match(st.innerHTML,/Contractual obligations/);assert.match(st.innerHTML,/Key players/);
-    w.click(w.document,{view:'plan'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);
+    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/See how the agents build its plan/);
+    w.click(w.document,{view:'agents'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/data-start/);
     assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
-    w.click(w.document,{view:'whatif'});assert.match(st.innerHTML,/If a task slips/);
-    w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
+    w.click(w.document,{view:'output'});
+    for(const part of [/Produced by/,/PAPERWORK/,/Issues affecting the timeline/,/Who acts next/,/Escalation and communication/,/What the client asked for/,/Contractual obligations/,/Key players/,/What-if: if a task slips/])assert.match(st.innerHTML,part);
+    assert.match(w.app.innerHTML,/What-if: if the client’s requirements change/);
+    w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
+    w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);assert.match(st.innerHTML,/Thu 26 Nov<\/strong>/,'the plan & status section ignores the what-if');
+    w.click(st,{stSim:'O4'});assert.match(st.innerHTML,/Unchanged: the delay is absorbed by slack/);
     const root=w.document.getElementById('wr-root');
     assert.match(root.innerHTML,/Onboarding duration/);assert.doesNotMatch(root.innerHTML,/launch date|funding date|Just added/i);
     assert.match(root.innerHTML,/What this level means/);assert.match(root.innerHTML,/Why \+/);

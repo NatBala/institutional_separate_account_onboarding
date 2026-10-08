@@ -1,30 +1,31 @@
 # Onboarding Navigator: demo script
 
-The full walkthrough takes about 25 minutes. A 10-minute cut is near the end. The script is for the `clean-ui` build, which has six tabs and seven agents.
+The full walkthrough takes about 25 minutes. A 10-minute version is near the end. The script is written for the `clean-ui` build.
 
-**The story follows the left rail, top to bottom:**
+**The story has three steps, with the multi-agent system at the centre:**
 
-| Group | Tab | Question it answers |
-|---|---|---|
-| Portfolio | 01 Onboarding portfolio | How are all our onboardings doing? |
-| Alpenridge Pension Foundation | 02 Status & next actions | Where is this one, and who has to act? |
-| | 03 Requirements & obligations | What did the client ask for, and what are we committed to? |
-| | 04 How the plan was built | How did the agents get from documents to this plan? |
-| | 05 What-if | What if a task slips, or the client changes their mind? |
-| Across all clients | 06 One framework, many variations | How does this work for CITs, funds, OCIO, omnibus…? |
+| Step | Tab | What the audience sees | Time |
+|---|---|---|---|
+| 1 | 01 Onboarding portfolio | The whole book, and why Alpenridge needs help | 3 min |
+| 2 | 02 Multi-agent system | The seven agents, then running them live | 10 min |
+| 3 | 03 Agent output | What the agents produced, and how the plan is tracking | 8 min |
+| + | 04 One framework, many variations | How the same approach covers every client structure | 3 min |
 
-Each scene has three parts. **Click** says what to do on screen. **Say** is suggested wording, which you can adapt. **Point to** says what the audience should notice.
+Each scene has three parts:
+- **Click** is what to do on screen.
+- **Say** is suggested wording; adapt it freely.
+- **Point to** is what the audience should notice.
 
 ---
 
 ## Before you start (2 minutes, off camera)
 
 1. Run `npm run build`, then `python3 -m http.server 8000 --directory dist`, and open <http://localhost:8000>.
-2. Click **Reset workspace** at the bottom of the left rail. The app opens on **01 Onboarding portfolio**.
-3. Set the browser zoom so the five KPI tiles sit on one row. 90% works on a 1440px laptop.
-4. Have these two points ready to say:
-   - Everything is synthetic. Alpenridge, the 13 other onboardings, the people and the documents are all fictional and are not Capital Group records.
-   - No live model or production system is connected. The agent outputs are prepared in advance. The search, the scheduling and the date maths run locally.
+2. Click **Reset workspace** at the bottom of the left rail. The app opens on **01 Onboarding portfolio**, and the evidence snapshot is *14 Sep · Initial request*.
+3. Zoom the browser until the five KPI tiles fit on one row. On a 1440px laptop that's about 90%.
+4. Be ready to say two things up front:
+   - Everything is synthetic. Alpenridge, the 13 other onboardings, the people and the documents are all fictional, and none of it comes from Capital Group records.
+   - No live model or production system is connected. The agent outputs were prepared in advance. Search, scheduling and the date calculations all run locally in the browser.
 
 ---
 
@@ -33,194 +34,199 @@ Each scene has three parts. **Click** says what to do on screen. **Say** is sugg
 **Screen:** 01 Onboarding portfolio.
 
 **Say:**
-> "The feedback last time was clear. Start with where we are, not just what the risks are. Make it obvious who is involved. And show how one approach covers CITs, separate accounts and funds. So the story starts where leadership starts: the whole book. Then we drill into one client, Alpenridge. After that we look at how the plan was built, then at what-ifs. We finish with how the same framework applies to every client structure."
+> "Last time you asked three things: where are we with onboarding, who is involved, and does this work beyond separate accounts? So today has three steps. First, a quick look at the whole book. Then we let the multi-agent system build the plan for our hardest client, Alpenridge. Then we look at what it produced."
 
 ---
 
 ## Scene 2 · Onboarding portfolio (3 minutes)
 
 **Say:**
-> "We have 14 onboardings in flight, about $3.9bn. Eight are behind schedule: four are off track and four are at risk. Nine are due to fund in the next 30 business days."
+> "We have 14 onboardings in flight, about $3.9bn in total. Eight are behind schedule: four off track and four at risk. Nine are due to fund in the next 30 business days."
 
-**Point to, from left to right:**
+**Point to:**
+- **By vehicle and by client type.** The vehicles are separate accounts, CITs and mutual funds. The client types are direct, consultant-advised, OCIO, sub-advisory, omnibus and MEP/PEP.
+- **Bottleneck:**
+  > "Paperwork is the bottleneck, and Legal is the team people wait on most."
+- **Risk concentration:**
+  > "Most of our risk is in contracts and investment restrictions, and mostly in separate accounts, because those mandates are bespoke."
+- **Behind schedule, the Alpenridge row:**
+  > "Alpenridge is the hardest case in the book. It's a Swiss pension foundation with its own tobacco and coal restrictions. It asked for reporting we don't support as written. It wants derivatives. And its funding plan changed twice. Plans like this are where onboarding goes wrong. So let's see how the agents build it."
 
-- **By vehicle and By client type.** These cover separate account, CIT and mutual fund, and direct, consultant-advised, OCIO, sub-advisory, omnibus and MEP/PEP. Each bar is split into off track, at risk and on track.
-- **Where onboardings sit, and the bottleneck.**
-  > "Paperwork is the bottleneck. All four onboardings sitting there need attention, and Legal is the team most often waited on."
-- **Risk concentration.**
-  > "Our risk is in contracts and investment restrictions, mostly in separate accounts. That's what you'd expect from bespoke mandates."
-- **Behind schedule.**
-  > "Northfold's sub-advisory sleeve is six days late on contracts. TrueNorth's pooled employer plan is five days late, also on contracts. Alpenridge is three days late because of investment restrictions. Let's look at Alpenridge."
-
-**Click:** **Open Alpenridge →** on the Alpenridge row.
-
----
-
-## Scene 3 · Status & next actions (4 minutes)
-
-**Screen:** 02 Status & next actions. The left rail now shows the Alpenridge group.
-
-**Say (the 30-second read):**
-> "Alpenridge is a USD 250m global bond mandate. It's a separate account, and the client is advised by a consultant. The client asked to be funded on Monday 23 November. We now forecast Thursday 26 November, three business days late. There are 14 open tasks: two overdue and two blocked."
-
-**Point to the stage cards.** Each card shows its status, owner, team and escalation point.
-
-| Stage | Status | Say |
-|---|---|---|
-| Intake | 🟢 Complete 7/7 | "Intake is done." |
-| Paperwork | 🟡 At risk | "One task is overdue and one is blocked. The stage end has moved three days. The owner is mandate counsel in Legal, and it escalates to the Head of Legal, Institutional." |
-| Ops setup | 🟡 At risk | "The delay carries through into setup." |
-| Funding | 🔴 Off track | "Funding is red because the client's date is missed. We allow no tolerance on funding, because that date is a commitment to the client." |
-| Post-funding | ⚪ Not started | "It starts after funding and moves with it." |
-
-**Point to Issues affecting the timeline:**
-> "This is where risk turns into dates. Instead of 'restrictions: high risk' we now say: *tobacco and coal restriction unclear*, which adds three onboarding days and moves funding from 23 to 26 November. Clearing it needs a Legal review, a Portfolio Control review and a client clarification."
-
-> "Next to it: system records are three days overdue but have *no date impact*, because the work after them has enough slack. Not every late task matters, and this view tells you which ones do."
-
-**Point to Who acts next:**
-- **Must act now:** Elena Weber at the client, on P1. Mandate counsel, on the derivatives amendment. Billing, on the fee schedule. Client Reporting, on reporting setup. The onboarding lead, on system records.
-- **Blocked:** mandate counsel can't finalise Schedule A until P1 comes in.
-- **Must be contacted:** Elena Weber, because P1 is two days overdue.
-
-**Point to the Paperwork drill-down and P1 detail on the right:**
-> "This is the checklist the team already uses: task, owner, external contact, due date, forecast and status. P1 was due Tuesday 6 October and is two days overdue. P2 is blocked by it. P1 unblocks 15 later tasks."
-
-> "And this is how escalation works. The task owner flagged it. The onboarding lead was told at one day overdue, and the RM is chasing the client at two days. *Next*, the client is told about the date impact. That happens tomorrow, Friday 9 October, if P1 is still open. Because the funding date has moved, the Head of Institutional Onboarding already knows."
-
-**Optional click:** the **FUNDING** stage card shows the go-live sign-off, the cash instructions and the funded milestone, each with an owner and a date.
+**Click:** **See how the agents build its plan →** on the Alpenridge row.
 
 ---
 
-## Scene 4 · Requirements & obligations (3 minutes)
+## Scene 3 · Meet the agents (2 minutes)
 
-**Click:** **03 Requirements & obligations**.
+**Screen:** 02 Multi-agent system, with the agent diagram at the top.
 
 **Say:**
-> "This is the client requirement: what they asked for, and where each ask stands today. Every line cites its source document."
+> "There are seven specialist agents and two human checkpoints. Each agent has one job and passes its work, with sources cited, to the next. People make every decision that matters."
 
-**Point to the requirements table:**
-- **Reporting:** the client asked for weekly analytics on Monday at 08:00. It is now *agreed* as weekly Tuesday holdings plus a monthly pack (15 Sep).
-- **Tobacco and thermal coal:** the policy says 5% or more, and the draft IMA says more than 5%. Coal is undefined. Both are *2 days overdue*, waiting on the client's written confirmation. This is the issue from the status page.
-- **Funding and derivatives:** both *changed 16 Sep*. Funding is now all cash, and derivatives move to a review at day 30.
+**Point to the three columns, left to right:**
+1. **Understand the request.**
+   - The **Context agent** reads the client's documents.
+   - A person confirms what it found at checkpoint **H1**.
+   - The **Precedent agent** then searches 12 past onboardings, one issue at a time.
+2. **Assess risk in parallel.**
+   - The **Operational risk agent** asks whether we can deliver this. It looks at reporting, funding, derivatives and legal requirements.
+   - The **Investment risk agent** asks whether the portfolio will follow the client's intent. It looks at what the restrictions mean and which holdings they affect.
+3. **Plan and verify.**
+   - The **Playbook agent** builds the five-stage plan.
+   - The **Key players agent** is new. It names who owns each piece of work, who is blocked and who we need to contact.
+   - The **Evidence reviewer** challenges anything the sources don't support, before a person reviews the plan at checkpoint **H2**.
 
-**Point to Obligations:**
-> "We split obligations into two groups because their risks are judged differently."
-- **Contractual** (IMA, Schedule A, service annex):
-  > "Missing one of these is a contract or guideline breach. Portfolio Control monitors them, and any change needs Legal and a signed amendment."
-- **Non-contractual** (trustee pack timing, a sample before acceptance, copies for the consultant, a quarterly review, a named servicing contact):
-  > "Missing one of these is a service or relationship risk. The RM owns them and can renegotiate without changing the contract."
+**Optional:** open **What each agent does** to show each agent's job, inputs, outputs and limits.
 
-**Point to Key players:**
-> "For each responsibility: the internal owner, the external contact, the escalation point and the next action. Servicing ownership is here too. After funding, Maya Shah services the account directly, the consultant is copied, and the client investment office is the instructing party."
+> "And here's what the system never does: approve contract terms, decide what the client meant, create accounts, place trades or move money."
 
 ---
 
-## Scene 5 · How the plan was built (6 minutes)
+## Scene 4 · Run the agents (8 minutes)
 
-**Click:** **04 How the plan was built**.
+**Click:** **Run agents ▶** at the top right of the diagram. The page scrolls down to the run.
 
-**Say:**
-> "Everything so far is the output. Here is how it was produced. Seven agents each have one job. They hand cited work to each other, and people decide at two checkpoints."
-
-**Point to the flow:** Context → H1 human check → Precedent → Operational risk and Investment risk in parallel → Playbook → **Key players** (new) → Evidence reviewer → H2 human review. If someone asks for detail, open *What each agent does*.
-
-**Click:** scroll below the diagram and click **Run agents**. Keep *Pause after each agent* ticked and the speed at *Standard 1×*.
+Leave *Pause after each agent* ticked and the speed at *Standard 1×*. The run pauses after each agent so you can talk through its output. Click **Continue to …** to move on.
 
 | When this appears | Say | Point to |
 |---|---|---|
-| The six PDFs, then five requirement areas | "**The client requirement.** The Context agent reads the six onboarding documents. It finds the clash between more than 5% and 5% or more for tobacco, and that 'no thermal coal' is never defined." | The facts cards, and the citations `N02§1` and `N03§1` |
-| **Operations confirms the client context** | "A person confirms the context before any history is searched." | Click **Confirm context & continue** |
-| Precedent searches and case comparison | "**Historical precedent.** The search runs by issue, not by client. Northbridge had exactly the same tobacco conflict. Alpinecrest shows how reporting failed. Rhinebridge is the success story." | H01, H02, H03 and H05, each with a *Limit* line |
-| Risk agents | "**Risk identified.** One agent asks whether we can deliver. The other asks whether the portfolio will follow the client's intent. It tests the boundary at 4.99, 5.00 and 5.01%." | The clause cards and the test table |
-| Playbook agent | "**Recommended workflow.** Decisions that block later work move into intake." | The five phases |
-| **Key players agent finished** | "Who must act now and what's blocked. Also, which contacts we have to ask for: client legal counsel, client finance and the KYC signatories aren't named anywhere in the package." | *Contacts to request* and the *Missing* tags |
-| Evidence reviewer | "It strikes out tempting shortcuts. Four out of five cases is not an 80% forecast. Another client's coal rule is not this client's intent." | The struck-through claims |
-| **Review the working planning draft** | Optional: click **Challenge: "Rhinebridge succeeded."** Then enter a name and a rationale, and click **Accept working planning draft**. | |
-| After accepting | "Now the client clarifies what 'weekly' means." Click **Receive N07 & rerun affected agents**. "Only the affected agents re-run." | The *Reused · unchanged* badges |
+| Six documents listed, then **five requirement areas** | "**Client requirement.** The Context agent reads the six onboarding documents. It finds that the draft IMA says *more than* 5% tobacco, but the trustees' policy says *5% or more*. And 'no thermal coal' is never defined." | The facts cards and the citations `N02§1` and `N03§1` |
+| **Operations confirms the client context** (playback stops) | "A person checks what the agent extracted before any past cases are searched." | Click **Confirm context & continue** |
+| Three searches, then **case comparison** | "**Historical precedent.** It searches by issue, not by similar client. Northbridge had exactly the same tobacco conflict. Alpinecrest shows how reporting went wrong. Rhinebridge is the success story. Each case comes with its limits stated." | Cases H01, H02, H03 and H05, each with a *Limit* line |
+| **Operational risk** register | "**Risk identified.** The Operational risk agent compares what was asked for with what we can deliver. We can't support analytics every Monday. We can support holdings every Tuesday and a monthly pack." | The R1 reporting risk card |
+| **Investment risk** clause cards and tests | "The Investment risk agent shows that the same holding gets two different answers at exactly 5%. It runs tests at 4.99, 5.00 and 5.01%. It never decides what the client intended." | The *> 5%* vs *≥ 5%* cards and the test table |
+| **Playbook agent** | "**Recommended workflow.** Decisions that block later work are moved up into intake." | The five phases filling in |
+| **Key players agent** | "Who must act now, who is blocked, and which contacts we have to ask for. Client legal counsel, client finance and the KYC signatories aren't named anywhere in the documents. The agent asks for them; it doesn't guess." | *Must act now*, *Blocked*, *Contacts to request*, and the *Missing* tags |
+| **Evidence reviewer** | "It strikes out tempting shortcuts. Four out of five past cases is not an 80% forecast. Another client's coal rule is not this client's intent." | The struck-through claims |
+| **Review the working planning draft** (playback stops) | Optional: click **Challenge: "Rhinebridge succeeded."** The agents re-run and keep Rhinebridge as a counter-example. Then enter a name and a reason and click **Accept working planning draft**. | |
+| **Working planning draft accepted** | Optional, about 1 minute: "Now the client clarifies what they meant by 'weekly'." Click **Receive N07 & rerun affected agents**. "Only the affected agents run again; the restriction analysis is reused." Then accept again. | The *Reused · unchanged* badges |
 
-If time is short, stop after the first acceptance.
+**Say:**
+> "That's the run: documents go in, and a reviewed plan comes out, with people deciding at both checkpoints. Now let's look at what it produced."
+
+**Click:** **See the agent output →**.
 
 ---
 
-## Scene 6 · What-if (4 minutes)
+## Scene 5 · Agent output (8 minutes)
 
-**Click:** **05 What-if**.
+**Screen:** 03 Agent output. Jump links at the top take you to each section. Each section is tagged *Produced by …* with the agent that made it.
 
-**Part A: if a task slips.**
+**Say (bridge):**
+> "The agents built this plan in mid-September, and the team has worked it since. This is where it stands on Thursday 8 October."
 
-**Point to the chain:** Contract signed Wed 28 Oct → Funding setup Wed 11 Nov → Cash instructions Wed 25 Nov → Funded Thu 26 Nov → Trading Tue 1 Dec → Reporting Thu 3 Dec. Each step is +3 days against plan.
+### 5a · Plan & status *(Playbook agent + Key players agent)*
 
-**Click:** the task selector already shows **P6 · IMA executed**. Click **+5 days**.
+> "Here's the 30-second read. The client asked for funding on Monday 23 November. We now forecast Thursday 26 November, three business days late. There are 14 open tasks: two overdue and two blocked."
 
-**Say:**
-> "Say the trustees need five more days to sign. Funding moves from 26 November to **3 December**. Thirteen tasks move, and Paperwork and Ops setup go from at risk to off track. Here is who gets told, in order: Legal flags it, then the onboarding lead, the RM, the client's counsel, and finally the heads of Legal and Onboarding."
+**Stage cards** (each shows the owner, team and escalation point):
 
-**Optional:** pick **O4 · Create system records** and add +5:
-> "The same delay on a task with slack doesn't move the date."
+| Stage | Status |
+|---|---|
+| Intake | 🟢 Complete |
+| Paperwork | 🟡 At risk |
+| Ops setup | 🟡 At risk |
+| Funding | 🔴 Off track |
+| Post-funding | ⚪ Not started |
 
-**Part B: if the client's requirements change.** Scroll down.
+> "Funding is red because the client's date will be missed. We allow no tolerance on funding, because that date is a commitment to the client."
 
-**Say:**
-> "This is the second planner question. Five requirement areas, each set to Low, Medium or High. The duration follows the longest workstream that runs in parallel, not the sum of them all."
+**Issues affecting the timeline:**
+> "This is the issue the agents flagged on day one. The tobacco and coal restriction is still unclear. It adds three onboarding days, and clearing it needs a Legal review, a Portfolio Control review and a clarification from the client. Next to it, system records are three days overdue but have no effect on the date, because there's slack in the work that follows."
 
-**Point to:** *Onboarding duration* of **50–58 business days**, against a 45-day standard route, on the 14 Sep snapshot.
+**Who acts next:**
+- Elena Weber at the client needs to act on P1.
+- Mandate counsel is blocked on Schedule A until P1 comes in.
+- Elena Weber is also the person we need to contact.
 
-**Click:** **Investment restrictions** in the left list.
-> "Here is the same issue-to-days line again. *Tobacco restriction unclear; thermal coal undefined.* In this snapshot it adds one to two onboarding days. It's three to six days of work, but most of that runs alongside longer workstreams. It needs Legal, Portfolio Control, the client and a PM decision."
+**Drill-down, with P1 on the right:**
+> "P1 was due on 6 October, and 15 later tasks are waiting on it. Here's the escalation so far. The owner flagged it. The onboarding lead was told when it was one day overdue. The RM is chasing at two days. Next, the client is told about the date impact on Friday 9 October. The Head of Onboarding already knows, because the funding date has moved."
+
+### 5b · Requirements & obligations *(Context agent + Evidence reviewer)*
+
+> "This is the client requirement the Context agent extracted: what the client asked for, and where each request stands now. Every line has a source."
+
+**Point to:**
+- Reporting: agreed on 15 Sep.
+- Tobacco and coal: 2 days overdue.
+- Funding and derivatives: both changed on 16 Sep.
+
+**Obligations:**
+> "Contractual obligations are the ones written into the IMA, Schedule A and the service annex. Missing one is a breach. Portfolio Control monitors them, and changing one needs Legal. Non-contractual expectations are a relationship risk instead. The RM owns those and can renegotiate them."
+
+### 5c · Key players *(Key players agent)*
+
+> "For each responsibility you can see the internal owner, the external contact, the escalation point and the next action. Servicing ownership is here too. After funding, Maya Shah services the account, the consultant is copied in, and the client's investment office gives instructions."
+
+### 5d · What-if: if a task slips *(Playbook agent)*
+
+**Point to the chain:**
+
+| Milestone | Forecast |
+|---|---|
+| Contract signed | Wed 28 Oct |
+| Funding setup | Wed 11 Nov |
+| Cash instructions | Wed 25 Nov |
+| Funded | Thu 26 Nov |
+| Trading | Tue 1 Dec |
+| Reporting | Thu 3 Dec |
+
+**Click:** the task is already set to **P6 · IMA executed**. Click **+5 days**.
+> "If the trustees need five more days to sign, funding moves to 3 December. Thirteen tasks move, and Paperwork and Ops setup turn red. And this shows who gets told, in what order."
+
+**Optional:** choose **O4 · Create system records**, then click **+5 days**.
+> "The same delay on a task with slack after it doesn't move the date."
+
+### 5e · What-if: if the client's requirements change *(Operational + Investment risk agents)*
+
+**Click:** **Start from evidence → 14 Sep · Initial request**. This matters if you ran N07 in Scene 4.
+> "This is the risk agents' view. Each requirement area is set to Low, Medium or High. The areas run in parallel, so the total follows the longest one: 50 to 58 business days, against a 45-day standard route."
+
+**Click:** **Investment restrictions**.
+> "Tobacco restriction unclear, thermal coal undefined. That adds one to two onboarding days. It's three to six days of work, but most of it runs alongside longer workstreams. Clearing it needs Legal, Portfolio Control, the client and a decision from the portfolio manager."
 
 **Click:** **Start from evidence → 16 Sep · Cash + later derivatives**.
-> "All-cash funding with derivatives later takes us to **49–54 days**, and Legal applicability becomes the longest workstream."
+> "With all-cash funding and derivatives later, it's 49 to 54 days."
 
 ---
 
-## Scene 7 · One framework, many variations (4 minutes)
+## Scene 6 · One framework, many variations (3 minutes)
 
-**Click:** **06 One framework, many variations**.
+**Click:** **04 One framework, many variations**.
 
 **Say:**
-> "We zoom back out to every client. The feedback was not to build a separate process per product: one framework, with variations layered on top. These ten activities never change. They are AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account setup, reporting, funding and ongoing servicing."
+> "Alpenridge is one client. These ten activities are the same for every client: AML/KYC, beneficial owner review, service model, contract review, investment guidelines, billing, account setup, reporting, funding and ongoing servicing. The client's attributes change how each activity is done and who is involved. Those attributes are what the agents read from the documents."
 
-**Point to:** the attributes on the left, then the **client structure lens**, which shows who services the account, the channel, the intermediary and the instructing party.
+**Click through:**
+1. **Alpenridge · current plan.** 6 of the 10 activities change.
+2. **Mutual fund omnibus.** 9 of the 10 change.
+   > "Servicing still exists here, even with no direct account relationship. AML checks rely on the intermediary, and we service the intermediary, not the investor."
+3. **401(k) plan into a CIT**, then switch on **Tobacco**.
+   > "It flags combinations that don't work. A client-specific screen can't sit inside a pooled CIT."
 
-**Click through the presets:**
-
-1. **Alpenridge · current plan** changes 6 of 10 activities.
-   > "Separate account, IMA, three restriction types, a negotiated fee, and the consultant copied."
-2. **401(k) plan into a CIT.**
-   > "A participation agreement, pooled guidelines, the trustee and recordkeeper, and a fee class."
-3. **Mutual fund omnibus** changes 9 of 10 activities.
-   > "Servicing exists even where there's no obvious account relationship. AML relies on the intermediary. Beneficial owners aren't visible to us. Cash flows arrive as net trades. We service the intermediary, not the end investor."
-4. **OCIO-managed endowment.**
-   > "The OCIO instructs and we verify its authority. In-kind funding brings in a transition manager."
-
-**Click:** **401(k) plan into a CIT**, then switch on **Tobacco**.
-> "The framework also flags combinations that don't work. A client-specific tobacco screen can't sit inside a pooled CIT."
-
-> "These variations show typical differences between structures. They need checking against firm policy before use."
+> "These variations need checking against firm policy before we use them."
 
 ---
 
 ## Close (1 minute)
 
-**Click:** **01 Onboarding portfolio**.
+**Click:** **02 Multi-agent system**.
 
 **Say:**
-> "To sum up: leadership sees the whole book in one screen and can drill into any onboarding. For each client, the team sees in 30 seconds where it stands, what is late and who has to act. Every risk is tied to days and to the reviews it needs. Agents build the plan from documents and past cases, and people decide at every gate. One framework covers separate accounts, CITs, funds, OCIO, sub-advisory, omnibus and pooled plans."
+> "To recap. Leadership sees the whole book. For the hard cases, seven agents turn documents and past cases into a plan, and people decide at every checkpoint. The plan tells the team where they stand, who acts next and what a delay costs. And the same framework covers separate accounts, CITs, funds, OCIO, sub-advisory, omnibus and pooled plans."
 
-> "Next steps would be to confirm the framework variations with the policy owners, connect the status view to Appian task data, and pilot it on two live onboardings: one separate account and one CIT."
+> "Next steps: confirm the framework with the policy owners, connect the agents and the status view to Appian, and pilot it on two live onboardings, one separate account and one CIT."
 
 ---
 
 ## 10-minute version
 
-1. Scene 2, Onboarding portfolio: 1.5 min.
-2. Scene 3, the 30-second read, the issue and who acts next: 2.5 min.
-3. Scene 4, the requirements table only: 1 min.
-4. Scene 5, the agent flow only, without running it: 1 min.
-5. Scene 6 Part A, P6 +5 days: 1.5 min.
-6. Scene 7, Alpenridge → Mutual fund omnibus: 1.5 min.
-7. Close: 1 min.
+1. Scene 2, portfolio ending on Alpenridge: 1 minute.
+2. Scene 3, meet the agents, diagram only: 1 minute.
+3. Scene 4, run to the first acceptance at 2× speed, skipping the challenge and N07: 4 minutes.
+4. Scene 5a, the 30-second read and the tobacco issue: 2 minutes.
+5. Scene 5d, delay P6 by 5 days: 1 minute.
+6. Close: 1 minute.
 
 ---
 
@@ -228,14 +234,14 @@ If time is short, stop after the first acceptance.
 
 | Question | Answer |
 |---|---|
-| Is this live data? | No. The client, the book of onboardings and the documents are all synthetic. The status view shows the structure we would connect to Appian task data. |
-| How is red, amber or green decided? | It's calculated from planned and forecast task dates. A stage is amber when a task is overdue or blocked, or when the stage end moves by up to 3 days. It is red beyond 3 days. Funding is red on any slip, because the funding date is a commitment to the client. |
-| Why does a late task show "no date impact"? | It has slack, meaning other work on the path to funding takes longer. |
-| Is +3 days a prediction? | It's a plan-based forecast from today's task dates, not a statistical probability. Past cases show *how* delays happen, not their odds. |
-| Does the AI decide the client's tobacco rule? | No. The agents raise the conflict and test the options. Legal, Portfolio Control and the client decide. |
-| Does it email the client or create tasks? | No. It shows who should be told and when. The team contacts people and creates the Appian tasks. |
-| Are the CIT and omnibus variations accurate for us? | They describe typical differences between structures and need checking against firm policy. |
-| Why is "Paperwork" still a stage name? | It matches the five phases the team uses today, and contract review sits inside it. Renaming it to "Contracts" is a one-line change. |
+| Is the model running live? | No. The agent outputs were prepared in advance and are replayed in order. Search, rule tests and date calculations run locally. A separate live version exists, but it isn't used in this demo. |
+| Is this real data? | No. The client, the book and the documents are all synthetic. The status view shows the structure we would connect to Appian. |
+| Why is the run in mid-September but the status on 8 October? | The agents built the plan when the documents arrived. The status shows how that plan has tracked since. |
+| How is red, amber or green decided? | It's calculated from planned and forecast dates. A stage is amber if something is overdue or blocked, or if the stage end moves by up to 3 days. It's red if it moves by more. Funding is red on any slip, because the date is a commitment to the client. |
+| Is +3 days a prediction? | It's a forecast based on today's task dates, not a probability. The past cases show how delays happen, not how likely they are. |
+| Does the AI decide the tobacco rule? | No. The agents raise the conflict and test the options. Legal, Portfolio Control and the client decide. |
+| Does it email the client or create tasks? | No. It shows who should be told and when. People do the contacting and create the tasks in Appian. |
+| Are the CIT and omnibus variations right for us? | They show typical differences between structures and need checking against firm policy. |
 
 ---
 
@@ -243,12 +249,11 @@ If time is short, stop after the first acceptance.
 
 | Feedback | Scene |
 |---|---|
-| Executive view, then a specific client | 2 → 3 |
-| Progress, not only risk; RAG status | 3 |
-| Make dependencies clear | 3 (waits on / unblocks), 6A |
-| Risk tied to the timeline | 3, 6B |
-| Escalation and communication | 3, 6A |
-| Contractual vs non-contractual obligations | 4 |
-| Key players agent | 3, 4, 5 |
-| Client requirement → precedent → risk → workflow → what-if | 4 → 5 → 6 |
-| One framework, many variations; beyond CITs and separate accounts | 2, 7 |
+| Executive view first, then a specific client | 2 → 4 → 5 |
+| Client requirement → precedent → risk → workflow → what-if | 4, then 5b, 5d, 5e |
+| Key players agent | 3, 4, 5c |
+| Progress, not only risk; RAG status | 5a |
+| Dependencies and timeline impact | 5a, 5d, 5e |
+| Escalation and communication | 5a, 5d |
+| Contractual vs non-contractual obligations | 5b |
+| One framework, many variations; beyond CITs and separate accounts | 2, 6 |

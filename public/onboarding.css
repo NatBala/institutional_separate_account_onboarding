@@ -103,6 +103,14 @@
 .wi-head{margin:26px 0 12px}.wi-head h2{font-size:1.05rem;margin:0 0 4px}.wi-head p{margin:0;color:var(--muted);font-size:.9rem}
 .sys-compact .split{align-items:baseline;flex-wrap:wrap}.sys-compact h2{margin:0 0 12px}
 .sys-more{margin-top:14px}.sys-more summary{cursor:pointer;font-weight:700;color:var(--teal);font-size:.9rem}.sys-more .sys-cards{margin-top:14px}
+/* Agent output page */
+.out-intro{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--navy);color:#dbe7ef;border-radius:9px;padding:14px 18px;margin-bottom:22px}
+.out-intro p{margin:0;max-width:640px;font-size:.9rem;line-height:1.55}
+.out-jump{display:flex;flex-wrap:wrap;gap:6px}.out-jump a{color:#fff;text-decoration:none;font-size:.8rem;font-weight:650;border:1px solid #4d6b80;border-radius:999px;padding:5px 11px}.out-jump a:hover{background:#20485e}
+.out-sec{margin-bottom:30px;scroll-margin-top:12px}
+.out-head{margin-bottom:12px}.out-head h2{font-size:1.25rem;letter-spacing:-.02em;margin:0 0 6px;display:inline-block;margin-right:10px}.out-head p{margin:6px 0 0;color:var(--muted);font-size:.9rem;max-width:860px}
+.out-by{display:inline-flex;gap:4px;align-items:center;font-size:.76rem;background:#e4f2f3;color:#146471;border:1px solid #bfe0e0;border-radius:999px;padding:3px 10px;vertical-align:4px}.out-by b{font-weight:750}
+.sys-compact .sys-run{font-size:1rem;padding:12px 20px}
 /* Leadership */
 .st-lead>.eyebrow{margin-bottom:10px}
 .st-lead-kpis{grid-template-columns:repeat(5,minmax(0,1fr))}.st-lead-kpis strong small{font-size:.8rem;font-weight:500;color:var(--muted);letter-spacing:0}
