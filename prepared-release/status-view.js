@@ -65,9 +65,10 @@ function mount(root,opt={}){
  function playersPane(s){const now=[],blocked=[],contact=[];
   const rows=O.PLAYERS.map(p=>{const ts=p.tasks.map(id=>s.map[id]),open=ts.filter(t=>!t.done),b=open.filter(t=>t.status==='blocked'),od=open.filter(t=>t.status==='overdue'),act=open.filter(t=>['progress','overdue','late','ready'].includes(t.status));
    let st;if(!open.length)st=['Done','done'];else if(od.length)st=['Overdue · must act now','overdue'];else if(b.length)st=['Blocked','blocked'];else if(act.length)st=['Acting now','progress'];else st=['Waiting','waiting'];
-   if(od.length){now.push([p.ext.split(';')[0],od[0]]);contact.push([p.ext.split(';')[0],od[0]]);}
-   else if(act.length)now.push([p.internal,act[0]]);
-   if(b.length)blocked.push([p.internal,b[0]]);
+   const who=t=>t.ext&&t.ext!=='—'?t.ext:p.internal,add=(list,w,t)=>{if(!list.some(([,x])=>x.id===t.id))list.push([w,t]);};
+   if(od.length){add(now,who(od[0]),od[0]);if(od[0].ext&&od[0].ext!=='—')add(contact,od[0].ext,od[0]);}
+   else if(act.length)add(now,p.internal,act[0]);
+   if(b.length)add(blocked,p.internal,b[0]);
    const next=open.sort((x,y)=>x.forecast-y.forecast)[0];
    return `<tr><td><b>${esc(p.area)}</b>${cites(p.refs)}</td><td>${esc(p.internal)}<small>${esc(team(p.team))}</small></td><td>${esc(p.ext)}</td><td>${esc(p.escalation)}</td><td><span class="st-status st-s-${st[1]}">${st[0]}</span>${next?`<small>Next: ${next.id} · ${esc(next.title)}</small>`:''}</td></tr>`;}).join('');
   const list=(xs,f)=>xs.length?xs.map(f).join(''):'<li>None</li>';
