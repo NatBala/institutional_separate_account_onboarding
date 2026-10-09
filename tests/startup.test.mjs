@@ -91,6 +91,10 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{fxEv:'r0',fxOb:w.context.window.SA_FRAMEWORK.MINED.rules[0].examples[0]});assert.match(fw.innerHTML,/Supports this rule/);assert.match(fw.innerHTML,/Task log/);
     w.click(fw,{fxList:'proposed'});w.click(fw,{fxEv:'p0'});assert.match(fw.innerHTML,/added this step by hand \(/);w.click(fw,{fxEv:''});assert.doesNotMatch(fw.innerHTML,/class="fx-ev"/);assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
+    assert.match(fw.innerHTML,/Standard guideline<\/span>/);assert.match(fw.innerHTML,/For Platform/);assert.match(fw.innerHTML,/Does not apply to this client/);
+    // The standard guideline holds every standard in one place, and links to the rules for each activity.
+    w.click(fw,{fxStd:'aml'});assert.match(fw.innerHTML,/Standard onboarding guideline<\/h2>/);assert.match(fw.innerHTML,/fx-std-card sel" id="fx-std-aml"/);assert.equal((fw.innerHTML.match(/class="fx-std-card/g)||[]).length,10);
+    w.click(fw,{fxRulesFor:'aml'});assert.match(fw.innerHTML,/Showing the rules that change <b>AML\/KYC/);w.click(fw,{fxList:''});
     w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
     // The onboarding agents then use the matrix for one client.
     w.click(fw,{fxCol:'omnibus'});assert.match(fw.innerHTML,/Platform agreement draft/);assert.match(fw.innerHTML,/fx-cell pending/);
