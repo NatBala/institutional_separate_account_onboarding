@@ -44,3 +44,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .fx-pf{grid-template-rows:auto 1fr auto;align-content:start;padding:7px 9px}
 .fx-pf b{align-self:start}
 .fx-run-head{position:sticky;top:-12px;z-index:3;background:#0d1729;margin:-12px -16px 8px;padding:12px 16px 8px;border-bottom:1px solid #1c2840}
+/* Collapsible left panel */
+.rail-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.rail-toggle{flex:none;width:30px;height:30px;border-radius:8px;border:1px solid #23324f;background:#0e1729;color:#9fb0c6;font-size:1rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.rail-toggle:hover{color:#fff;border-color:#3b5179;background:#16233d}
+.nav-label{font-style:normal}
+.shell{transition:grid-template-columns .18s ease}
+.shell.rail-min{grid-template-columns:68px minmax(0,1fr)}
+.shell.rail-min .rail{padding:20px 10px}
+.shell.rail-min .brand,.shell.rail-min .nav-group,.shell.rail-min .nav-label,.shell.rail-min .rail-note{display:none}
+.shell.rail-min .rail-top{justify-content:center}
+.shell.rail-min .rail nav{margin-top:22px}
+.shell.rail-min .nav{justify-content:center;padding:12px 0}.shell.rail-min .nav span{min-width:0;opacity:.85}
+@media(max-width:760px){.rail-toggle{display:none}.shell.rail-min .brand,.shell.rail-min .nav-label{display:revert}}

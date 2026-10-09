@@ -367,3 +367,15 @@ body.ob-lock{overflow:hidden}
 .fw-opts button{background:#0b1426;border-color:#2a3a58;color:#cbd5e4}.fw-opts button.active{background:#0f9488;border-color:#14b8a6;color:#fff}
 @media(max-width:1300px){.fx-pf-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:900px){.fx-pf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.fx-scale{grid-template-columns:repeat(2,minmax(0,1fr))}.fx-profile header{flex-wrap:wrap}}
+/* New client card: Alpenridge arrives after the matrix is built */
+.fx-profile header:last-child{margin-bottom:0}
+.fx-pf.wait b{color:#5d7090}.fx-pf.wait{border-style:dashed}
+.fx-new{margin-top:12px;border:1px solid #1e5a5a;border-left:3px solid #2dd4bf;border-radius:10px;padding:12px 14px;background:linear-gradient(180deg,rgba(20,184,166,.10),rgba(20,184,166,.02));display:grid;gap:7px;animation:fx-slide .5s ease}
+.fx-new .eyebrow{color:#5eead4}.fx-new h4{margin:0;font-size:1.02rem;color:#f4f7fb}.fx-new p{margin:0;font-size:.8rem;color:#b6c4d6}.fx-new p.smalltext{color:#8fa3bd}
+.fx-new ul{list-style:none;margin:2px 0;padding:0;display:grid;gap:4px}.fx-new li{display:flex;gap:8px;font-size:.78rem;color:#dbe4f0;background:#0b1426;border:1px solid #1c2840;border-radius:6px;padding:5px 8px}.fx-new li b{color:#5eead4;font-family:ui-monospace,Menlo,monospace;font-size:.72rem;min-width:28px}
+.fx-new .btn{justify-self:start}
+/* Output detail opens full screen */
+.ob-drawer{left:0;width:auto;box-shadow:none;animation:ob-fade .15s ease}
+.ob-dhead{padding:14px max(22px,calc((100vw - 1500px)/2))}
+.ob-dbody{padding:22px max(22px,calc((100vw - 1500px)/2)) 40px}
+@media(max-width:640px){.ob-dhead{padding:12px 16px}.ob-dbody{padding:14px 16px 30px}}

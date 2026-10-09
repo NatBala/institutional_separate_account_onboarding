@@ -68,15 +68,22 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{tab:'area'});assert.match(root.innerHTML,/Impact:/);
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
     w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
+    // The left panel collapses and remembers it.
+    assert.match(w.app.innerHTML,/data-rail/);w.click(w.document,{rail:''});w.click(w.document,{view:'output'});assert.match(w.app.innerHTML,/shell rail-min/);w.click(w.document,{rail:''});
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
-    // Starts from the current client's attributes with an empty matrix.
-    assert.match(fw.innerHTML,/Current client/);assert.match(fw.innerHTML,/Attributes found by the Context agent/);assert.match(fw.innerHTML,/Build the framework from onboarding history/);
+    // Starts with an empty matrix; Alpenridge is not in it yet.
+    assert.match(fw.innerHTML,/Learn the onboarding framework from history/);assert.match(fw.innerHTML,/Build the framework from onboarding history/);assert.doesNotMatch(fw.innerHTML,/data-fx-col="alpenridge"/);
     assert.match(fw.innerHTML,/fx-cell empty/);assert.doesNotMatch(fw.innerHTML,/fx-cell rep/);
     w.click(fw,{fxCol:'omnibus'});assert.doesNotMatch(fw.innerHTML,/Platform agreement draft/,'clients cannot run before the matrix exists');
     // The Framework Builder agents learn the rules and fill the matrix.
     w.click(fw,{fxAct:'build'});assert.match(fw.innerHTML,/Archive reader/);assert.match(fw.innerHTML,/closed onboardings read/);
     w.click(fw,{fxAct:'bskip'});assert.match(fw.innerHTML,/Built from 146 past onboardings/);assert.doesNotMatch(fw.innerHTML,/fx-cell empty/);
     assert.match(fw.innerHTML,/51<\/b> rules learned/);assert.match(fw.innerHTML,/3,456/);assert.match(fw.innerHTML,/waiting for approval|wait for approval/);
+    // Alpenridge arrives as a new client; extracting its attributes adds it to the matrix.
+    assert.match(fw.innerHTML,/New client received/);assert.doesNotMatch(fw.innerHTML,/<b>Alpenridge<\/b>/);
+    w.click(fw,{fxAct:'extract'});assert.match(fw.innerHTML,/<b>Alpenridge<\/b>/);assert.match(fw.innerHTML,/is extracting attributes/);assert.match(fw.innerHTML,/fx-cell pending/);
+    w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Attributes extracted by the Context agent/);assert.match(fw.innerHTML,/Ready for human review/);assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);
+    w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
     w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
     // The onboarding agents then use the matrix for one client.

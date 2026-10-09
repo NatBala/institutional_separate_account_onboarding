@@ -105,13 +105,16 @@ const MINED=(()=>{const rules=O.RULES.map(([a,v,act,effect,text],k)=>{const pool
 const ruleFor=(a,v,act,text)=>MINED.rules.find(x=>x.a===a&&x.v===v&&x.act===act&&x.text===text);
 const BUILDER=[['F1','Archive reader','Reads every closed onboarding file: checklists, task logs and exception notes'],['F2','Attribute tagger','Tags each past onboarding with the seven client attributes'],['F3','Pattern miner','Learns how each activity varied by attribute, with the evidence'],['F4','Policy checker','Checks the learned rules against policy and adds forbidden combinations'],['H','Policy owner','Approves any new rule before it is used'],['F5','Matrix builder','Applies the approved rules to every client type']];
 // Builder timeline: F1 reads in six batches, F2 tags, F3 learns in eight batches, F4 checks, H reviews, F5 fills one column at a time.
-const B={f1:0,f2:6,f3:7,f4:15,h:16,f5:17,done:17+COLS.length};
+// The builder fills the known client types; Alpenridge arrives afterwards as a new client.
+const BCOLS=COLS.filter(c=>c[0]!=='alpenridge');
+const B={f1:0,f2:6,f3:7,f4:15,h:16,f5:17,done:17+BCOLS.length};
 const bdur=i=>i<B.f2?380:i===B.f2?1300:i<B.f4?380:i===B.f4?1400:i===B.h?1300:i<B.done?600:0;
 const pct=x=>Math.round(x*100)+'%';
 const markup='<div id="fw-root" class="fx"></div>';
 function mount(root,opt={}){
- const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bstep:-1,building:false};
- const built=()=>state.bstep>=B.done,colIx=c=>COLS.findIndex(x=>x[0]===c),shown=c=>state.bstep>=B.f5+colIx(c);
+ const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bstep:-1,building:false,alp:false};
+ const built=()=>state.bstep>=B.done,colIx=c=>BCOLS.findIndex(x=>x[0]===c),shown=c=>c==='alpenridge'?state.alp:state.bstep>=B.f5+colIx(c);
+ const cols=()=>COLS.filter(([c])=>c!=='alpenridge'||state.alp);
  let timer=null;
  const cfgFor=col=>col==='custom'?state.custom:O.PROFILES.find(p=>p.id===col).cfg;
  const resultFor=col=>O.configure(cfgFor(col));
@@ -124,9 +127,9 @@ function mount(root,opt={}){
   const [cls,txt]=rep?['rep','Replaced'+(add?` +${add}`:'')]:add?['add',`+${add} added`]:adj?['adj','Adjusted']:['std','Standard'];
   const fresh=(state.col===col&&state.playing&&state.step===s.fw+i)||(state.building&&state.bstep===B.f5+colIx(col));
   return `<td class="fx-cell ${cls} ${fresh?'fresh':''} ${state.cell===col+'|'+a.id?'sel':''}"><button type="button" data-fx-cell="${col}|${a.id}" title="${esc(a.name)}: ${esc(ch.map(c=>TAG[c.effect]+' · '+c.text).join(' | ')||'Standard activity')}">${txt}</button></td>`;}
- function matrix(){const results=Object.fromEntries(COLS.map(([c])=>[c,resultFor(c)]));
-  return `<section class="panel fx-matrix"><div class="fx-mhead"><h3>Ten shared activities × every client type</h3><p class="smalltext">${built()?'Built from onboarding history. Click a cell for the rule and its evidence, or a client to run the onboarding agents.':state.bstep<0?'Empty until the Framework Builder learns the rules from onboarding history.':'The Framework Builder is learning the rules…'}</p></div>
-  <div class="fx-table-wrap"><table class="fx-table"><thead><tr><th class="fx-corner">Shared activity</th>${COLS.map(([c,name,sub])=>`<th class="${state.col===c?'sel':''} ${c==='custom'?'custom':''} ${c==='alpenridge'?'current':''}"><button type="button" data-fx-col="${c}" aria-pressed="${state.col===c}" ${built()?'':'disabled'}>${c==='alpenridge'?'<i>Current client</i>':''}<b>${esc(name)}</b><small>${esc(sub)}</small></button></th>`).join('')}</tr></thead>
+ function matrix(){const COLS=cols(),results=Object.fromEntries(COLS.map(([c])=>[c,resultFor(c)]));
+  return `<section class="panel fx-matrix"><div class="fx-mhead"><h3>Ten shared activities × every client type</h3><p class="smalltext">${built()&&!state.alp?'Built from onboarding history. A new client has arrived: extract its attributes on the right to add it.':built()?'Built from onboarding history. Click a cell for the rule and its evidence, or a client to run the onboarding agents.':state.bstep<0?'Empty until the Framework Builder learns the rules from onboarding history.':'The Framework Builder is learning the rules…'}</p></div>
+  <div class="fx-table-wrap"><table class="fx-table"><thead><tr><th class="fx-corner">Shared activity</th>${COLS.map(([c,name,sub])=>`<th class="${state.col===c?'sel':''} ${c==='custom'?'custom':''} ${c==='alpenridge'?'current':''}"><button type="button" data-fx-col="${c}" aria-pressed="${state.col===c}" ${built()?'':'disabled'}>${c==='alpenridge'?'<i>New client</i>':''}<b>${esc(name)}</b><small>${esc(sub)}</small></button></th>`).join('')}</tr></thead>
   <tbody>${O.STAGES.map((st,si)=>O.ACTIVITIES.map((a,i)=>a.stage!==si?'':`<tr><th scope="row" title="${esc(st.name)}"><span>${esc(a.name)}</span></th>${COLS.map(([c])=>cell(c,a,i,results[c])).join('')}</tr>`).join('')).join('')}</tbody>
   <tfoot><tr><th scope="row">Activities that vary</th>${COLS.map(([c])=>`<td>${!shown(c)?'—':state.col===c&&state.step<startOf(c).a2?'…':results[c].acts.filter(a=>a.changes.length).length+'/10'}</td>`).join('')}</tr><tr><th scope="row">Rules reused</th>${COLS.map(([c])=>`<td>${!shown(c)?'—':state.col===c&&state.step<startOf(c).a2?'…':results[c].acts.reduce((n,a)=>n+a.changes.length,0)}</td>`).join('')}</tr><tr><th scope="row">New process steps</th>${COLS.map(([c])=>`<td class="zero">${shown(c)?0:'—'}</td>`).join('')}</tr></tfoot></table></div>
   <div class="fx-legend"><span class="std">Standard</span><span class="adj">Adjusted</span><span class="rep">Replaced</span><span class="add">+ Added</span><em>Hover or click a cell for the detail</em></div>
@@ -158,11 +161,15 @@ function mount(root,opt={}){
   return `<aside class="panel fx-run"><div class="fx-run-head"><div><button type="button" class="fx-back" data-fx-act="back">← How the matrix was built</button><span class="eyebrow">Onboarding agents using the framework</span><h3>${esc(name)}</h3></div><div class="run-buttons">${state.playing?'<button type="button" class="btn small" data-fx-act="skip">Skip ⏭</button>':`<button type="button" class="btn small primary" data-fx-act="replay">${done?'Replay':'Run'} ▶</button>`}</div></div>
   ${col==='custom'?customControls():''}<ol class="fx-pipe">${steps.join('')}</ol></aside>`;}
  function customControls(){const c=state.custom;return `<div class="fx-custom">${O.ATTRS.map(a=>`<div class="fw-attr"><span class="wr-label">${esc(a.name)}</span><div class="fw-opts">${a.options.map(([v,l])=>{const on=a.multi?c[a.id].includes(v):c[a.id]===v;return `<button type="button" class="${on?'active':''}" aria-pressed="${on}" data-fw-attr="${a.id}" data-fw-val="${v}">${esc(l)}</button>`;}).join('')}${a.multi?`<button type="button" class="${!c[a.id].length?'active':''}" data-fw-attr="${a.id}" data-fw-val="">None</button>`:''}</div></div>`).join('')}</div>`;}
- function profile(){const cfg=O.PROFILES.find(p=>p.id==='alpenridge').cfg,src={};for(const d of DOCS.alpenridge)for(const [a,v] of d.attrs)src[a+'|'+v]=d.src;
-  const srcs=list=>[...new Set(list.filter(Boolean))].map(x=>/§/.test(x)?`<button type="button" class="cite" data-source="${esc(x)}">${esc(x)}</button>`:`<i>${esc(x)}</i>`).join('');
-  const tiles=O.ATTRS.map(a=>{const vals=a.multi?cfg[a.id]:[cfg[a.id]];return `<div class="fx-pf"><span>${esc(a.name)}</span><b>${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):'None'}</b><em>${srcs(vals.map(v=>src[a.id+'|'+v]))}</em></div>`;}).join('');
+ function profile(){const cfg=O.PROFILES.find(p=>p.id==='alpenridge').cfg,src={},docs=DOCS.alpenridge,s=startOf('alpenridge');
   const cta=state.building?`<button type="button" class="btn" data-fx-act="bskip">Building… skip to result ⏭</button>`:built()?`<span class="fx-built">✓ Built from ${HISTORY.length} past onboardings</span><button type="button" class="btn small" data-fx-act="build">Rebuild ↻</button>`:`<button type="button" class="btn primary fx-build" data-fx-act="build">Build the framework from onboarding history ▶</button>`;
-  return `<section class="fx-profile"><header><div><span class="eyebrow">Current client</span><h3>Alpenridge Pension Foundation</h3><small>Attributes found by the Context agent (A1) and confirmed by Operations (H1)</small></div><div class="fx-profile-cta">${cta}</div></header><div class="fx-pf-grid">${tiles}</div></section>`;}
+  if(!state.alp)return `<section class="fx-profile"><header><div><span class="eyebrow">${built()?'Framework ready':'Framework Builder'}</span><h3>Learn the onboarding framework from history</h3><small>${HISTORY.length} closed onboardings · ${O.ATTRS.length} client attributes · ${O.ACTIVITIES.length} shared activities</small></div><div class="fx-profile-cta">${cta}</div></header></section>`;
+  // Tiles fill in as the Context agent reads each document.
+  const read=state.col==='alpenridge'?docs.filter((d,i)=>state.step>=i):docs,all=read.length===docs.length;for(const d of read)for(const [a,v] of d.attrs)src[a+'|'+v]=d.src;
+  const srcs=list=>[...new Set(list.filter(Boolean))].map(x=>/§/.test(x)?`<button type="button" class="cite" data-source="${esc(x)}">${esc(x)}</button>`:`<i>${esc(x)}</i>`).join('');
+  const tiles=O.ATTRS.map(a=>{const vals=(a.multi?cfg[a.id]:[cfg[a.id]]).filter(v=>src[a.id+'|'+v]);return `<div class="fx-pf ${vals.length||all?'':'wait'}"><span>${esc(a.name)}</span><b>${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):all?'None':'…'}</b><em>${srcs(vals.map(v=>src[a.id+'|'+v]))}</em></div>`;}).join('');
+  const how=state.col==='alpenridge'&&state.step<s.h1?'The Context agent (A1) is extracting attributes from the client’s documents…':'Attributes extracted by the Context agent (A1) and confirmed by Operations (H1)';
+  return `<section class="fx-profile"><header><div><span class="eyebrow">New client</span><h3>Alpenridge Pension Foundation</h3><small>${how}</small></div><div class="fx-profile-cta">${cta}</div></header><div class="fx-pf-grid">${tiles}</div></section>`;}
  function scale(){const b=state.bstep,read=b<0?null:Math.round(HISTORY.length*Math.min(1,(b+1)/6)),learned=b<B.f3?null:Math.round(MINED.learned.length*Math.min(1,(b-B.f3+1)/8)),v=x=>x==null?'—':x;
   const k=(cls,val,lab)=>`<div class="fx-kpi ${cls}"><span>${lab}</span><strong>${val}</strong></div>`;
   return `<div class="fx-scale">${k('blue',v(read),'Past onboardings learned from')}${k('green',v(learned),'Rules learned, with evidence')}${k('amber',b>=B.h?MINED.proposals.length:'—','New rules proposed')}${k('hero',built()?combos.toLocaleString('en-US'):'—','Client set-ups covered')}${k('slate',7,'Onboarding agents, same for every client')}${k('green',built()?0:'—','New processes designed')}</div>`;}
@@ -180,30 +187,35 @@ function mount(root,opt={}){
    bstage(2,B.f3,B.f4-1,st=>st==='done'?`<small><b>${M.learned.length}</b> rules learned. Each one held in at least 3 past onboardings, at a median ${pct(M.median)} consistency. Also found <b>${M.proposals.length}</b> steps teams kept adding by hand.</small>`:`<small><b>${nLearn}</b> rules learned so far</small><ul class="fx-feed">${recent.map(x=>`<li>If <b>${esc(attrLabel(x.a,x.v))}</b> → ${esc(actName(x.act))} ${x.effect} · ${x.hits}/${x.n} (${pct(x.support)})</li>`).join('')}</ul>`),
    bstage(3,B.f4,B.f4,()=>`<small>All ${M.learned.length} rules checked against ${POLICY_DOCS} policy documents. ${CONFLICT_CHECKS.length} combinations policy does not allow became checks:</small><ul class="fx-list">${CONFLICT_CHECKS.map(c=>`<li class="heavy">${esc(c)}</li>`).join('')}</ul>`),
    bstage(4,B.h,B.h,()=>`<small>${M.proposals.length} new rules wait for approval and are <b>not</b> applied yet:</small><ul class="fx-list">${M.proposals.map(p=>`<li><b>If ${esc(attrLabel(p.a,p.v))}</b> → ${esc(actName(p.act))}: ${esc(p.text)} <em class="fx-ev">added by hand in ${p.hits} of ${p.n} (${pct(p.support)})</em></li>`).join('')}</ul>`),
-   bstage(5,B.f5,B.done-1,st=>`<small>${st==='done'?`Matrix built for ${COLS.length} client types from the ${M.learned.length} approved rules. Alpenridge first.`:`Filling column ${Math.min(COLS.length,b-B.f5+1)} of ${COLS.length}…`}</small>`)
+   bstage(5,B.f5,B.done-1,st=>`<small>${st==='done'?`Matrix built for ${BCOLS.length-1} client types and a “Your mix” column from the ${M.learned.length} approved rules.`:`Filling column ${Math.min(BCOLS.length,b-B.f5+1)} of ${BCOLS.length}…`}</small>`)
   ];
   return `<aside class="panel fx-run"><div class="fx-run-head"><div><span class="eyebrow">How the matrix is built</span><h3>Framework Builder agents</h3></div>${state.building?'<button type="button" class="btn small" data-fx-act="bskip">Skip ⏭</button>':''}</div>
   ${b<0?`<p class="fx-lead">The framework is not written by hand. These agents learn it from ${HISTORY.length} closed onboardings, check it against policy, and send anything new to a policy owner.</p>`:''}
   <ol class="fx-pipe">${steps.join('')}</ol>
-  ${built()?`<div class="fx-next"><b>Next:</b> the seven onboarding agents use this matrix for a new client.<button type="button" class="btn small primary" data-fx-col="alpenridge">Run the onboarding agents for Alpenridge ▶</button><small>Or click any client column.</small></div>`:''}</aside>`;}
+  ${built()?newClient():''}</aside>`;}
+ // A new client arrives once the matrix exists. Extracting its attributes adds it to the matrix.
+ function newClient(){if(state.alp)return `<div class="fx-next"><b>Alpenridge is in the matrix.</b><button type="button" class="btn small" data-fx-col="alpenridge">Show its run again ▶</button><small>Or click any client column to see the onboarding agents on it.</small></div>`;
+  const C=window.CORPUS,ids=[...new Set(DOCS.alpenridge.map(d=>d.src.split('§')[0]))];
+  return `<div class="fx-new"><span class="eyebrow">New client received</span><h4>Alpenridge Pension Foundation</h4><p>USD 250m global investment-grade bond separate account · Swiss pension foundation</p><ul>${ids.map(id=>{const d=C?.documents?.find(x=>x.id===id);return `<li><b>${esc(d?id:'RM')}</b>${esc(d?d.title:id)}</li>`;}).join('')}</ul><p class="smalltext">It is not in the matrix yet. The Context agent reads these documents, extracts the seven attributes, and the framework does the rest.</p><button type="button" class="btn primary" data-fx-act="extract">Extract attributes and add to the matrix ▶</button></div>`;}
  function render(){root.innerHTML=`${profile()}${scale()}<div class="fx-layout">${matrix()}${runPanel()}</div><p class="legend">Illustrative framework on synthetic data. Variations describe typical differences between structures; confirm each against firm policy before use. The onboarding history and the agent steps for clients other than Alpenridge are synthetic.</p>`;
   // Keep the agent that is working in view inside the panel.
   const panel=root.querySelector?.('.fx-run');
   // Fit the panel to the space left on screen so it scrolls inside itself and the working agent stays visible.
   if(panel?.getBoundingClientRect&&window.innerHeight){const top=Math.max(12,panel.getBoundingClientRect().top);panel.style.maxHeight=Math.max(320,window.innerHeight-top-12)+'px';}
   const active=panel?.querySelector?.('.fx-step.active');
-  if(panel&&typeof panel.scrollTop==='number'){const target=active?active.offsetTop-70:built()&&!state.col?panel.scrollHeight:0;panel.scrollTop=Math.max(0,target);}}
+  if(panel&&typeof panel.scrollTop==='number'){const card=built()&&!state.col&&panel.querySelector('.fx-new,.fx-next'),target=active?active.offsetTop-70:card&&typeof card.offsetTop==='number'?card.offsetTop-64:0;panel.scrollTop=Math.max(0,target);}}
  function cancel(){if(timer!==null)clearTimeout(timer);timer=null;}
  const dur=(col,step)=>{const s=startOf(col);return step<s.h1?900:step===s.h1?700:step<s.a2?200:850;};
  function tick(){timer=null;state.step++;if(state.step>=lastStep(state.col)){state.step=lastStep(state.col);state.playing=false;}render();if(state.playing)timer=setTimeout(tick,dur(state.col,state.step+1));}
  function btick(){timer=null;state.bstep++;if(state.bstep>=B.done){state.bstep=B.done;state.building=false;}render();if(state.building)timer=setTimeout(btick,bdur(state.bstep+1));}
- function startBuild(){cancel();state.col=null;state.cell=null;state.playing=false;state.bstep=-1;state.building=true;btick();}
+ function startBuild(){cancel();state.col=null;state.cell=null;state.playing=false;state.alp=false;state.bstep=-1;state.building=true;btick();}
  function play(col){cancel();state.col=col;state.cell=null;state.step=col==='custom'?startOf(col).h1-1:-1;state.playing=true;tick();}
  function onClick(e){const b=e.target.closest('button');if(!b||!root.contains(b)||b.dataset.source||b.dataset.view)return;const d=b.dataset;
   if(d.fxAct==='build'){startBuild();return;}
   if(d.fxAct==='bskip'){cancel();state.building=false;state.bstep=B.done;render();return;}
   if(d.fxAct==='back'){cancel();state.playing=false;state.col=null;render();return;}
-  if(d.fxCol){if(built())play(d.fxCol);return;}
+  if(d.fxAct==='extract'){if(built()){state.alp=true;play('alpenridge');}return;}
+  if(d.fxCol){if(built()){if(d.fxCol==='alpenridge')state.alp=true;play(d.fxCol);}return;}
   if(d.fxAct==='skip'){cancel();state.playing=false;state.step=lastStep(state.col);render();return;}
   if(d.fxAct==='replay'){play(state.col);return;}
   if(d.fxCell!==undefined){if(!built())return;state.cell=d.fxCell&&state.cell!==d.fxCell?d.fxCell:null;render();return;}
