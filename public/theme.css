@@ -1,0 +1,46 @@
+/* Dark control-tower theme: page, chrome and shared controls. Loaded after the component stylesheets. */
+body{background:radial-gradient(1200px 600px at 70% -10%,#11204a 0%,rgba(17,32,74,0) 60%),linear-gradient(180deg,#070d1b 0%,#050a14 100%) fixed;color:var(--ink)}
+.rail{background:linear-gradient(180deg,#0a1324 0%,#070e1c 100%);border-right:1px solid #18243b}
+.brand small,.rail-note{color:#8fa3bd}
+.nav{color:#b6c4d6}.nav:hover{background:#111c33;color:#fff}
+.nav.active{background:linear-gradient(90deg,rgba(20,184,166,.18),rgba(20,184,166,.04));color:#fff;border-left:3px solid #2dd4bf}
+.nav-group{color:#6f84a3}
+.topbar{background:rgba(10,18,36,.85);border-bottom:1px solid #1b2842;backdrop-filter:blur(6px)}
+.topbar strong{color:#f1f5fb}
+.method{background:transparent;color:#7f91ab;border-bottom:1px solid #141f35}
+.pagehead h1{color:#f4f7fb}
+.panel,.metric{background:linear-gradient(180deg,#0f192d 0%,#0c1527 100%);border-color:#1f2c45;box-shadow:0 1px 0 rgba(255,255,255,.03) inset}
+.btn{background:#121d33;border-color:#2a3a58;color:#dbe4f0}.btn:hover{border-color:#3b5179;background:#16233d}
+.btn.primary{background:#0f9488;border-color:#14b8a6;color:#fff}.btn.primary:hover{background:#12a89a}
+.input,input,select,textarea{background:#0b1426;border-color:#2a3a58;color:var(--ink)}
+select option{background:#0b1426;color:var(--ink)}
+th{background:#111c32;color:#9fb0c6}
+th,td{border-bottom-color:#1c2840}
+.cite{background:#0e2230;border-color:#1e4a5a;color:#5eead4}
+.badge{background:#17233a;color:#b7c6da}
+.notice{background:rgba(20,184,166,.08);border-left-color:#14b8a6;color:#cfe3ea}
+.notice.warn{background:rgba(251,191,36,.08);border-color:#d6a032;color:#f5deb0}
+dialog{background:#0e1729;color:var(--ink);border:1px solid #22304a}
+dialog::backdrop{background:rgba(2,6,14,.7)}
+.foot summary{color:#7f91ab}
+a{color:#5eead4}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:#0a1222}::-webkit-scrollbar-thumb{background:#22304a;border-radius:6px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline-color:#fbbf24}
+/* Component colour variables */
+:root{--sys-intake:#14b8a6;--sys-risk-op:#60a5fa;--sys-risk-inv:#c084fc;--sys-plan:#f59e0b}
+.wrc{--wr-low:#34d399;--wr-low-bg:rgba(52,211,153,.12);--wr-med:#fbbf24;--wr-med-bg:rgba(251,191,36,.12);--wr-high:#f87171;--wr-high-bg:rgba(248,113,113,.13);--wr-op:#60a5fa;--wr-inv:#c084fc}
+.run-shell{--run-line:#22304a;--run-accent:#14b8a6}
+/* Readability fixes */
+.run-operator{color:#f1f5fb}
+.reviewitem p{color:#cbd5e4}.reviewitem s{color:#a9b8cc}
+.badge.amber{background:rgba(251,191,36,.15);color:#fcd34d}.badge.teal{background:rgba(52,211,153,.14);color:#6ee7b7}.badge.red{background:rgba(248,113,113,.15);color:#fca5a5}
+.ob-n{background:#163a5e;color:#dbeafe;border:1px solid #2b5590}
+.st-funnel-bar{background:#0b1426}.st-funnel-bar i{background:#3b6a8a}.st-funnel-col.neck .st-funnel-bar i{background:#d6a032}
+/* Framework tab: aligned rows, even tiles, pinned panel header */
+.fx-table tbody th,.fx-table td{vertical-align:middle}
+.fx-table tbody th{height:32px;font-size:.74rem}
+.fx-cell button{min-height:30px}.fx-cell.empty span,.fx-cell.pending span{height:30px}
+.fx-profile{padding:12px 14px}.fx-profile header{margin-bottom:8px}
+.fx-pf{grid-template-rows:auto 1fr auto;align-content:start;padding:7px 9px}
+.fx-pf b{align-self:start}
+.fx-run-head{position:sticky;top:-12px;z-index:3;background:#0d1729;margin:-12px -16px 8px;padding:12px 16px 8px;border-bottom:1px solid #1c2840}

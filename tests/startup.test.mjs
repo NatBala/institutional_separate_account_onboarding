@@ -69,11 +69,20 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
     w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
-    assert.match(fw.innerHTML,/3,456/);assert.match(fw.innerHTML,/Ten shared activities × every client type/);assert.match(fw.innerHTML,/Beneficial owner review/);
-    assert.match(fw.innerHTML,/How the agents adapt the framework/);
-    w.click(fw,{fxCol:'omnibus'});assert.match(fw.innerHTML,/Platform agreement draft/);assert.match(fw.innerHTML,/fx-cell pending/,'cells fill in as the agents run');
-    w.click(fw,{fxAct:'skip'});assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);assert.match(fw.innerHTML,/Ready for human review/);assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
-    w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/Rule: if Client type: Omnibus/);
+    // Starts from the current client's attributes with an empty matrix.
+    assert.match(fw.innerHTML,/Current client/);assert.match(fw.innerHTML,/Attributes found by the Context agent/);assert.match(fw.innerHTML,/Build the framework from onboarding history/);
+    assert.match(fw.innerHTML,/fx-cell empty/);assert.doesNotMatch(fw.innerHTML,/fx-cell rep/);
+    w.click(fw,{fxCol:'omnibus'});assert.doesNotMatch(fw.innerHTML,/Platform agreement draft/,'clients cannot run before the matrix exists');
+    // The Framework Builder agents learn the rules and fill the matrix.
+    w.click(fw,{fxAct:'build'});assert.match(fw.innerHTML,/Archive reader/);assert.match(fw.innerHTML,/closed onboardings read/);
+    w.click(fw,{fxAct:'bskip'});assert.match(fw.innerHTML,/Built from 146 past onboardings/);assert.doesNotMatch(fw.innerHTML,/fx-cell empty/);
+    assert.match(fw.innerHTML,/51<\/b> rules learned/);assert.match(fw.innerHTML,/3,456/);assert.match(fw.innerHTML,/waiting for approval|wait for approval/);
+    w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
+    w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
+    // The onboarding agents then use the matrix for one client.
+    w.click(fw,{fxCol:'omnibus'});assert.match(fw.innerHTML,/Platform agreement draft/);assert.match(fw.innerHTML,/fx-cell pending/);
+    w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Ready for human review/);assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
+    w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Framework Builder agents/);
     w.click(fw,{fxCol:'custom'});w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
   }
 });
@@ -124,7 +133,10 @@ test('Alpenridge status: RAG by stage, issue impact on the funding date, delay c
 });
 
 test('one framework, many variations',()=>{
-  const {context}=openWorkspace();const O=context.window.SA_ONBOARD;
+  const {context}=openWorkspace();const O=context.window.SA_ONBOARD,F=context.window.SA_FRAMEWORK;
+  assert.equal(F.HISTORY.length,146);assert.equal(F.MINED.learned.length,O.RULES.length,'every rule is learned from onboarding history');
+  for(const r of F.MINED.learned){assert(r.n>=3&&r.support>=0.8);assert(r.examples.length>0);}
+  assert.equal(F.MINED.proposals.length,2);for(const p of F.MINED.proposals)assert(p.hits>0&&p.hits<=p.n);
   for(const p of O.PROFILES){const r=O.configure(p.cfg);assert.equal(r.acts.length,10);assert(r.servicing.service);}
   const sa=O.configure(O.PROFILES[0].cfg);assert.equal(sa.conflicts.length,0);
   const cit=O.configure({...O.PROFILES[0].cfg,vehicle:'cit'});assert(cit.conflicts.some(c=>/pooled/.test(c)));

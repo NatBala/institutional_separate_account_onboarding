@@ -13,7 +13,7 @@ let disposeAgentRunner=null,disposeWorkflow=null,disposeStatus=null,disposeFrame
 function portfolio(){return head('Onboarding portfolio','Every onboarding in flight: how many, where they sit, where the risk is and which ones will miss their date. Alpenridge is the hardest case in the book, so we use the agents to build its plan.')+window.SA_STATUS.markup;}
 function agents(){return head('Multi-agent system','Seven specialist agents turn Alpenridge’s onboarding documents and 12 past cases into a tailored plan: client requirement, historical precedent, risk, recommended workflow and who is accountable. Run them, then see what they produced.')+window.SA_SYSTEM.compact()+window.SA_RUNNER.frame;}
 function output(){return head('Agent output','Built by seven agents from six documents and 12 past cases, approved at two human checkpoints. Open any card for the detail.')+window.SA_STATUS.markup;}
-function framework(){return head('One framework, many variations','Same ten activities and seven agents for every client. The agents read each client’s documents and apply reusable rules.')+window.SA_FRAMEWORK.markup;}
+function framework(){return head('One framework, many variations','Same ten activities and seven agents for every client. The rules are learned from onboarding history.')+window.SA_FRAMEWORK.markup;}
 const views={portfolio,agents,output,framework};
 const nav=[['Portfolio',[['portfolio','01','Onboarding portfolio']]],['Alpenridge Pension Foundation',[['agents','02','Multi-agent system'],['output','03','Agent output']]],['Across all clients',[['framework','04','One framework, many variations']]]];
 const statusPages=new Set(['portfolio','output']),snapshotViews=new Set(['agents','output']),clientViews=new Set(['agents','output']);
