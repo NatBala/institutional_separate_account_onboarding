@@ -186,7 +186,7 @@ function mount(root,opt={}){
    stage('a7',7,()=>`<small>${col==='custom'?'Attributes were set by hand, so there is no source to check. A person must confirm them.':`All <b>${r.acts.reduce((n,a)=>n+a.changes.length,0)}</b> variations trace back to a line in the client’s documents.`}</small>`),
    stage('done',8,()=>`<small>Plan, owners and risks ready for the second human checkpoint.</small>${col==='alpenridge'?'<button type="button" class="btn small primary" data-view="output">See Alpenridge’s full agent output →</button>':''}`)
   ];
-  return `<aside class="panel fx-run"><div class="fx-run-head"><div><button type="button" class="fx-back" data-fx-act="back">← How the matrix was built</button><span class="eyebrow">Onboarding agents using the framework</span><h3>${esc(name)}</h3></div><div class="run-buttons">${state.playing?'<button type="button" class="btn small" data-fx-act="skip">Skip ⏭</button>':`<button type="button" class="btn small primary" data-fx-act="replay">${done?'Replay':'Run'} ▶</button>`}</div></div>
+  return `<aside class="panel fx-run"><div class="fx-run-head"><div><button type="button" class="fx-back" data-fx-act="back">← How the matrix was built</button><span class="eyebrow">Onboarding agents using the framework</span><h3>${esc(name)}</h3></div><div class="run-buttons">${state.playing?'<button type="button" class="btn small" data-fx-act="skip">Skip ⏭</button>':''}</div></div>
   ${col==='custom'?customControls():''}<ol class="fx-pipe">${steps.join('')}</ol></aside>`;}
  function customControls(){const c=state.custom;return `<div class="fx-custom">${O.ATTRS.map(a=>`<div class="fw-attr"><span class="wr-label">${esc(a.name)}</span><div class="fw-opts">${a.options.map(([v,l])=>{const on=a.multi?c[a.id].includes(v):c[a.id]===v;return `<button type="button" class="${on?'active':''}" aria-pressed="${on}" data-fw-attr="${a.id}" data-fw-val="${v}">${esc(l)}</button>`;}).join('')}${a.multi?`<button type="button" class="${!c[a.id].length?'active':''}" data-fw-attr="${a.id}" data-fw-val="">None</button>`:''}</div></div>`).join('')}</div>`;}
  function profile(){const cfg=O.PROFILES.find(p=>p.id==='alpenridge').cfg,src={},docs=DOCS.alpenridge,s=startOf('alpenridge');
@@ -287,7 +287,6 @@ function mount(root,opt={}){
   if(d.fxAct==='extract'){if(built()){state.alp=true;play('alpenridge');}return;}
   if(d.fxCol){if(built()){if(d.fxCol==='alpenridge')state.alp=true;play(d.fxCol);}return;}
   if(d.fxAct==='skip'){cancel();state.playing=false;state.step=lastStep(state.col);render();return;}
-  if(d.fxAct==='replay'){play(state.col);return;}
   if(d.fxCell!==undefined){if(!built())return;state.cell=d.fxCell&&state.cell!==d.fxCell?d.fxCell:null;render();return;}
   if(d.fwAttr){const a=ATTR(d.fwAttr),cur=state.custom[a.id];if(a.multi)state.custom[a.id]=d.fwVal===''?[]:cur.includes(d.fwVal)?cur.filter(x=>x!==d.fwVal):[...cur,d.fwVal];else state.custom[a.id]=d.fwVal;cancel();state.playing=false;state.col='custom';state.step=lastStep('custom');render();}}
  function onEsc(e){if(e.key!=='Escape')return;if(state.ev){state.ev=null;render();}else if(state.list){state.list=null;render();}}
