@@ -69,9 +69,12 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
     w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
-    assert.match(fw.innerHTML,/Client structure lens/);assert.match(fw.innerHTML,/Beneficial owner review/);
-    w.click(fw,{fwProfile:'omnibus'});assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
-    w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
+    assert.match(fw.innerHTML,/3,456/);assert.match(fw.innerHTML,/Ten shared activities × every client type/);assert.match(fw.innerHTML,/Beneficial owner review/);
+    assert.match(fw.innerHTML,/How the agents adapt the framework/);
+    w.click(fw,{fxCol:'omnibus'});assert.match(fw.innerHTML,/Platform agreement draft/);assert.match(fw.innerHTML,/fx-cell pending/,'cells fill in as the agents run');
+    w.click(fw,{fxAct:'skip'});assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);assert.match(fw.innerHTML,/Ready for human review/);assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
+    w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/Rule: if Client type: Omnibus/);
+    w.click(fw,{fxCol:'custom'});w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
   }
 });
 
