@@ -45,7 +45,7 @@ const REQUIREMENTS=[
 const markup='<div id="st-root" class="st"></div>';
 function mount(root,opt={}){
  const sent=()=>opt.sent?.()||[];
- const state={page:opt.page==='output'?'output':'portfolio',open:opt.open||null,lastOpen:null,stage:null,task:'P1',simTask:'P6',simDays:0};
+ const state={owner:null,pstatus:null,page:opt.page==='output'?'output':'portfolio',open:opt.open||null,lastOpen:null,stage:null,task:'P1',simTask:'P6',simDays:0};
  const sched=()=>O.schedule(O.TASKS,{extra:state.simDays?{[state.simTask]:state.simDays}:{}});
  const base=O.schedule();
  state.stage=base.stages.find(x=>!x.complete&&x.rag!=='grey')?.index??1;
@@ -75,8 +75,12 @@ function mount(root,opt={}){
   <div class="st-sim"><label>What if this is delayed<select data-st-sim-task>${open.map(t=>`<option value="${t.id}" ${t.id===state.simTask?'selected':''}>${t.id} · ${esc(t.title)}</option>`).join('')}</select></label><div class="st-sim-days" role="radiogroup" aria-label="Extra business days">${[0,2,5,10].map(d=>`<button type="button" role="radio" aria-checked="${state.simDays===d}" class="${state.simDays===d?'active':''}" data-st-sim-days="${d}">${d?'+'+d+' days':'No delay'}</button>`).join('')}</div></div>
   ${state.simDays?`<div class="st-sim-out"><div><span class="eyebrow">Funding date</span><strong class="${s.funded>b.funded?'bad':''}">${O.fmt(b.funded)} → ${O.fmt(s.funded)}</strong><small>${s.funded>b.funded?`+${plural(s.funded-b.funded,'business day')}; ${s.slip} past the client target`:'Unchanged: the delay is absorbed by slack'}</small></div><div><span class="eyebrow">Tasks moved</span><strong>${moved.length}</strong><small>${moved.slice(0,8).map(r=>r.id).join(', ')}${moved.length>8?' …':''}</small></div><div><span class="eyebrow">Stages changing status</span><strong>${stageChanges.length}</strong><small>${stageChanges.map(x=>`${x.name}: ${RAG[b.stages[x.index].rag][0]} → ${RAG[x.rag][0]}`).join(' · ')||'None'}</small></div></div>
   <h4>Who gets notified if ${esc(sim.id)} slips ${state.simDays} days</h4>${escalationBlock({...sim,overdue:Math.max(sim.overdue,state.simDays),slip:Math.max(sim.slip,state.simDays)},s,{extra:{[state.simTask]:state.simDays}})}`:''}</section>`;}
- function players(s){const now=[],blocked=[],contact=[];
-  const rows=O.PLAYERS.map(p=>{const ts=p.tasks.map(id=>s.map[id]),open=ts.filter(t=>!t.done),b=open.filter(t=>t.status==='blocked'),od=open.filter(t=>t.status==='overdue'),act=open.filter(t=>['progress','overdue','late','ready'].includes(t.status));
+ // Status of one responsibility from its open tasks.
+ function playerStatus(p,s){const open=p.tasks.map(id=>s.map[id]).filter(t=>!t.done);return !open.length?['Done','done']:open.some(t=>t.status==='overdue')?['Overdue · must act now','overdue']:open.some(t=>t.status==='blocked')?['Blocked','blocked']:open.some(t=>['progress','late','ready'].includes(t.status))?['Acting now','progress']:['Waiting','waiting'];}
+ // filtered: apply the owner and status filters chosen in the Key players card.
+ function players(s,filtered=false){const now=[],blocked=[],contact=[];
+  const list=O.PLAYERS.filter(p=>!filtered||((!state.owner||p.team===state.owner)&&(!state.pstatus||playerStatus(p,s)[1]===state.pstatus)));
+  const rows=list.map(p=>{const ts=p.tasks.map(id=>s.map[id]),open=ts.filter(t=>!t.done),b=open.filter(t=>t.status==='blocked'),od=open.filter(t=>t.status==='overdue'),act=open.filter(t=>['progress','overdue','late','ready'].includes(t.status));
    let st;if(!open.length)st=['Done','done'];else if(od.length)st=['Overdue · must act now','overdue'];else if(b.length)st=['Blocked','blocked'];else if(act.length)st=['Acting now','progress'];else st=['Waiting','waiting'];
    const who=t=>t.ext&&t.ext!=='—'?t.ext:p.internal,add=(list,w,t)=>{if(!list.some(([,x])=>x.id===t.id))list.push([w,t]);};
    if(od.length){add(now,who(od[0]),od[0]);if(od[0].ext&&od[0].ext!=='—')add(contact,od[0].ext,od[0]);}
@@ -84,11 +88,16 @@ function mount(root,opt={}){
    if(b.length)add(blocked,p.internal,b[0]);
    const next=open.sort((x,y)=>x.forecast-y.forecast)[0];
    return `<tr><td><b>${esc(p.area)}</b>${cites(p.refs)}</td><td>${esc(p.internal)}<small>${esc(team(p.team))}</small></td><td>${esc(p.ext)}</td><td>${esc(p.escalation)}</td><td><span class="st-status st-s-${st[1]}">${st[0]}</span>${next?`<small>Next: ${next.id} · ${esc(next.title)}</small>`:''}</td></tr>`;}).join('');
-  return {rows,now,blocked,contact};}
- function whoActs(s){const {now,blocked,contact}=players(s),list=(xs,f)=>xs.length?xs.map(f).join(''):'<li>None</li>';
+  return {rows,now,blocked,contact,count:list.length};}
+ function playerFilters(s){const teams=[...new Set(O.PLAYERS.map(p=>p.team))],sts=[['overdue','Overdue'],['blocked','Blocked'],['progress','Acting now'],['waiting','Waiting'],['done','Done']].filter(([k])=>O.PLAYERS.some(p=>playerStatus(p,s)[1]===k));
+  const chip=(attr,val,lbl,n,on)=>`<button type="button" class="st-chip ${on?'on':''}" ${attr}="${val}" aria-pressed="${on}">${esc(lbl)} <b>${n}</b></button>`;
+  const byStatus=k=>O.PLAYERS.filter(p=>(!state.owner||p.team===state.owner)&&playerStatus(p,s)[1]===k).length,byTeam=t=>O.PLAYERS.filter(p=>p.team===t&&(!state.pstatus||playerStatus(p,s)[1]===state.pstatus)).length;
+  return `<section class="st-filters"><div><span>Internal owner</span>${chip('data-st-owner','','All owners',O.PLAYERS.filter(p=>!state.pstatus||playerStatus(p,s)[1]===state.pstatus).length,!state.owner)}${teams.map(t=>chip('data-st-owner',t,team(t),byTeam(t),state.owner===t)).join('')}</div>
+  <div><span>Status</span>${chip('data-st-pstatus','','Any status',O.PLAYERS.filter(p=>!state.owner||p.team===state.owner).length,!state.pstatus)}${sts.map(([k,l])=>chip('data-st-pstatus',k,l,byStatus(k),state.pstatus===k)).join('')}</div></section>`;}
+ function whoActs(s){const {now,blocked,contact}=players(s,true),list=(xs,f)=>xs.length?xs.map(f).join(''):'<li>None</li>';
   return `<section class="st-next"><h3>Who acts next</h3><div class="st-who"><div><h4>Must act now</h4><ul>${list(now,([w,t])=>`<li><b>${esc(w)}</b> ${t.id} · ${esc(t.title)}</li>`)}</ul></div><div><h4>Blocked</h4><ul>${list(blocked,([w,t])=>`<li><b>${esc(w)}</b> ${t.id} waits on ${t.openDeps.join(', ')}</li>`)}</ul></div><div><h4>Must be contacted</h4><ul>${list(contact,([w,t])=>`<li><b>${esc(w)}</b> about ${t.id}, ${t.overdue}d overdue</li>`)}</ul></div></div></section>`;}
- function playersTable(s){const {rows}=players(s);
-  return `<section class="panel"><div class="tablewrap"><table class="st-table"><thead><tr><th>Responsibility</th><th>Internal owner</th><th>External contact</th><th>Escalation point</th><th>Now</th></tr></thead><tbody>${rows}</tbody></table></div><p class="legend">Servicing after funding: Maya Shah (Client RM) services the account directly; the investment consultant is copied on reports and joins reviews. The client investment office is the instructing party.</p></section>`;}
+ function playersTable(s){const {rows,count}=players(s,true),filtered=state.owner||state.pstatus;
+  return `<section class="panel">${filtered?`<p class="st-filter-note">Showing ${count} of ${O.PLAYERS.length} responsibilities${state.owner?` owned by <b>${esc(team(state.owner))}</b>`:''}${state.pstatus?` · status <b>${esc({overdue:'Overdue',blocked:'Blocked',progress:'Acting now',waiting:'Waiting',done:'Done'}[state.pstatus])}</b>`:''} <button type="button" class="st-clear" data-st-owner="" data-st-pstatus="">Clear filters</button></p>`:''}<div class="tablewrap"><table class="st-table"><thead><tr><th>Responsibility</th><th>Internal owner</th><th>External contact</th><th>Escalation point</th><th>Now</th></tr></thead><tbody>${rows||'<tr><td colspan="5" class="st-empty">No responsibility matches these filters.</td></tr>'}</tbody></table></div><p class="legend">Servicing after funding: Maya Shah (Client RM) services the account directly; the investment consultant is copied on reports and joins reviews. The client investment office is the instructing party.</p></section>`;}
  function obligationsPane(){const col=(title,sub,rows,how)=>`<section class="st-oblig"><h4>${title}</h4><p class="smalltext">${sub}</p><ul>${rows.map(([t,st,r,refs])=>`<li><span class="st-check st-c-${r}" aria-hidden="true">${r==='green'?'✓':r==='amber'?'!':'○'}</span><div><b>${esc(t)}</b><small>${esc(st)}</small>${cites(refs)}</div></li>`).join('')}</ul><p class="st-how"><b>How risk is judged:</b> ${how}</p></section>`;
   return `<section class="panel"><h3>Obligations</h3><p class="smalltext">Contractual and non-contractual obligations carry different risks, so they are tracked separately.</p><div class="st-oblig-grid">${col('Contractual obligations','Written into the IMA, Schedule A or the service annex. Binding once signed.',OBLIGATIONS.contractual,'a miss is a contract or guideline breach. FI Portfolio Control monitors with coded rules; any change needs Legal and a signed amendment.')}${col('Non-contractual expectations','Requested or promised in conversation. Not in the contract.',OBLIGATIONS.non,'a miss is a service or relationship risk. The Client RM owns these and can renegotiate without a contract amendment.')}</div></section>`;}
  // Actions sent from the end of the agent run show against the requirement they move forward.
@@ -117,7 +126,7 @@ function mount(root,opt={}){
   if(id==='oblig')return obligationsPane();
   if(id==='risk')return issues(s0)+riskRegister();
   if(id==='plan')return `${summary(s0)}${stageStrip(s0)}<section class="panel st-main"><div class="st-tasks"><div>${taskTable(s0)}</div>${taskDetail(s0)}</div></section>`;
-  if(id==='players')return whoActs(s0)+playersTable(s0);
+  if(id==='players')return playerFilters(s0)+whoActs(s0)+playersTable(s0);
   return `<h3 class="ob-sub">If a task slips</h3><section class="panel st-main">${depsPane(sched())}</section><h3 class="ob-sub">If the client’s requirements change</h3><p class="smalltext">Set each requirement area to Low, Medium or High to see the onboarding days, each issue’s impact and who does what. Starts from the evidence snapshot selected at the top (14–16 Sep).</p><div id="wr-root" class="wrc"></div>`;}
  function drawer(){const i=OUTS.findIndex(o=>o[0]===state.open),[id,title,agents]=OUTS[i],prev=OUTS[i-1],next=OUTS[i+1];
   return `<div class="ob-backdrop" data-st-close></div><aside class="ob-drawer" role="dialog" aria-modal="true" aria-label="${esc(title)}"><header class="ob-dhead"><div class="ob-dtitle"><span class="ob-n">${i+1}</span><div><h2>${esc(title)}</h2>${by(agents)}</div></div><div class="ob-dnav">${prev?`<button type="button" class="btn small" data-st-open="${prev[0]}">← ${esc(prev[1])}</button>`:''}<span>${i+1} of ${OUTS.length}</span>${next?`<button type="button" class="btn small primary" data-st-open="${next[0]}">Next: ${esc(next[1])} →</button>`:`<button type="button" class="btn small primary" data-st-close>Back to all outputs</button>`}<button type="button" class="ob-x" data-st-close aria-label="Close">×</button></div></header><div class="ob-dbody">${detail(id)}</div></aside>`;}
@@ -142,6 +151,7 @@ function mount(root,opt={}){
   state.lastOpen=state.open;document.body?.classList?.toggle('ob-lock',Boolean(state.open));}
  function onClick(e){const b=e.target.closest('button,[data-st-task],[data-st-close]');if(b&&b.dataset.view)return;if(!b||!root.contains(b)||b.dataset.source)return;const d=b.dataset;
   if(d.stOpen){state.open=d.stOpen;render();return;}
+  if(d.stOwner!==undefined||d.stPstatus!==undefined){if(d.stOwner!==undefined)state.owner=d.stOwner||null;if(d.stPstatus!==undefined)state.pstatus=d.stPstatus||null;render();return;}
   if(d.stClose!==undefined){state.open=null;render();return;}
   if(d.stStage){state.stage=Number(d.stStage);const first=O.schedule().stages[state.stage].tasks.find(t=>!t.done)||O.schedule().stages[state.stage].tasks[0];state.task=first.id;render();return;}
   if(d.stSimDays){state.simDays=Number(d.stSimDays);render();return;}

@@ -170,6 +170,14 @@ test('client requests sent from the agent run show against the requirements',()=
   w.click(st,{stOpen:'plan'});const path=st.innerHTML.slice(st.innerHTML.indexOf('st-path'));assert.match(path,/Client informed of the date impact<\/span><small>Sent from the agent run/);assert.doesNotMatch(path.slice(0,path.indexOf('</ol>')),/class="next"/);
 });
 
+test('key players can be filtered by internal owner and status',()=>{
+  const w=openWorkspace({view:'output'}),O=w.context.window.SA_ONBOARD,st=w.document.getElementById('st-root');
+  w.click(st,{stOpen:'players'});assert.match(st.innerHTML,/Internal owner/);assert.match(st.innerHTML,/All owners <b>9<\/b>/);
+  w.click(st,{stOwner:'legal'});assert.match(st.innerHTML,/Showing 1 of 9 responsibilities owned by <b>Legal<\/b>/);assert.match(st.innerHTML,/Contracting/);assert.doesNotMatch(st.innerHTML,/<b>Billing<\/b><span/);
+  w.click(st,{stOwner:'',stPstatus:'overdue'});assert.match(st.innerHTML,/status <b>Overdue<\/b>/);assert.doesNotMatch(st.innerHTML,/>Waiting<\/span><small>/);
+  w.click(st,{stOwner:'',stPstatus:''});assert.doesNotMatch(st.innerHTML,/st-filter-note/);
+});
+
 test('one framework, many variations',()=>{
   const {context}=openWorkspace();const O=context.window.SA_ONBOARD,F=context.window.SA_FRAMEWORK;
   assert.equal(F.HISTORY.length,146);assert.equal(F.MINED.learned.length,O.RULES.length,'every rule is learned from onboarding history');

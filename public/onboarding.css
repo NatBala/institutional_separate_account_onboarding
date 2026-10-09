@@ -605,3 +605,13 @@ button.vm-doc-n:hover,button.vm-attr:hover{border-color:#5eead4;box-shadow:0 0 0
 .vm-ev-chg small{display:block;color:#8fa3bd;font-size:.74rem;margin-top:2px}
 .vm-ev-none{margin:0;color:#8fa3bd;font-size:.84rem}
 .vm-ev .fx-attrs{margin:0}
+/* Key players filters */
+.st-filters{display:grid;gap:8px;margin:0 0 12px;padding:10px 12px;border:1px solid #1f2c45;border-radius:10px;background:#0b1426}
+.st-filters>div{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.st-filters>div>span{min-width:110px;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#8fa3bd}
+.st-chip{font:inherit;font-size:.8rem;color:#dbe4f0;background:#0e1729;border:1px solid #2a3a58;border-radius:999px;padding:4px 11px;cursor:pointer}
+.st-chip b{margin-left:3px;font-size:.72rem;color:#8fa3bd}.st-chip:hover{border-color:#3b5179}
+.st-chip.on{background:#0f9488;border-color:#14b8a6;color:#fff}.st-chip.on b{color:#ccfbf1}
+.st-filter-note{margin:0 0 10px;font-size:.84rem;color:#b6c4d6}.st-filter-note b{color:#f4f7fb}
+.st-clear{font:inherit;font-size:.78rem;font-weight:700;color:#5eead4;background:none;border:0;cursor:pointer;margin-left:6px}
+.st-empty{text-align:center;color:#8fa3bd;padding:18px!important}
