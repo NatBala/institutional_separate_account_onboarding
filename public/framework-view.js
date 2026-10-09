@@ -136,7 +136,7 @@ const CANDS=(()=>{const r=rng(7),out=MINED.rules.map(x=>({...x,kept:MINED.learne
  const rr=rng(11);for(let i=out.length-1;i>0;i--){const j=Math.floor(rr()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;})();
 const markup='<div id="fw-root" class="fx"></div>';
 function mount(root,opt={}){
- const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bt:-1,building:false,alp:false,list:null,ev:null,listAct:null,stdAct:null,cardSeen:false,decided:{},view:'matrix',mapCol:'cit'};
+ const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bt:-1,building:false,alp:false,list:null,ev:null,listAct:null,stdAct:null,cardSeen:false,decided:{},view:'matrix',mapCol:'cit',vmSel:null};
  const built=()=>state.bt>=TOTAL,colIx=c=>BCOLS.findIndex(x=>x[0]===c),f5=()=>state.bt-PSTART[5];
  // The Matrix builder fills one cell per tick, column by column.
  const cellOn=(c,i)=>c==='alpenridge'?state.alp:built()||f5()>colIx(c)*10+i,shown=c=>cellOn(c,0),colDone=c=>cellOn(c,9);
@@ -174,12 +174,13 @@ function mount(root,opt={}){
   const dn=Math.max(1,docs.length),docY=docs.map((d,k)=>40+(H-80)*(k+0.5)/dn);
   const curve=(x1,y1,x2,y2)=>`M${x1} ${y1}C${(x1+x2)/2} ${y1},${(x1+x2)/2} ${y2},${x2} ${y2}`;
   const used=new Set(r.acts.flatMap(a=>a.changes.map(c=>c.attr)));
-  const docEdges=docs.flatMap((d,k)=>d.attrs.filter(([a,v])=>has(cfg,a,v)).map(([a])=>`<path class="vm-e vm-doc a-${a}" d="${curve(214,docY[k],326,attrY[a])}"/>`)).join('');
-  const ruleEdges=r.acts.flatMap(a=>a.changes.map(c=>`<path class="vm-e e-${c.effect} a-${c.attr} t-${a.id}" style="stroke-width:${EFF_W[c.effort??1]}" d="${curve(560,attrY[c.attr],690,actY[a.id])}"><title>${esc(c.by)} → ${esc(a.name)}: ${esc(TAG[c.effect])}. ${esc(c.text)}</title></path>`)).join('');
+  const sel=state.vmSel,selKeys=!sel?[]:sel.type==='doc'?(docs[sel.i]?docs[sel.i].attrs.map(([a])=>'a-'+a):[]):['a-'+sel.id],dimIf=cls=>selKeys.length&&!selKeys.some(k=>cls.split(' ').includes(k))?' dim':'';
+  const docEdges=docs.flatMap((d,k)=>d.attrs.filter(([a,v])=>has(cfg,a,v)).map(([a])=>`<path class="vm-e vm-doc a-${a}${dimIf('a-'+a)}" d="${curve(214,docY[k],326,attrY[a])}"/>`)).join('');
+  const ruleEdges=r.acts.flatMap(a=>a.changes.map(c=>`<path class="vm-e e-${c.effect} a-${c.attr} t-${a.id}${dimIf('a-'+c.attr)}" style="stroke-width:${EFF_W[c.effort??1]}" d="${curve(560,attrY[c.attr],690,actY[a.id])}"><title>${esc(c.by)} → ${esc(a.name)}: ${esc(TAG[c.effect])}. ${esc(c.text)}</title></path>`)).join('');
   const kindOf=a=>{const ch=a.changes,rp=ch.find(c=>c.effect==='replaced'),ad=ch.filter(c=>c.effect==='added').length,adj=ch.some(c=>c.effect==='adjusted');return rp?['rep','Replaced'+(ad?` +${ad}`:'')]:ad&&!adj?['add',`+${ad} added`]:adj?['adj','Adjusted'+(ad?` +${ad}`:'')]:['std','Standard'];};
   const fo=(x,y,w,h,html)=>`<foreignObject x="${x}" y="${y}" width="${w}" height="${h}">${html}</foreignObject>`;
-  const docNodes=docs.length?docs.map((d,k)=>fo(0,docY[k]-22,214,44,`<div xmlns="http://www.w3.org/1999/xhtml" class="vm-doc-n" data-vm-hl="${d.attrs.map(([a])=>'a-'+a).join(' ')}"><b>${esc(d.src)}</b><span>${esc(d.text.length>62?d.text.slice(0,60)+'…':d.text)}</span></div>`)).join(''):fo(0,H/2-40,214,80,`<div xmlns="http://www.w3.org/1999/xhtml" class="vm-doc-n none"><b>Set by hand</b><span>In production the Context agent reads the client’s documents and sets these attributes.</span></div>`);
-  const attrNodes=attrs.map(({a,vals,y})=>fo(326,y-26,234,52,`<div xmlns="http://www.w3.org/1999/xhtml" class="vm-attr ${used.has(a.id)?'':'quiet'}" data-vm-hl="a-${a.id}"><span>${esc(a.name)}</span><b>${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):'None'}</b></div>`)).join('');
+  const docNodes=docs.length?docs.map((d,k)=>fo(0,docY[k]-22,214,44,`<button xmlns="http://www.w3.org/1999/xhtml" type="button" class="vm-doc-n ${sel?.type==='doc'&&sel.i===k?'sel':''}" data-vm-doc="${k}" data-vm-hl="${d.attrs.map(([a])=>'a-'+a).join(' ')}" title="Show the evidence"><b>${esc(d.src)}</b><span>${esc(d.text.length>62?d.text.slice(0,60)+'…':d.text)}</span></button>`)).join(''):fo(0,H/2-40,214,80,`<div xmlns="http://www.w3.org/1999/xhtml" class="vm-doc-n none"><b>Set by hand</b><span>In production the Context agent reads the client’s documents and sets these attributes.</span></div>`);
+  const attrNodes=attrs.map(({a,vals,y})=>fo(326,y-26,234,52,`<button xmlns="http://www.w3.org/1999/xhtml" type="button" class="vm-attr ${used.has(a.id)?'':'quiet'} ${sel?.type==='attr'&&sel.id===a.id?'sel':''}" data-vm-pick="${a.id}" data-vm-hl="a-${a.id}" title="Show the evidence"><span>${esc(a.name)}</span><b>${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):'None'}</b></button>`)).join('');
   const actNodes=rows.map(x=>x.stage?`<text class="vm-stage" x="690" y="${x.y+15}">${esc(x.stage.name.toUpperCase())}</text>`:(()=>{const a=r.acts[x.i],[k,t]=kindOf(a),first=a.changes.find(c=>c.effect==='replaced')||a.changes[0];return fo(690,x.y,510,38,`<button xmlns="http://www.w3.org/1999/xhtml" type="button" class="vm-act ${k} ${state.cell===col+'|'+a.id?'sel':''}" data-fx-cell="${col}|${a.id}" data-vm-hl="t-${a.id}"><b>${esc(a.name)}</b><em class="fx-cell-tag ${k}">${t}</em><span>${first?esc(first.text):'Runs as written in the standard guideline'}</span></button>`);})()).join('');
   const varied=r.acts.filter(a=>a.changes.length).length,rules=r.acts.reduce((n,a)=>n+a.changes.length,0),heavy=r.acts.reduce((n,a)=>n+a.changes.filter(c=>c.effort===2).length,0);
   const presets=[...(state.alp?[['alpenridge','Alpenridge','New client']]:[]),...BCOLS.filter(c=>c[0]!=='custom').map(c=>[c[0],c[1],c[2]]),['custom','Build your own','Pick any mix']];
@@ -190,10 +191,24 @@ function mount(root,opt={}){
    ${col==='alpenridge'?`<div class="vm-go"><p><b>This is Alpenridge, read from its own documents.</b> Next, the seven onboarding agents build its plan.</p><button type="button" class="btn primary" data-view="agents">Run the agents for Alpenridge →</button></div>`:''}</div>`;
   return `<section class="panel vm"><div class="fx-mhead vm-head"><div><h3>What changes against the standard: ${esc(colName==='Your mix'?'your mix':colName)}</h3><p class="smalltext">Pick a client type, or change any attribute. Each line is a learned rule: <i class="k adj"></i>adjusted <i class="k rep"></i>replaced <i class="k add"></i>added. Thicker lines are heavier changes. Hover to trace a line; click an activity for the detail.</p></div>${viewToggle()}</div>
   ${picker}
-  <div class="vm-wrap"><svg class="vm-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Variation map for ${esc(colName)}">
+  <div class="vm-wrap"><svg class="vm-svg ${selKeys.length?'tracing':''}" data-sel="${selKeys.join(' ')}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Variation map for ${esc(colName)}">
    <text class="vm-colh" x="0" y="18">CLIENT DOCUMENTS</text><text class="vm-colh" x="326" y="18">CLIENT ATTRIBUTES</text><text class="vm-colh" x="690" y="18">STANDARD ONBOARDING · 10 ACTIVITIES</text>
    <g class="vm-edges">${docEdges}${ruleEdges}</g>${docNodes}${attrNodes}${actNodes}</svg></div>
-  ${summary}${cellDetail()}</section>`;}
+  ${vmEvidence(col,cfg,r,docs)}${summary}${cellDetail()}</section>`;}
+ // Evidence for a selected document or attribute: the passage itself, what the Context agent read from it, and what it changes.
+ function vmEvidence(col,cfg,r,docs){const sel=state.vmSel;if(!sel)return '';const C=window.CORPUS;
+  const passage=src=>{const id=src.split('§')[0],doc=C?.documents?.find(x=>x.id===id),chunk=doc?.chunks?.find(x=>x.id===src);return {doc,chunk};};
+  const changes=attrIds=>r.acts.flatMap(a=>a.changes.filter(c=>attrIds.includes(c.attr)).map(c=>({a,c})));
+  const changeList=xs=>xs.length?`<ul class="vm-ev-chg">${xs.map(({a,c})=>{const m=ruleFor(c.attr,c.val,a.id,c.text);return `<li><span class="fx-eff fw-${c.effect}">${TAG[c.effect]}</span><b>${esc(a.name)}</b> ${esc(c.text)}<small>Rule: if ${esc(c.by)}${m?` · learned from ${m.hits} of ${m.n} past onboardings <button type="button" class="fx-link" data-fx-evopen="r${m.k}">See the evidence →</button>`:''}</small></li>`;}).join('')}</ul>`:'<p class="vm-ev-none">No rule changes the standard for this attribute: those activities run as written.</p>';
+  const quote=d=>{const {doc,chunk}=d.cite?passage(d.src):{};return `<div class="vm-ev-quote"><div class="vm-ev-src"><b>${esc(d.src)}</b>${doc?`<span>${esc(doc.title)} · ${esc(doc.kind)} · ${esc(doc.date)}</span>`:'<span>Synthetic client document</span>'}${d.cite?`<button type="button" class="fx-link" data-source="${esc(d.src)}">Open the full document →</button>`:''}</div>${chunk?.heading?`<small>${esc(chunk.heading)}</small>`:''}<blockquote>${esc(chunk?.text||d.text)}</blockquote></div>`;};
+  let head,body;
+  if(sel.type==='doc'){const d=docs[sel.i];if(!d)return '';const ids=d.attrs.filter(([a,v])=>has(cfg,a,v)).map(([a])=>a);
+   head=`Evidence from ${esc(d.src)}`;
+   body=`${quote(d)}<h5>What the Context agent read from it</h5><div class="fx-attrs">${d.attrs.filter(([a,v])=>has(cfg,a,v)).map(chip).join('')}</div><h5>What this changes against the standard</h5>${changeList(changes(ids))}`;}
+  else{const a=ATTR(sel.id),vals=a.multi?cfg[a.id]:[cfg[a.id]],from=docs.filter(d=>d.attrs.some(([x,v])=>x===a.id&&has(cfg,x,v)));
+   head=`${esc(a.name)}: ${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):'None'}`;
+   body=`<h5>Found in ${from.length?`${from.length} passage${from.length>1?'s':''}`:'no document'}</h5>${from.length?from.map(quote).join(''):`<p class="vm-ev-none">${col==='custom'?'Set by hand for this mix. In production the Context agent reads it from the client’s documents.':'Not stated in the documents; the standard applies.'}</p>`}<h5>What this changes against the standard</h5>${changeList(changes([a.id]))}`;}
+  return `<section class="vm-ev"><header><div><span class="eyebrow">Evidence</span><h4>${head}</h4></div><button type="button" class="ob-x" data-vm-close aria-label="Close">×</button></header>${body}</section>`;}
  const viewToggle=()=>`<div class="vm-toggle" role="tablist"><button type="button" class="${state.view==='matrix'?'on':''}" data-fx-view="matrix" ${built()?'':'disabled'}>Matrix</button><button type="button" class="${state.view==='map'?'on':''}" data-fx-view="map" ${built()?'':'disabled'}>Variation map</button></div>`;
  // Cell detail: the standard activity next to what this client gets, with the rule and evidence for each change.
  const SAYS={std:'No rule changes this activity for this client. It runs exactly as the standard says.',adj:'Same activity and owner. Part of how it is done changes for this client.',rep:'The standard version does not apply to this client. A different version of the activity runs instead.',add:'The standard runs as written, plus extra steps for this client.'};
@@ -337,6 +352,8 @@ function mount(root,opt={}){
   // The new-client card scrolls into view once; after that the panel keeps where the presenter left it.
   if(panel&&typeof panel.scrollTop==='number'){const card=built()&&!state.col&&!state.cardSeen&&panel.querySelector('.fx-new');let target=prevKind===kind?prevTop:0;const ho=!state.hoSeen&&panel.querySelector('.fx-handoff');if(ho&&typeof ho.offsetTop==='number'){target=ho.offsetTop-60;state.hoSeen=true;}else if(active)target=active.offsetTop-70;else if(card&&typeof card.offsetTop==='number'){target=card.offsetTop-64;state.cardSeen=true;}panel.scrollTop=Math.max(0,target);}
   state.panelKind=kind;
+  // On the map, bring the evidence or the activity detail into view below the graph.
+  if(state.vmScroll){state.vmScroll=false;root.querySelector?.('.vm .vm-ev,.vm .fx-detail')?.scrollIntoView?.({behavior:'smooth',block:'nearest'});}
   // Jump to an activity in the standard guideline.
   if(state.stdJump){const el=root.querySelector?.('#fx-std-'+state.stdJump),main=root.querySelector?.('.fx-rl-main');if(el&&main&&typeof el.offsetTop==='number')main.scrollTop=el.offsetTop-12;state.stdJump=null;}}
  function cancel(){if(timer!==null)clearTimeout(timer);timer=null;}
@@ -356,18 +373,21 @@ function mount(root,opt={}){
   if(d.fxEv!==undefined){state.ev=d.fxEv?{key:d.fxEv,ob:d.fxOb||null}:null;state.evReset=true;render();return;}
   if(d.fxAct==='build'){state.view='matrix';startBuild();return;}
   if(d.fxView){if(built()){state.view=d.fxView;state.cell=null;render();}return;}
-  if(d.vmCol){state.mapCol=d.vmCol;state.cell=null;render();return;}
+  if(d.vmCol){state.mapCol=d.vmCol;state.cell=null;state.vmSel=null;render();return;}
+  if(d.vmDoc!==undefined){const i=Number(d.vmDoc);state.vmSel=state.vmSel?.type==='doc'&&state.vmSel.i===i?null:{type:'doc',i};state.cell=null;state.vmScroll=true;render();return;}
+  if(d.vmPick){state.vmSel=state.vmSel?.type==='attr'&&state.vmSel.id===d.vmPick?null:{type:'attr',id:d.vmPick};state.cell=null;state.vmScroll=true;render();return;}
+  if(d.vmClose!==undefined){state.vmSel=null;render();return;}
   // Changing any attribute starts from the current combination and makes it your own mix.
-  if(d.vmAttr){const a=ATTR(d.vmAttr),base=JSON.parse(JSON.stringify(cfgFor(state.mapCol))),cur=base[a.id];if(a.multi)base[a.id]=d.vmVal===''?[]:cur.includes(d.vmVal)?cur.filter(x=>x!==d.vmVal):[...cur,d.vmVal];else base[a.id]=d.vmVal;state.custom=base;state.mapCol='custom';state.cell=null;render();return;}
+  if(d.vmAttr){const a=ATTR(d.vmAttr),base=JSON.parse(JSON.stringify(cfgFor(state.mapCol))),cur=base[a.id];if(a.multi)base[a.id]=d.vmVal===''?[]:cur.includes(d.vmVal)?cur.filter(x=>x!==d.vmVal):[...cur,d.vmVal];else base[a.id]=d.vmVal;state.custom=base;state.mapCol='custom';state.cell=null;state.vmSel=null;render();return;}
   if(d.fxAct==='bskip'){cancel();state.building=false;state.bt=TOTAL;render();return;}
   if(d.fxAct==='back'){cancel();state.playing=false;state.col=null;render();return;}
   if(d.fxAct==='extract'){if(built()){state.alp=true;state.view='matrix';play('alpenridge');root.querySelector?.('.fx-profile')?.scrollIntoView?.({behavior:'smooth',block:'start'});}return;}
   if(d.fxCol){if(built()){if(d.fxCol==='alpenridge')state.alp=true;play(d.fxCol);}return;}
   if(d.fxAct==='skip'){cancel();state.playing=false;state.step=lastStep(state.col);toMap();render();return;}
-  if(d.fxCell!==undefined){if(!built())return;state.cell=d.fxCell&&state.cell!==d.fxCell?d.fxCell:null;render();return;}
+  if(d.fxCell!==undefined){if(!built())return;state.cell=d.fxCell&&state.cell!==d.fxCell?d.fxCell:null;state.vmSel=null;state.vmScroll=state.view==='map';render();return;}
   if(d.fwAttr){const a=ATTR(d.fwAttr),cur=state.custom[a.id];if(a.multi)state.custom[a.id]=d.fwVal===''?[]:cur.includes(d.fwVal)?cur.filter(x=>x!==d.fwVal):[...cur,d.fwVal];else state.custom[a.id]=d.fwVal;cancel();state.playing=false;state.col='custom';state.step=lastStep('custom');render();}}
  // Hover an attribute, document or activity to trace its lines.
- function onOver(e){const svg=root.querySelector?.('.vm-svg');if(!svg?.querySelectorAll)return;const n=e.target.closest?.('[data-vm-hl]'),keys=n?n.dataset.vmHl.split(' '):[];svg.querySelectorAll('.vm-e').forEach(p=>p.classList.toggle('dim',keys.length>0&&!keys.some(k=>p.classList.contains(k))));svg.classList.toggle('tracing',keys.length>0);}
+ function onOver(e){const svg=root.querySelector?.('.vm-svg');if(!svg?.querySelectorAll)return;const n=e.target.closest?.('[data-vm-hl]'),keys=n?n.dataset.vmHl.split(' '):(svg.dataset?.sel||'').split(' ').filter(Boolean);svg.querySelectorAll('.vm-e').forEach(p=>p.classList.toggle('dim',keys.length>0&&!keys.some(k=>p.classList.contains(k))));svg.classList.toggle('tracing',keys.length>0);}
  function onEsc(e){if(e.key!=='Escape')return;if(state.ev){state.ev=null;render();}else if(state.list){state.list=null;render();}}
  render();root.addEventListener('click',onClick);root.addEventListener('mouseover',onOver);document.addEventListener('keydown',onEsc);
  return ()=>{cancel();root.removeEventListener('click',onClick);root.removeEventListener('mouseover',onOver);document.removeEventListener('keydown',onEsc);};

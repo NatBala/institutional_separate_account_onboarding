@@ -85,6 +85,9 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Attributes extracted by the Context agent/);assert.match(fw.innerHTML,/data-view="agents">Run the agents for Alpenridge/);assert.doesNotMatch(fw.innerHTML,/Ready for human review/);assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);
     // When Alpenridge is extracted, the Variation map opens on it: documents → attributes → what changes against the standard.
     assert.match(fw.innerHTML,/What changes against the standard: Alpenridge/);assert.match(fw.innerHTML,/vm-e e-replaced/);assert.match(fw.innerHTML,/N08§1/);
+    // Clicking a document or an attribute shows the passage itself and what it changes.
+    w.click(fw,{vmDoc:'2'});assert.match(fw.innerHTML,/Evidence from N08§1/);assert.match(fw.innerHTML,/do not transfer them/);assert.match(fw.innerHTML,/Open the full document/);
+    w.click(fw,{vmPick:'restrictions'});assert.match(fw.innerHTML,/Found in 3 passages/);assert.match(fw.innerHTML,/ESG \/ coal definition/);w.click(fw,{vmClose:''});assert.doesNotMatch(fw.innerHTML,/class="vm-ev"/);
     w.click(fw,{vmCol:'cit'});assert.match(fw.innerHTML,/standard: 401\(k\) plan/);assert.match(fw.innerHTML,/Recordkeeper conversion memo/);
     w.click(fw,{vmAttr:'tm',vmVal:'yes'});assert.match(fw.innerHTML,/standard: your mix/);assert.match(fw.innerHTML,/combinations to check/);assert.match(fw.innerHTML,/vm-warn/);
     w.click(fw,{fxCell:'custom|guidelines'});assert.match(fw.innerHTML,/Standard guideline<\/span>/);

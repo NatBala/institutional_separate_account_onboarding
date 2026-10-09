@@ -589,3 +589,19 @@ body.ob-lock{overflow:hidden}
 .vm-go p{margin:0;color:#dbe4f0;font-size:.88rem}
 .vm .fx-detail{margin-top:10px}
 @media(max-width:1100px){.vm-attrs{grid-template-columns:repeat(4,minmax(0,1fr))}.vm-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* Variation map: documents and attributes open their evidence */
+button.vm-doc-n,button.vm-attr{width:100%;text-align:left;color:inherit;cursor:pointer;font-family:Inter,system-ui,sans-serif;align-items:flex-start}
+button.vm-doc-n:hover,button.vm-attr:hover{border-color:#5eead4;box-shadow:0 0 0 1px rgba(94,234,212,.35)}
+.vm-doc-n.sel,.vm-attr.sel{border-color:#5eead4;box-shadow:0 0 0 2px #5eead4;background:#11243a;opacity:1}
+.vm-ev{margin-top:10px;border:1px solid #1e6a63;border-left:3px solid #2dd4bf;border-radius:10px;padding:12px 14px;background:linear-gradient(180deg,rgba(20,184,166,.07),rgba(20,184,166,.01));animation:fx-slide .3s ease}
+.vm-ev header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.vm-ev .eyebrow{color:#5eead4}.vm-ev h4{margin:2px 0 6px;font-size:1rem;color:#f4f7fb}
+.vm-ev h5{margin:12px 0 6px;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#8fa3bd}
+.vm-ev-quote{border:1px solid #1f2c45;border-radius:9px;background:#0b1426;padding:10px 12px;margin-bottom:6px}
+.vm-ev-src{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.vm-ev-src b{font:700 .78rem ui-monospace,Menlo,monospace;color:#5eead4}.vm-ev-src span{font-size:.78rem;color:#9fb0c6}.vm-ev-src .fx-link{margin-left:auto}
+.vm-ev-quote small{display:block;margin-top:4px;font-size:.7rem;color:#8fa3bd;text-transform:uppercase;letter-spacing:.05em}
+.vm-ev-quote blockquote{margin:6px 0 0;padding:6px 0 6px 12px;border-left:3px solid #2dd4bf;font-size:.92rem;line-height:1.55;color:#f1f5fb;font-style:italic}
+.vm-ev-chg{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.vm-ev-chg li{font-size:.84rem;color:#dbe4f0;line-height:1.45;padding:6px 10px;border:1px solid #1c2840;border-radius:8px;background:#0b1426}.vm-ev-chg b{margin-right:4px;color:#f4f7fb}
+.vm-ev-chg small{display:block;color:#8fa3bd;font-size:.74rem;margin-top:2px}
+.vm-ev-none{margin:0;color:#8fa3bd;font-size:.84rem}
+.vm-ev .fx-attrs{margin:0}
