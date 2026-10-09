@@ -86,7 +86,10 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
     // The KPI tiles open the learned rules and the proposed ones.
     w.click(fw,{fxList:'learned'});assert.match(fw.innerHTML,/Rules learned, with evidence<\/h2>/);assert.match(fw.innerHTML,/\d+ of \d+ past onboardings/);
-    w.click(fw,{fxList:'proposed'});assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
+    // Each rule opens the past onboardings it was learned from, then one onboarding's record.
+    w.click(fw,{fxEv:'r0'});assert.match(fw.innerHTML,/fx-ev-list/);assert.match(fw.innerHTML,/past .+ onboardings show this change/);
+    w.click(fw,{fxEv:'r0',fxOb:w.context.window.SA_FRAMEWORK.MINED.rules[0].examples[0]});assert.match(fw.innerHTML,/Supports this rule/);assert.match(fw.innerHTML,/Task log/);
+    w.click(fw,{fxList:'proposed'});w.click(fw,{fxEv:'p0'});assert.match(fw.innerHTML,/added this step by hand \(/);w.click(fw,{fxEv:''});assert.doesNotMatch(fw.innerHTML,/class="fx-ev"/);assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
     w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
     // The onboarding agents then use the matrix for one client.
