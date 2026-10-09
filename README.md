@@ -4,10 +4,11 @@ An institutional separate-account onboarding workspace built around the fictiona
 
 ## Included
 
-- The current browser experience, in three steps plus a framework tab:
-  1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Alpenridge leads into the agents.
-  2. **Multi-agent system**: the seven-agent flow with a **Run agents** button, and the animated run underneath. The run pauses after each agent (client requirement → precedent → risk → workflow → key players → evidence review) and stops at two human checkpoints. When the plan is accepted it links to the output.
-  3. **Agent output**: what the agents produced for Alpenridge, on one screen. A headline band (funding forecast against the client's date, with the five stage lights) sits above six cards in the order the agents ran. Each card names the agent that produced it, shows two or three headline facts, and opens its full detail in a side panel with previous/next navigation:
+- The current browser experience, in four steps:
+  1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Alpenridge leads into the framework.
+  2. **One framework, many variations**: six Framework Builder agents learn the onboarding rules from 146 closed onboardings in a live console (progress, counters and a streaming log for each agent), a policy owner approves new rules, and the matrix fills in. A **Variation map** view shows, for any client type or any mix you pick, the client's documents → its seven attributes → the ten standard activities, with one line per learned rule coloured by effect; activities with no line stay standard. Alpenridge then arrives as a new client: its attributes are extracted, the matrix and the map show what changes for it, and a button hands over to the agents.
+  3. **Multi-agent system**: the seven-agent flowchart with a **Run agents** button, and the animated run underneath. The run pauses after each agent (client requirement → precedent → risk → workflow → key players → evidence review) and stops at two human checkpoints, then offers the client requests the agents drafted.
+  4. **Agent output**: what the agents produced for Alpenridge, on one screen. A headline band (funding forecast against the client's date, with the five stage lights) sits above six cards in the order the agents ran. Each card names the agent that produced it, shows two or three headline facts, and opens its full detail in a side panel with previous/next navigation:
      1. Client requirements (Context agent): what the client asked for and where each ask stands.
      2. Obligations (Context agent + Evidence reviewer): contractual versus non-contractual.
      3. Risks & date impact (Operational + Investment risk agents): root-cause issues tied to onboarding days and the reviews each needs, plus the risk register from the run.

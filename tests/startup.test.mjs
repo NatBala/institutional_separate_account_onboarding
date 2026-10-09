@@ -46,7 +46,7 @@ test('published scripts start for new and returning users and every saved view',
     for(const tab of [/Onboarding portfolio/,/Multi-agent system/,/Agent output/,/One framework, many variations/])assert.match(w.app.innerHTML,tab);
     assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab|How the plan was built/);
     w.click(w.document,{view:'portfolio'});const st=w.document.getElementById('st-root');
-    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/See how the agents build its plan/);
+    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/data-view="framework">See how we plan it/);
     w.click(w.document,{view:'agents'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/data-start/);
     assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'output'});
@@ -76,14 +76,19 @@ test('published scripts start for new and returning users and every saved view',
     assert.match(fw.innerHTML,/fx-cell empty/);assert.doesNotMatch(fw.innerHTML,/fx-cell rep/);
     w.click(fw,{fxCol:'omnibus'});assert.doesNotMatch(fw.innerHTML,/Platform agreement draft/,'clients cannot run before the matrix exists');
     // The Framework Builder agents learn the rules and fill the matrix.
-    w.click(fw,{fxAct:'build'});assert.match(fw.innerHTML,/Archive reader/);assert.match(fw.innerHTML,/closed onboardings read/);
+    w.click(fw,{fxAct:'build'});assert.match(fw.innerHTML,/Archive reader/);assert.match(fw.innerHTML,/closed onboardings read/);assert.match(fw.innerHTML,/fx-stream/);assert.match(fw.innerHTML,/Read <b>OB-/);
     w.click(fw,{fxAct:'bskip'});assert.match(fw.innerHTML,/Built from 146 past onboardings/);assert.doesNotMatch(fw.innerHTML,/fx-cell empty/);
     assert.match(fw.innerHTML,/51<\/b> rules learned/);assert.match(fw.innerHTML,/3,456/);assert.match(fw.innerHTML,/waiting for approval|wait for approval/);
     // Alpenridge arrives as a new client; extracting its attributes adds it to the matrix.
     assert.match(fw.innerHTML,/New client received/);assert.doesNotMatch(fw.innerHTML,/<b>Alpenridge<\/b>/);
     w.click(fw,{fxAct:'extract'});assert.match(fw.innerHTML,/<b>Alpenridge<\/b>/);assert.match(fw.innerHTML,/is extracting attributes/);assert.match(fw.innerHTML,/fx-cell pending/);
-    w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Attributes extracted by the Context agent/);assert.match(fw.innerHTML,/Ready for human review/);assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);
-    w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
+    w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Attributes extracted by the Context agent/);assert.match(fw.innerHTML,/data-view="agents">Run the agents for Alpenridge/);assert.doesNotMatch(fw.innerHTML,/Ready for human review/);assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);
+    // When Alpenridge is extracted, the Variation map opens on it: documents → attributes → what changes against the standard.
+    assert.match(fw.innerHTML,/What changes against the standard: Alpenridge/);assert.match(fw.innerHTML,/vm-e e-replaced/);assert.match(fw.innerHTML,/N08§1/);
+    w.click(fw,{vmCol:'cit'});assert.match(fw.innerHTML,/standard: 401\(k\) plan/);assert.match(fw.innerHTML,/Recordkeeper conversion memo/);
+    w.click(fw,{vmAttr:'tm',vmVal:'yes'});assert.match(fw.innerHTML,/standard: your mix/);assert.match(fw.innerHTML,/combinations to check/);assert.match(fw.innerHTML,/vm-warn/);
+    w.click(fw,{fxCell:'custom|guidelines'});assert.match(fw.innerHTML,/Standard guideline<\/span>/);
+    w.click(fw,{fxView:'matrix'});w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
     // The KPI tiles open the learned rules and the proposed ones.
     w.click(fw,{fxList:'learned'});assert.match(fw.innerHTML,/Rules learned, with evidence<\/h2>/);assert.match(fw.innerHTML,/\d+ of \d+ past onboardings/);
     // Each rule opens the past onboardings it was learned from, then one onboarding's record.
