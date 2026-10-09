@@ -31,3 +31,20 @@
 .run-result-hit .cites{margin:0}
 .run-log-list{max-height:260px;overflow:auto;margin-top:6px}
 @media(max-width:760px){.run-agent-pause .btn{width:100%}}
+/* End of run: client requests drafted from where Alpenridge stands today */
+.run-next{margin-top:16px;border:1px solid #1e5a5a;border-radius:12px;padding:16px;background:linear-gradient(180deg,rgba(20,184,166,.08),rgba(20,184,166,.01))}
+.run-next-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.run-next-head .eyebrow{color:#5eead4}.run-next-head h3{margin:4px 0 4px;font-size:1.05rem;color:#f4f7fb}.run-next-head p{margin:0;font-size:.84rem;color:#9fb0c6}
+.run-next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:12px}
+.run-next-card{display:flex;flex-direction:column;gap:5px;background:#0b1426;border:1px solid #1f2c45;border-radius:10px;padding:11px 12px;min-width:0}
+.run-next-card header{display:flex;justify-content:space-between;align-items:center;gap:8px}.run-next-card header b{color:#f1f5fb;font-size:.9rem}
+.run-next-flag{font-size:.68rem;font-weight:700;color:#fbbf24;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.run-next-stands{margin:0;font-size:.76rem;color:#8fa3bd;line-height:1.4}
+.run-next-action{margin:2px 0 0;font-size:.86rem;font-weight:700;color:#dbe4f0;line-height:1.35}
+.run-next-card small{color:#7f91ab;font-size:.74rem}
+.run-next-card q{display:block;font-size:.76rem;color:#b6c4d6;font-style:italic;line-height:1.45;border-left:2px solid #2a3a58;padding-left:8px;margin:2px 0 4px;quotes:"“" "”"}
+.run-next-card .btn{margin-top:auto;align-self:flex-start}
+.run-next-card.sent{border-color:#1e5a4a;background:#0b1a1f}
+.run-next-done{margin-top:auto;font-size:.8rem;font-weight:700;color:#34d399}
+.run-next-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #1f2c45;font-size:.84rem;color:#b6c4d6}
+.run-next-flag.calm{color:#9fb0c6;background:#111c32;border-color:#2a3a58}

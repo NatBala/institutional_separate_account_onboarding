@@ -112,7 +112,7 @@ const bdur=i=>i<B.f2?380:i===B.f2?1300:i<B.f4?380:i===B.f4?1400:i===B.h?1300:i<B
 const pct=x=>Math.round(x*100)+'%';
 const markup='<div id="fw-root" class="fx"></div>';
 function mount(root,opt={}){
- const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bstep:-1,building:false,alp:false};
+ const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bstep:-1,building:false,alp:false,list:null};
  const built=()=>state.bstep>=B.done,colIx=c=>BCOLS.findIndex(x=>x[0]===c),shown=c=>c==='alpenridge'?state.alp:state.bstep>=B.f5+colIx(c);
  const cols=()=>COLS.filter(([c])=>c!=='alpenridge'||state.alp);
  let timer=null;
@@ -170,9 +170,10 @@ function mount(root,opt={}){
   const tiles=O.ATTRS.map(a=>{const vals=(a.multi?cfg[a.id]:[cfg[a.id]]).filter(v=>src[a.id+'|'+v]);return `<div class="fx-pf ${vals.length||all?'':'wait'}"><span>${esc(a.name)}</span><b>${vals.length?vals.map(v=>esc(label(a.id,v))).join(' · '):all?'None':'…'}</b><em>${srcs(vals.map(v=>src[a.id+'|'+v]))}</em></div>`;}).join('');
   const how=state.col==='alpenridge'&&state.step<s.h1?'The Context agent (A1) is extracting attributes from the client’s documents…':'Attributes extracted by the Context agent (A1) and confirmed by Operations (H1)';
   return `<section class="fx-profile"><header><div><span class="eyebrow">New client</span><h3>Alpenridge Pension Foundation</h3><small>${how}</small></div><div class="fx-profile-cta">${cta}</div></header><div class="fx-pf-grid">${tiles}</div></section>`;}
- function scale(){const b=state.bstep,read=b<0?null:Math.round(HISTORY.length*Math.min(1,(b+1)/6)),learned=b<B.f3?null:Math.round(MINED.learned.length*Math.min(1,(b-B.f3+1)/8)),v=x=>x==null?'—':x;
-  const k=(cls,val,lab)=>`<div class="fx-kpi ${cls}"><span>${lab}</span><strong>${val}</strong></div>`;
-  return `<div class="fx-scale">${k('blue',v(read),'Past onboardings learned from')}${k('green',v(learned),'Rules learned, with evidence')}${k('amber',b>=B.h?MINED.proposals.length:'—','New rules proposed')}${k('hero',built()?combos.toLocaleString('en-US'):'—','Client set-ups covered')}${k('slate',7,'Onboarding agents, same for every client')}${k('green',built()?0:'—','New processes designed')}</div>`;}
+ const learnedSoFar=()=>state.bstep<B.f3?0:Math.round(MINED.learned.length*Math.min(1,(state.bstep-B.f3+1)/8));
+ function scale(){const b=state.bstep,read=b<0?null:Math.round(HISTORY.length*Math.min(1,(b+1)/6)),learned=b<B.f3?null:learnedSoFar(),v=x=>x==null?'—':x;
+  const k=(cls,val,lab,list)=>list?`<button type="button" class="fx-kpi fx-kpi-open ${cls}" data-fx-list="${list}"><span>${lab}</span><strong>${val}</strong><em>See the rules →</em></button>`:`<div class="fx-kpi ${cls}"><span>${lab}</span><strong>${val}</strong></div>`;
+  return `<div class="fx-scale">${k('blue',v(read),'Past onboardings learned from')}${k('green',v(learned),'Rules learned, with evidence',learned?'learned':null)}${k('amber',b>=B.h?MINED.proposals.length:'—','New rules proposed',b>=B.h?'proposed':null)}${k('hero',built()?combos.toLocaleString('en-US'):'—','Client set-ups covered')}${k('slate',7,'Onboarding agents, same for every client')}${k('green',built()?0:'—','New processes designed')}</div>`;}
  const pill=st=>`<em class="fx-pill ${st}">${st==='done'?'Done':st==='active'?'Running':'Queued'}</em>`;
  const stepHtml=(st,id,name,desc,body)=>`<li class="fx-step ${st}"><span class="fx-badge">${id}</span><div><div class="fx-step-head"><b>${esc(name)}</b>${pill(st)}</div>${st==='wait'?`<small class="fx-desc">${esc(desc)}</small>`:`<div class="fx-out">${body}</div>`}</div></li>`;
  function bstage(i,from,to,body){const [id,name,desc]=BUILDER[i],b=state.bstep,st=b>to?'done':b>=from?'active':'wait';return stepHtml(st,id,name,desc,st==='wait'?'':body(st));}
@@ -197,7 +198,14 @@ function mount(root,opt={}){
  function newClient(){if(state.alp)return `<div class="fx-next"><b>Alpenridge is in the matrix.</b><button type="button" class="btn small" data-fx-col="alpenridge">Show its run again ▶</button><small>Or click any client column to see the onboarding agents on it.</small></div>`;
   const C=window.CORPUS,ids=[...new Set(DOCS.alpenridge.map(d=>d.src.split('§')[0]))];
   return `<div class="fx-new"><span class="eyebrow">New client received</span><h4>Alpenridge Pension Foundation</h4><p>USD 250m global investment-grade bond separate account · Swiss pension foundation</p><ul>${ids.map(id=>{const d=C?.documents?.find(x=>x.id===id);return `<li><b>${esc(d?id:'RM')}</b>${esc(d?d.title:id)}</li>`;}).join('')}</ul><p class="smalltext">It is not in the matrix yet. The Context agent reads these documents, extracts the seven attributes, and the framework does the rest.</p><button type="button" class="btn primary" data-fx-act="extract">Extract attributes and add to the matrix ▶</button></div>`;}
- function render(){root.innerHTML=`${profile()}${scale()}<div class="fx-layout">${matrix()}${runPanel()}</div><p class="legend">Illustrative framework on synthetic data. Variations describe typical differences between structures; confirm each against firm policy before use. The onboarding history and the agent steps for clients other than Alpenridge are synthetic.</p>`;
+ // Full-screen list of the learned rules and the proposed ones, with the evidence behind each.
+ function rulesList(){if(!state.list)return '';const M=MINED,learned=M.learned.slice(0,learnedSoFar()),tab=state.list,actName=id=>O.ACTIVITIES.find(a=>a.id===id).name;
+  const bar=x=>`<span class="fx-sup"><i style="width:${Math.round(x.support*100)}%"></i></span>`;
+  const body=tab==='learned'?O.ACTIVITIES.map(a=>{const rs=learned.filter(x=>x.act===a.id);return rs.length?`<tbody><tr class="fx-rl-group"><th colspan="4">${esc(a.name)} <small>${rs.length} rule${rs.length>1?'s':''}</small></th></tr>${rs.map(x=>`<tr><td><span class="fx-attr"><em>${esc(ATTR(x.a).name)}</em>${esc(label(x.a,x.v))}</span></td><td><span class="fx-eff fw-${x.effect}">${TAG[x.effect]}</span>${esc(x.text)}</td><td class="fx-rl-ev">${bar(x)}<b>${pct(x.support)}</b><small>${x.hits} of ${x.n} past onboardings</small></td><td class="fx-rl-ex">${x.examples.map(e=>`<code>${e}</code>`).join(' ')}</td></tr>`).join('')}</tbody>`:'';}).join(''):'';
+  const prop=M.proposals.map(p=>`<article class="fx-prop"><header><span class="fx-eff fw-proposed">Proposed</span><b>If ${esc(attrLabel(p.a,p.v))} → ${esc(actName(p.act))}</b></header><p>${esc(p.text)}</p><div class="fx-rl-ev">${bar(p)}<b>${pct(p.support)}</b><small>Teams added this step by hand in ${p.hits} of ${p.n} ${esc(label(p.a,p.v))} onboardings, e.g. ${p.examples.map(e=>`<code>${e}</code>`).join(' ')}</small></div><p class="fx-prop-why"><b>Why it is not applied yet:</b> it is a new step that no policy describes, and it held in ${pct(p.support)} of cases${p.support<0.8?', under the 80% bar':''}. A policy owner decides whether it becomes a rule.</p><span class="fx-prop-status">Waiting for the policy owner</span></article>`).join('');
+  return `<div class="fx-rl-back" data-fx-list=""></div><aside class="fx-rl" role="dialog" aria-modal="true" aria-label="Rules"><header class="fx-rl-head"><div><span class="eyebrow">Framework Builder · learned from ${HISTORY.length} closed onboardings</span><h2>${tab==='learned'?'Rules learned, with evidence':'New rules proposed'}</h2><p class="smalltext">${tab==='learned'?`A rule is kept when the same change appeared in at least 3 past onboardings with that attribute, and in at least 80% of them. Median consistency ${pct(M.median)}.`:'Steps teams kept adding by hand. They are not used until a policy owner approves them.'}</p></div><div class="fx-rl-tabs"><button type="button" class="${tab==='learned'?'on':''}" data-fx-list="learned">Learned rules <b>${learned.length}</b></button><button type="button" class="${tab==='proposed'?'on':''}" data-fx-list="proposed" ${state.bstep>=B.h?'':'disabled'}>Proposed rules <b>${M.proposals.length}</b></button><button type="button" class="ob-x" data-fx-list="" aria-label="Close">×</button></div></header>
+  <div class="fx-rl-body">${tab==='learned'?`<table class="fx-rl-table"><thead><tr><th>If the client has</th><th>Then the activity changes</th><th>Evidence</th><th>Examples</th></tr></thead>${body}</table>`:`<div class="fx-props">${prop}</div>`}</div></aside>`;}
+ function render(){root.innerHTML=`${profile()}${scale()}<div class="fx-layout">${matrix()}${runPanel()}</div>${rulesList()}<p class="legend">Illustrative framework on synthetic data. Variations describe typical differences between structures; confirm each against firm policy before use. The onboarding history and the agent steps for clients other than Alpenridge are synthetic.</p>`;
   // Keep the agent that is working in view inside the panel.
   const panel=root.querySelector?.('.fx-run');
   // Fit the panel to the space left on screen so it scrolls inside itself and the working agent stays visible.
@@ -210,7 +218,8 @@ function mount(root,opt={}){
  function btick(){timer=null;state.bstep++;if(state.bstep>=B.done){state.bstep=B.done;state.building=false;}render();if(state.building)timer=setTimeout(btick,bdur(state.bstep+1));}
  function startBuild(){cancel();state.col=null;state.cell=null;state.playing=false;state.alp=false;state.bstep=-1;state.building=true;btick();}
  function play(col){cancel();state.col=col;state.cell=null;state.step=col==='custom'?startOf(col).h1-1:-1;state.playing=true;tick();}
- function onClick(e){const b=e.target.closest('button');if(!b||!root.contains(b)||b.dataset.source||b.dataset.view)return;const d=b.dataset;
+ function onClick(e){const b=e.target.closest('button,[data-fx-list]');if(!b||!root.contains(b)||b.dataset.source||b.dataset.view)return;const d=b.dataset;
+  if(d.fxList!==undefined){state.list=d.fxList||null;render();return;}
   if(d.fxAct==='build'){startBuild();return;}
   if(d.fxAct==='bskip'){cancel();state.building=false;state.bstep=B.done;render();return;}
   if(d.fxAct==='back'){cancel();state.playing=false;state.col=null;render();return;}
@@ -220,8 +229,9 @@ function mount(root,opt={}){
   if(d.fxAct==='replay'){play(state.col);return;}
   if(d.fxCell!==undefined){if(!built())return;state.cell=d.fxCell&&state.cell!==d.fxCell?d.fxCell:null;render();return;}
   if(d.fwAttr){const a=ATTR(d.fwAttr),cur=state.custom[a.id];if(a.multi)state.custom[a.id]=d.fwVal===''?[]:cur.includes(d.fwVal)?cur.filter(x=>x!==d.fwVal):[...cur,d.fwVal];else state.custom[a.id]=d.fwVal;cancel();state.playing=false;state.col='custom';state.step=lastStep('custom');render();}}
- render();root.addEventListener('click',onClick);
- return ()=>{cancel();root.removeEventListener('click',onClick);};
+ function onEsc(e){if(e.key==='Escape'&&state.list){state.list=null;render();}}
+ render();root.addEventListener('click',onClick);document.addEventListener('keydown',onEsc);
+ return ()=>{cancel();root.removeEventListener('click',onClick);document.removeEventListener('keydown',onEsc);};
 }
 window.SA_FRAMEWORK={markup,mount,DOCS,COLS,HISTORY,MINED};
 })();

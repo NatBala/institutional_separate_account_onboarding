@@ -84,6 +84,9 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{fxAct:'extract'});assert.match(fw.innerHTML,/<b>Alpenridge<\/b>/);assert.match(fw.innerHTML,/is extracting attributes/);assert.match(fw.innerHTML,/fx-cell pending/);
     w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Attributes extracted by the Context agent/);assert.match(fw.innerHTML,/Ready for human review/);assert.doesNotMatch(fw.innerHTML,/fx-cell pending/);
     w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
+    // The KPI tiles open the learned rules and the proposed ones.
+    w.click(fw,{fxList:'learned'});assert.match(fw.innerHTML,/Rules learned, with evidence<\/h2>/);assert.match(fw.innerHTML,/\d+ of \d+ past onboardings/);
+    w.click(fw,{fxList:'proposed'});assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
     w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
     // The onboarding agents then use the matrix for one client.
@@ -135,8 +138,17 @@ test('Alpenridge status: RAG by stage, issue impact on the funding date, delay c
   assert.equal(s.map.P2.status,'blocked');assert.equal(s.map.P1.status,'overdue');
   assert.equal(O.criticalChain(s).map(r=>r.id).slice(0,5).join(),'I1,I5,P1,P2,P6');
   const d=O.schedule(O.TASKS,{extra:{P6:5}});assert.equal(d.funded,s.funded+5);
-  const path=O.escalation(s.map.P1,s);assert(path[0].hit&&path.at(-1).hit,'funding date moved, so leadership is notified');
+  const path=O.escalation(s.map.P1,s);assert(path[0].hit&&path.find(p=>/^Head of Institutional/.test(p.who)).hit,'funding date moved, so leadership is notified');
   assert.equal(O.book().length,14);
+});
+
+test('client requests sent from the agent run show against the requirements',()=>{
+  const w=openWorkspace({view:'output',sent:['tobacco','date']}),O=w.context.window.SA_ONBOARD;
+  assert.equal(O.actions().length,5);
+  const st=w.document.getElementById('st-root');w.click(st,{stOpen:'req'});
+  assert.match(st.innerHTML,/2 requests sent today/);assert.match(st.innerHTML,/Sent today: Ask the client to confirm the tobacco threshold/);assert.match(st.innerHTML,/Sent today: Tell the client the funding-date impact/);
+  // Escalation lists the steps taken first; telling the client of the date impact is now done.
+  w.click(st,{stOpen:'plan'});const path=st.innerHTML.slice(st.innerHTML.indexOf('st-path'));assert.match(path,/Client informed of the date impact<\/span><small>Sent from the agent run/);assert.doesNotMatch(path.slice(0,path.indexOf('</ol>')),/class="next"/);
 });
 
 test('one framework, many variations',()=>{

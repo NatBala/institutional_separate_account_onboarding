@@ -211,7 +211,7 @@ const PLAYERS=[
 /* ---------- 4 · Escalation and communication paths ---------- */
 // Each step: [who, trigger]. Triggers: flag = as soon as a slip is forecast; od:n = n business days overdue; date = the funding date moves.
 const PATHS={
- client:[['Task owner flags the item','flag'],['Onboarding lead, GCS Operations','od:1'],['Client RM chases the client contact','od:2'],['Client informed of the date impact','od:3'],['Head of Institutional Onboarding','date']],
+ client:[['Task owner flags the item','flag'],['Onboarding lead, GCS Operations','od:1'],['Client RM chases the client contact','od:2'],['Head of Institutional Onboarding','date'],['Client informed of the date impact','od:3']],
  contract:[['Legal flags the item','flag'],['Onboarding lead, GCS Operations','od:1'],['Client RM','od:2'],['Client legal counsel contacted','od:3'],['Head of Legal + Head of Onboarding','date']],
  funding:[['Operations notified','flag'],['Client RM notified','od:1'],['Client informed','od:2'],['Portfolio management: trading start moves','date'],['Head of Investment Operations','date']],
  ops:[['Team lead flags the item','flag'],['Onboarding lead, GCS Operations','od:2'],['Head of Investment Operations','date']],
@@ -221,6 +221,15 @@ const PATHS={
 };
 function escalation(row,s,opt={}){const path=PATHS[row.kind]||PATHS.ops,moves=s.slip>0&&(row.id===FUNDED||s.reach(row.id).includes(FUNDED))&&impact(row.id,opt)>0;
  return path.map(([who,trig])=>{let hit=false,when='';if(trig==='flag'){hit=row.slip>0||row.overdue>0;when='When a slip is forecast';}else if(trig==='date'){hit=moves;when='If the funding date moves';}else{const n=Number(trig.split(':')[1]);hit=row.overdue>=n;when=`${n} business day${n>1?'s':''} overdue${row.overdue<n&&row.due+n>=s.asOf?' · '+fmt(row.due+n):''}`;}return {who,when,hit};});}
+
+/* Next actions from where Alpenridge stands today. The agents draft each one; a person approves and sends it.
+   req names the client-requirements row the action moves forward. */
+function actions(){const s=schedule(),day=fmt(s.funded),target=fmt(s.target);return [
+ {id:'tobacco',req:'Tobacco exclusion',stands:'Waiting for written confirmation of the threshold (P1)',flag:'2 days overdue',action:'Ask the client to confirm the tobacco threshold in writing',to:'Elena Weber, client investment office',draft:'Please confirm the tobacco exclusion applies at 5% or more of revenue, as in your investment policy, so we can align the IMA wording.',refs:['N03§1','N02§1']},
+ {id:'coal',req:'Thermal coal',stands:'Definition options agreed; written choice outstanding (P1)',flag:'2 days overdue',action:'Send the coal definition options for a written choice',to:'Elena Weber; trustees approve',draft:'Attached are the two thermal-coal definitions discussed on 23 Sep (activity and revenue threshold). Please confirm which one the trustees adopt.',refs:['N02§2']},
+ {id:'date',req:'Funding',stands:`Funding forecast ${day}, ${s.funded-s.target} business days after the client target (${target})`,flag:`+${s.funded-s.target} days`,action:'Tell the client the funding-date impact',to:'Elena Weber; consultant copied',draft:`With both confirmations by Mon 12 Oct we can hold funding at ${day}. Each further day of delay moves funding by one business day.`,refs:['N01§1']},
+ {id:'schedA',req:'Issuer limit',stands:'5% issuer limit drafted in Schedule A',flag:'Drafted',action:'Send the Schedule A draft for client review',to:'Client legal counsel',draft:'Schedule A now includes the 5% single corporate-issuer limit, with sovereigns exempt. Please review before IMA signing.',refs:['N03§2']},
+ {id:'derivs',req:'Derivatives',stands:'Staged amendment in drafting (P5)',flag:'In drafting',action:'Share the staged derivatives amendment',to:'Client legal counsel',draft:'Bond-only at inception; FX forwards and rate futures activate only after the day-30 review. Draft amendment attached.',refs:['N08§1']}];}
 
 /* ---------- 5 · Book of in-flight onboardings (leadership view) ---------- */
 // stage index, RAG, target day (business days from 14 Sep), slip days, top risk area, waiting on team
@@ -242,5 +251,5 @@ const BOOK=[
 function book(){const s=schedule(),stage=s.stages.findIndex(x=>!x.complete),worst=s.stages.find(x=>x.rag==='red')?'red':s.stages.some(x=>x.rag==='amber')?'amber':'green';
  return [{name:'Alpenridge Pension Foundation',vehicle:'sa',relationship:'consultant',stage,rag:worst,target:TARGET,slip:s.slip,risk:'Investment restrictions',waiting:'rm',aum:250,live:true},...BOOK];}
 
-window.SA_ONBOARD={START,AS_OF,TARGET,fmt,STAGES,TEAMS,ACTIVITIES,ATTRS,RULES,EFFORT,PROFILES,configure,TASKS,FUNDED,schedule,impact,criticalChain,PLAYERS,PATHS,escalation,book};
+window.SA_ONBOARD={actions,START,AS_OF,TARGET,fmt,STAGES,TEAMS,ACTIVITIES,ATTRS,RULES,EFFORT,PROFILES,configure,TASKS,FUNDED,schedule,impact,criticalChain,PLAYERS,PATHS,escalation,book};
 })();
