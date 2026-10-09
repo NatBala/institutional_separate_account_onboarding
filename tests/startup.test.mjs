@@ -66,6 +66,8 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{highlight:'all'});assert.match(root.innerHTML,/Portfolio management/);
     w.click(root,{tab:'math'});assert.match(root.innerHTML,/Add the longest workstream, not the sum/);
     w.click(root,{tab:'area'});assert.match(root.innerHTML,/Impact:/);
+    // Clicking a step shows its team and dependencies.
+    w.click(root,{tab:'team'});w.click(root,{highlight:'all'});w.click(root,{wrStep:'b2'});assert.match(root.innerHTML,/Selected step/);assert.match(root.innerHTML,/Waits on/);assert.match(root.innerHTML,/Unblocks/);assert.match(root.innerHTML,/Confirm client context/);w.click(root,{wrStep:''});w.click(root,{tab:'area'});
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
     w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
     // The left panel collapses and remembers it.
