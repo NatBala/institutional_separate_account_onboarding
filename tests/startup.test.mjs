@@ -89,7 +89,11 @@ test('published scripts start for new and returning users and every saved view',
     // Each rule opens the past onboardings it was learned from, then one onboarding's record.
     w.click(fw,{fxEv:'r0'});assert.match(fw.innerHTML,/fx-ev-list/);assert.match(fw.innerHTML,/past .+ onboardings show this change/);
     w.click(fw,{fxEv:'r0',fxOb:w.context.window.SA_FRAMEWORK.MINED.rules[0].examples[0]});assert.match(fw.innerHTML,/Supports this rule/);assert.match(fw.innerHTML,/Task log/);
-    w.click(fw,{fxList:'proposed'});w.click(fw,{fxEv:'p0'});assert.match(fw.innerHTML,/added this step by hand \(/);w.click(fw,{fxEv:''});assert.doesNotMatch(fw.innerHTML,/class="fx-ev"/);assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
+    // A policy owner approves a proposed rule; it applies to the matrix straight away.
+    w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/fw-proposed/);const before=(fw.innerHTML.match(/data-fx-cell="ocio\|contract"[^>]*>([^<]+)</)||[])[1];
+    w.click(fw,{fxList:'proposed'});assert.match(fw.innerHTML,/Approve and apply/);w.click(fw,{fxDecide:'0:approved'});assert.match(fw.innerHTML,/Approved by the policy owner · applied to the matrix/);w.click(fw,{fxList:''});
+    const after=(fw.innerHTML.match(/data-fx-cell="ocio\|contract"[^>]*>([^<]+)</)||[])[1];assert.notEqual(after,before);assert.match(fw.innerHTML,/1 approved/);assert.doesNotMatch(fw.innerHTML,/fw-proposed/);
+    w.click(fw,{fxList:'proposed'});w.click(fw,{fxDecide:'0:'});assert.match(fw.innerHTML,/Approve and apply/);w.click(fw,{fxEv:'p0'});assert.match(fw.innerHTML,/added this step by hand \(/);w.click(fw,{fxEv:''});assert.doesNotMatch(fw.innerHTML,/class="fx-ev"/);assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
     assert.match(fw.innerHTML,/Standard guideline<\/span>/);assert.match(fw.innerHTML,/For Platform/);assert.match(fw.innerHTML,/Does not apply to this client/);
     // The standard guideline holds every standard in one place, and links to the rules for each activity.

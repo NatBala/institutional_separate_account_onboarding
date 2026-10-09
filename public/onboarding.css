@@ -495,3 +495,11 @@ body.ob-lock{overflow:hidden}
 .fx-std-grid dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:.82rem}.fx-std-grid dt{color:#8fa3bd}.fx-std-grid dd{margin:0;color:#dbe4f0}.fx-std-grid p{margin:0;font-size:.82rem;color:#dbe4f0}
 .fx-std-card footer{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px dashed #22314f;font-size:.8rem;color:#b6c4d6}.fx-std-card footer span{color:#8fa3bd}.fx-std-card footer em{color:#7f91ab}
 @media(max-width:1000px){.fx-std-grid,.fx-std-nav,.fx-std-intro ul{grid-template-columns:1fr}}
+/* Policy owner decisions on proposed rules */
+.fx-prop-act{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fx-prop.approved{background:linear-gradient(180deg,#0c211c,#0a1a17);border-color:#1e5a48}.fx-prop.approved .fx-sup i{background:#34d399}
+.fx-prop.rejected{background:#0d1525;border-color:#2a3a58;opacity:.85}.fx-prop.rejected .fx-sup i{background:#64748b}
+.fx-prop-status.approved{color:#34d399;border:1px solid #1e5a48;background:rgba(52,211,153,.08)}
+.fx-prop-status.rejected{color:#9fb0c6;border:1px solid #2a3a58}
+.fx-eff.fw-rejected{color:#9fb0c6;border-color:#2a3a58;background:#111b2f}
+.fx-run .fx-pipe .btn[data-fx-list]{margin-top:8px}
