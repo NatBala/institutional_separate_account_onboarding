@@ -148,6 +148,8 @@ test('Run agents progresses to context and planning checkpoints',()=>{
   // H2: no review form; each drafted request opens its requirement, risk and precedent evidence.
   assert.match(root.innerHTML,/approve what goes to the client/);assert.doesNotMatch(root.innerHTML,/Review the working planning draft|Reviewer name/);
   assert.match(root.innerHTML,/Client requirement/);assert.match(root.innerHTML,/Risk identified/);assert.match(root.innerHTML,/Evidence from previous onboardings/);assert.match(root.innerHTML,/H02 · Northbridge/);
+  {const r=w.document.createElement('article');r.dataset.runAct='reporting';r.closest=sel=>sel==='button'?null:r;for(const fn of root.listeners.click)fn({target:r});}
+  assert.match(root.innerHTML,/R1 · Reporting promise exceeds supported service/);assert.match(root.innerHTML,/H01 · Alpinecrest/);assert.match(root.innerHTML,/H05 · Rhinebridge/);assert.match(root.innerHTML,/sample attached for your acceptance/);
   const tile=w.document.createElement('article');tile.dataset.runAct='derivs';tile.closest=sel=>sel==='button'?null:tile;for(const fn of root.listeners.click)fn({target:tile});
   assert.match(root.innerHTML,/H03 · Seabrook/);assert.match(root.innerHTML,/Derivative readiness/);
   // The full email and readable sources.
@@ -179,7 +181,7 @@ test('Alpenridge status: RAG by stage, issue impact on the funding date, delay c
 
 test('client requests sent from the agent run show against the requirements',()=>{
   const w=openWorkspace({view:'output',sent:['tobacco','date']}),O=w.context.window.SA_ONBOARD;
-  assert.equal(O.actions().length,5);
+  assert.equal(O.actions().length,6);assert.equal(O.actions()[1].id,'reporting');
   const st=w.document.getElementById('st-root');w.click(st,{stOpen:'req'});
   assert.match(st.innerHTML,/2 requests sent today/);assert.match(st.innerHTML,/Sent today: Ask the client to confirm the tobacco threshold/);assert.match(st.innerHTML,/Sent today: Tell the client the funding-date impact/);
   // Escalation lists the steps taken first; telling the client of the date impact is now done.

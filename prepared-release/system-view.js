@@ -59,7 +59,7 @@ function pipeline(){const Y=140,arrow=(d,cls='')=>`<path class="sf-edge ${cls}" 
  ${arrow(`M92 ${Y}H114`)}${fnode('A1',116,Y-70,120,140)}${arrow(`M236 ${Y}H254`)}${fdiamond('H1',286,Y,'Operations','confirms')}${arrow(`M316 ${Y}H340`)}${fnode('A2',342,Y-70,120,140)}
  ${arrow(`M462 ${Y}H480V${Y-47}H498`)}${arrow(`M480 ${Y}V${Y+47}H498`)}${fnode('A3',500,Y-88,126,82,true)}${fnode('A4',500,Y+6,126,82,true)}<text class="sf-note" x="563" y="${Y+101}">in parallel</text>
  <path class="sf-edge" d="M626 ${Y-47}H646V${Y+47}H626"/>${arrow(`M646 ${Y}H668`)}${fnode('A5',670,Y-70,116,140)}${arrow(`M786 ${Y}H810`)}${fnode('A6',812,Y-70,116,140)}${arrow(`M928 ${Y}H952`)}${fnode('A7',954,Y-70,120,140)}
- ${arrow(`M1074 ${Y}H1092`)}${fdiamond('H2',1124,Y,'Approves what','is sent')}${arrow(`M1154 ${Y}H1176`)}${fterm(1178,Y-48,100,96,'Ready to act','Plan, owners, 5 client requests','out')}
+ ${arrow(`M1074 ${Y}H1092`)}${fdiamond('H2',1124,Y,'Approves what','is sent')}${arrow(`M1154 ${Y}H1176`)}${fterm(1178,Y-48,100,96,'Ready to act','Plan, owners, 6 client requests','out')}
  
  </svg></div>`;}
 function card(a){return `<article class="sys-card sys-${a.group}" id="sys-${a.id}"><header><span class="sys-id">${a.id}</span><div><div class="eyebrow">${groupLabel[a.group]}</div><h2>${esc(a.name)}</h2></div></header><p class="sys-question">“${esc(a.question)}”</p><p>${esc(a.role)}</p><h3>Responsibilities</h3><ul>${a.does.map(d=>`<li>${esc(d)}</li>`).join('')}</ul><dl class="sys-io"><div><dt>Reads</dt><dd>${esc(a.inputs)}</dd></div><div><dt>Produces</dt><dd>${esc(a.output)}</dd></div><div><dt>Hands off to</dt><dd>${esc(a.to)}</dd></div></dl><p class="sys-guard"><b>Boundary:</b> ${esc(a.guard)}</p></article>`;}

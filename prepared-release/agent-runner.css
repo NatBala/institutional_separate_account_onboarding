@@ -100,3 +100,6 @@
 .run-next-card.sel::after{content:'';position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);border:8px solid transparent;border-top-color:#2dd4bf;border-bottom:0}
 @media(max-width:1200px){.run-next-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .run-next-card header{flex-direction:column;align-items:flex-start;gap:4px}.run-next-card header .run-next-flag{order:-1}
+.run-next-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(min-width:1700px){.run-next-grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:800px){.run-next-grid{grid-template-columns:1fr 1fr}}
