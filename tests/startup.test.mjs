@@ -56,7 +56,7 @@ test('published scripts start for new and returning users and every saved view',
     assert.doesNotMatch(st.innerHTML,/ob-drawer|Escalation and communication|What the client asked for/);
     const open=(id,re)=>{w.click(st,{stOpen:id});assert.match(st.innerHTML,/ob-drawer/);assert.match(st.innerHTML,re);};
     open('req',/What the client asked for/);assert.match(st.innerHTML,/In the contract/);assert.match(st.innerHTML,/Expectation/);
-    open('next',/Act first/);for(const part of [/Timeline by team/,/Communications timeline/,/Escalation and communication/,/Account funded/,/Client target/,/Forecast funding/])assert.match(st.innerHTML,part);
+    open('next',/Who must act now/);assert.match(st.innerHTML,/Must be contacted/);assert.match(st.innerHTML,/All responsibilities/);assert.match(st.innerHTML,/Act first/);for(const part of [/Timeline by team/,/Communications timeline/,/Escalation and communication/,/Account funded/,/Client target/,/Forecast funding/])assert.match(st.innerHTML,part);
     open('plan',/Act first/);
     open('whatif',/If a task slips/);w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
     w.click(st,{stSim:'O4'});assert.match(st.innerHTML,/Unchanged: the delay is absorbed by slack/);
