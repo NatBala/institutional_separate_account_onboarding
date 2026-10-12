@@ -46,7 +46,7 @@ test('published scripts start for new and returning users and every saved view',
     for(const tab of [/Onboarding portfolio/,/Multi-agent system/,/Agent output/,/One framework, many variations/])assert.match(w.app.innerHTML,tab);
     assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab|How the plan was built/);
     w.click(w.document,{view:'portfolio'});const st=w.document.getElementById('st-root');
-    assert.match(st.innerHTML,/Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/data-view="framework">See how we plan it/);
+    assert.match(st.innerHTML,/Onboardings in flight/);assert.doesNotMatch(st.innerHTML,/Mutual fund/);assert.match(st.innerHTML,/<strong>12<\/strong><span>Onboardings in flight/);assert.match(st.innerHTML,/Risk concentration/);assert.match(st.innerHTML,/data-view="framework">See how we plan it/);
     w.click(w.document,{view:'agents'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/data-start/);
     assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'output'});
