@@ -615,3 +615,70 @@ button.vm-doc-n:hover,button.vm-attr:hover{border-color:#5eead4;box-shadow:0 0 0
 .st-filter-note{margin:0 0 10px;font-size:.84rem;color:#b6c4d6}.st-filter-note b{color:#f4f7fb}
 .st-clear{font:inherit;font-size:.78rem;font-weight:700;color:#5eead4;background:none;border:0;cursor:pointer;margin-left:6px}
 .st-empty{text-align:center;color:#8fa3bd;padding:18px!important}
+/* Framework header: 1 the SOP we run today → 2 learn the variations */
+.fx-steps{display:grid!important;grid-template-columns:minmax(0,1fr) 34px minmax(0,1.25fr);align-items:stretch;gap:10px;padding:12px 14px!important}
+.fx-st{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #1f2c45;border-radius:10px;background:#0b1426;min-width:0}
+.fx-st>div{flex:1;min-width:0}.fx-st h3{margin:2px 0 2px!important;font-size:1.05rem!important}.fx-st small{color:#8fa3bd;font-size:.8rem}
+.fx-stn{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:#0f9488;color:#fff}
+.fx-st-arrow{display:grid;place-items:center;font-size:1.4rem;font-weight:800;color:#5eead4}
+.fx-sop{flex:none;white-space:nowrap;border-color:#2dd4bf!important;color:#ccfbf1!important;background:rgba(45,212,191,.10)!important}
+.fx-sop:hover{background:rgba(45,212,191,.2)!important}
+@media(max-width:1100px){.fx-steps{grid-template-columns:1fr}.fx-st-arrow{transform:rotate(90deg)}.fx-st{flex-wrap:wrap}}
+.fx-st{display:grid!important;grid-template-columns:30px minmax(0,1fr);gap:8px 12px;align-items:start}
+.fx-st>.btn,.fx-st>.fx-profile-cta{grid-column:2;justify-self:start}
+.fx-st .fx-profile-cta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fx-st .fx-build{white-space:nowrap}
+/* Next steps & timeline */
+.ob-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.st-ob{display:block;width:max-content;margin-top:4px;font-size:.66rem;font-weight:700;border-radius:999px;padding:1px 8px;border:1px solid}
+.st-ob.c{color:#93c5fd;border-color:#2c4f86;background:rgba(59,130,246,.08)}.st-ob.e{color:#9fb0c6;border-color:#2a3a58}
+.nx-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 12px;padding:14px 16px;border:1px solid #1f2c45;border-left:4px solid #f87171;border-radius:12px;background:linear-gradient(90deg,rgba(248,113,113,.08),rgba(248,113,113,.01))}
+.nx-head h3{margin:2px 0 4px;font-size:1.12rem;color:#f4f7fb}.nx-head h3 b.bad{color:#fca5a5}.nx-head p{margin:0;color:#b6c4d6;font-size:.88rem}.nx-head p b{color:#f4f7fb}
+.nx-act h4,.nx-tl h4,.nx-comms h4{display:flex;align-items:center;gap:8px;margin:14px 0 8px;font-size:.95rem;color:#f4f7fb}
+.nx-act h4 i,.nx-tl h4 i,.nx-comms h4 i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#0f9488;color:#fff;font-size:.72rem}
+.nx-act h4 small,.nx-tl h4 small,.nx-comms h4 small{font-weight:400;font-size:.76rem;color:#8fa3bd}
+.nx-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.nx-card{position:relative;display:flex;flex-direction:column;gap:5px;text-align:left;font:inherit;color:#dbe4f0;padding:12px 12px 11px;border:1px solid #1f2c45;border-top:3px solid #475569;border-radius:12px;background:linear-gradient(180deg,#111d34,#0c1528);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.nx-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(0,0,0,.7)}
+.nx-card.bad{border-top-color:#f87171}.nx-card.warn{border-top-color:#fbbf24}.nx-card.note{border-top-color:#2dd4bf}
+.nx-card.sel{box-shadow:0 0 0 2px #5eead4}
+.nx-rank{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#16233b;color:#9fb0c6;font-size:.72rem;font-weight:800}
+.nx-urg{align-self:flex-start;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:1px 8px}
+.nx-urg.bad{color:#fecaca;background:rgba(248,113,113,.16)}.nx-urg.warn{color:#fde68a;background:rgba(251,191,36,.14)}.nx-urg.note{color:#99f6e4;background:rgba(45,212,191,.12)}
+.nx-who{font-size:.98rem;color:#f4f7fb;padding-right:24px}.nx-who em{display:block;font-style:normal;font-weight:500;font-size:.76rem;color:#9fb0c6}
+.nx-task{font-size:.8rem;color:#dbe4f0;line-height:1.35}
+.nx-meta{display:flex;flex-wrap:wrap;gap:6px}.nx-meta i{font-style:normal;font-size:.7rem;font-weight:700;color:#9fb0c6;border:1px solid #2a3a58;border-radius:6px;padding:1px 6px}.nx-meta i.bad{color:#fca5a5;border-color:#7f1d1d}
+.nx-esc{margin-top:auto;font-size:.72rem;color:#8fa3bd;border-top:1px dashed #22314f;padding-top:6px}
+.nx-split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;align-items:start}
+.nx-split .st-detail{position:sticky;top:12px;margin-top:44px}
+.nx-tl-grid{position:relative;border:1px solid #1f2c45;border-radius:12px;background:#0b1426;padding:8px 10px 10px;overflow:hidden}
+.nx-axis,.nx-lane{display:grid;grid-template-columns:150px minmax(0,1fr)}
+.nx-ticks{position:relative;height:20px}.nx-ticks span{position:absolute;transform:translateX(-50%);font-size:.66rem;color:#7f91ab;white-space:nowrap}
+.nx-lane{border-top:1px solid #16233b}.nx-team{padding:6px 8px 6px 0;font-size:.8rem;font-weight:700;color:#dbe4f0}.nx-team small{display:block;font-weight:400;color:#7f91ab;font-size:.68rem}
+.nx-track{position:relative}.nx-gl{position:absolute;top:0;bottom:0;width:1px;background:#16233b}
+.nx-row{position:absolute;left:0;right:0;height:20px}
+.nx-bar{position:absolute;top:0;height:20px;min-width:30px;border-radius:5px;border:1px solid transparent;font:inherit;font-size:.66rem;font-weight:800;color:#06101e;text-align:left;padding:0 6px;cursor:pointer;overflow:hidden;white-space:nowrap}
+.nx-bar span{position:relative}
+.nx-bar.overdue{background:#f87171}.nx-bar.blocked{background:#fbbf24}.nx-bar.progress,.nx-bar.late{background:#2dd4bf}.nx-bar.waiting,.nx-bar.ready{background:#334155;color:#dbe4f0}
+.nx-bar.sel{box-shadow:0 0 0 2px #fff}
+.nx-slip{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(135deg,rgba(0,0,0,.35) 0 4px,transparent 4px 8px)}
+.nx-marks{position:absolute;left:160px;right:10px;top:0;bottom:0;pointer-events:none}
+.nx-mark{position:absolute;top:24px;bottom:4px;border-left:2px dashed}
+.nx-mark span{position:absolute;top:-22px;left:4px;font-size:.66rem;font-weight:800;white-space:nowrap;padding:1px 6px;border-radius:4px}
+.nx-mark.today{border-color:#5eead4}.nx-mark.today span{color:#06101e;background:#5eead4}
+.nx-mark.target{border-color:#93c5fd}.nx-mark.target span{color:#06101e;background:#93c5fd;transform:translateX(-100%) translateX(-8px)}
+.nx-mark.fund{border-color:#f87171}.nx-mark.fund span{color:#06101e;background:#f87171}
+.nx-key{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0;font-size:.74rem;color:#9fb0c6}.nx-key i.k{display:inline-block;width:14px;height:8px;border-radius:2px;margin-right:5px}
+.nx-key .k.overdue{background:#f87171}.nx-key .k.blocked{background:#fbbf24}.nx-key .k.progress{background:#2dd4bf}.nx-key .k.waiting{background:#334155}
+.nx-comms ol{list-style:none;margin:0;padding:0;position:relative}
+.nx-comms li{display:grid;grid-template-columns:96px 18px minmax(0,1fr) auto;gap:10px;align-items:start;padding:7px 0;position:relative}
+.nx-comms li::before{content:'';position:absolute;left:104px;top:0;bottom:0;width:2px;background:#1f2c45}
+.nx-d{font-size:.78rem;font-weight:700;color:#b6c4d6;text-align:right;padding-top:1px}
+.nx-dot{width:14px;height:14px;border-radius:50%;margin-top:2px;border:2px solid #475569;background:#0b1426;position:relative;z-index:1}
+.nx-comms li.done .nx-dot{background:#34d399;border-color:#34d399}.nx-comms li.today .nx-dot{background:#5eead4;border-color:#5eead4;box-shadow:0 0 0 4px rgba(94,234,212,.18)}.nx-comms li.next .nx-dot{border-color:#fbbf24}
+.nx-comms li b{display:block;font-size:.86rem;color:#f1f5fb}.nx-comms li small{font-size:.74rem;color:#8fa3bd}
+.nx-comms li.done b{color:#b6c4d6}
+.nx-comms li em{font-style:normal;font-size:.68rem;font-weight:700;color:#9fb0c6;border:1px solid #2a3a58;border-radius:999px;padding:1px 8px;white-space:nowrap}
+.nx-comms li.client em{color:#93c5fd;border-color:#2c4f86}
+.nx-comms li.today{background:rgba(94,234,212,.05);border-radius:8px}
+@media(max-width:1100px){.nx-split{grid-template-columns:1fr}.nx-split .st-detail{position:static;margin-top:0}.ob-grid{grid-template-columns:1fr!important}}

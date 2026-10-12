@@ -48,3 +48,24 @@
 .run-next-done{margin-top:auto;font-size:.8rem;font-weight:700;color:#34d399}
 .run-next-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid #1f2c45;font-size:.84rem;color:#b6c4d6}
 .run-next-flag.calm{color:#9fb0c6;background:#111c32;border-color:#2a3a58}
+/* Request tiles open a review panel at the top */
+.run-next-card{cursor:pointer;transition:border-color .12s ease,box-shadow .12s ease}
+.run-next-card:hover{border-color:#3b5179}
+.run-next-card.sel{border-color:#2dd4bf;box-shadow:0 0 0 1px #2dd4bf}
+.run-next-review{margin-top:auto;font-size:.78rem;font-weight:700;color:#5eead4}
+.run-act{margin-top:12px;border:1px solid #1e6a63;border-radius:12px;padding:14px;background:#0a1222;animation:fx-slide .3s ease}
+.run-act header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.run-act header .eyebrow{color:#5eead4}.run-act h4{margin:3px 0 10px;font-size:1.02rem;color:#f4f7fb}
+.run-act-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.run-act-col{border:1px solid #1f2c45;border-radius:10px;padding:10px 12px;background:#0e1729;font-size:.82rem;color:#dbe4f0;line-height:1.45;min-width:0}
+.run-act h5{display:flex;align-items:center;gap:7px;margin:0 0 7px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#9fb0c6}
+.run-act h5 i{font-style:normal;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:#0f9488;color:#fff;font-size:.66rem}
+.run-act-quote{margin:0 0 6px;font-style:italic;color:#f1f5fb;font-size:.88rem}
+.run-act-now{margin:8px 0 0;color:#b6c4d6}
+.run-act-risk{display:block;color:#fcd34d;margin-bottom:4px}
+.run-act-col p{margin:0 0 6px}
+.run-act-case{border-left:3px solid #60a5fa;padding:2px 0 2px 9px;margin-bottom:8px}.run-act-case b{display:block;color:#f1f5fb}.run-act-case small{display:block;color:#93c5fd;margin-bottom:3px}
+.run-act-msg{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-top:10px;padding:10px 12px;border:1px dashed #2a3a58;border-radius:10px}
+.run-act-msg blockquote{margin:4px 0 0;padding-left:10px;border-left:3px solid #2dd4bf;font-style:italic;color:#f1f5fb;font-size:.88rem;line-height:1.5}
+.run-act-msg .btn{flex:none}
+@media(max-width:1000px){.run-act-grid{grid-template-columns:1fr}.run-act-msg{flex-direction:column;align-items:stretch}}

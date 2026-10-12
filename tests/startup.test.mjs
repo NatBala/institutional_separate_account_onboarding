@@ -50,13 +50,14 @@ test('published scripts start for new and returning users and every saved view',
     w.click(w.document,{view:'agents'});assert.match(w.app.innerHTML,/Key players agent/);assert.match(w.app.innerHTML,/Investment risk agent/);assert.match(w.app.innerHTML,/data-start/);
     assert.match(w.document.getElementById('agent-runner-root').innerHTML,/Run agents/);
     w.click(w.document,{view:'output'});
-    // One screen: six cards with headline facts, no detail until a card is opened.
-    for(const part of [/Funding forecast/,/Client requirements/,/Obligations/,/Risks &amp; date impact/,/Plan &amp; status/,/Key players/,/What-if/,/Context agent/,/Key players agent/,/\+3 days<small>to onboarding/])assert.match(st.innerHTML,part);
+    // One screen: three cards with headline facts, no detail until a card is opened.
+    for(const part of [/Funding forecast/,/Client requirements/,/Next steps &amp; timeline/,/What-if scenarios/,/Context agent/,/Key players agent/,/actions this week/])assert.match(st.innerHTML,part);
+    assert.doesNotMatch(st.innerHTML,/>Obligations<|Risks &amp; date impact|Plan &amp; status/);
     assert.doesNotMatch(st.innerHTML,/ob-drawer|Escalation and communication|What the client asked for/);
     const open=(id,re)=>{w.click(st,{stOpen:id});assert.match(st.innerHTML,/ob-drawer/);assert.match(st.innerHTML,re);};
-    open('req',/What the client asked for/);open('oblig',/Contractual obligations/);open('risk',/Risk register handed over by the risk agents/);
-    open('plan',/Escalation and communication/);w.click(st,{stStage:'3'});assert.match(st.innerHTML,/Account funded/);
-    open('players',/Who acts next/);
+    open('req',/What the client asked for/);assert.match(st.innerHTML,/In the contract/);assert.match(st.innerHTML,/Expectation/);
+    open('next',/Act first/);for(const part of [/Timeline by team/,/Communications timeline/,/Escalation and communication/,/Account funded/,/Client target/,/Forecast funding/])assert.match(st.innerHTML,part);
+    open('plan',/Act first/);
     open('whatif',/If a task slips/);w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
     w.click(st,{stSim:'O4'});assert.match(st.innerHTML,/Unchanged: the delay is absorbed by slack/);
     const root=st.querySelector('#wr-root');
@@ -74,7 +75,7 @@ test('published scripts start for new and returning users and every saved view',
     assert.match(w.app.innerHTML,/data-rail/);w.click(w.document,{rail:''});w.click(w.document,{view:'output'});assert.match(w.app.innerHTML,/shell rail-min/);w.click(w.document,{rail:''});
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
     // Starts with an empty matrix; Alpenridge is not in it yet.
-    assert.match(fw.innerHTML,/Learn the onboarding framework from history/);assert.match(fw.innerHTML,/Build the framework from onboarding history/);assert.doesNotMatch(fw.innerHTML,/data-fx-col="alpenridge"/);
+    assert.match(fw.innerHTML,/Start here · how we onboard today/);assert.match(fw.innerHTML,/Open the standard operating procedure/);assert.match(fw.innerHTML,/Build the framework from onboarding history/);assert.doesNotMatch(fw.innerHTML,/data-fx-col="alpenridge"/);
     assert.match(fw.innerHTML,/fx-cell empty/);assert.doesNotMatch(fw.innerHTML,/fx-cell rep/);
     w.click(fw,{fxCol:'omnibus'});assert.doesNotMatch(fw.innerHTML,/Platform agreement draft/,'clients cannot run before the matrix exists');
     // The Framework Builder agents learn the rules and fill the matrix.
@@ -92,7 +93,7 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{vmPick:'restrictions'});assert.match(fw.innerHTML,/Found in 3 passages/);assert.match(fw.innerHTML,/ESG \/ coal definition/);w.click(fw,{vmClose:''});assert.doesNotMatch(fw.innerHTML,/class="vm-ev"/);
     w.click(fw,{vmCol:'cit'});assert.match(fw.innerHTML,/standard: 401\(k\) plan/);assert.match(fw.innerHTML,/Recordkeeper conversion memo/);
     w.click(fw,{vmAttr:'tm',vmVal:'yes'});assert.match(fw.innerHTML,/standard: your mix/);assert.match(fw.innerHTML,/combinations to check/);assert.match(fw.innerHTML,/vm-warn/);
-    w.click(fw,{fxCell:'custom|guidelines'});assert.match(fw.innerHTML,/Standard guideline<\/span>/);
+    w.click(fw,{fxCell:'custom|guidelines'});assert.match(fw.innerHTML,/Standard operating procedure<\/span>/);
     w.click(fw,{fxView:'matrix'});w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Alpenridge is in the matrix/);
     // The KPI tiles open the learned rules and the proposed ones.
     w.click(fw,{fxList:'learned'});assert.match(fw.innerHTML,/Rules learned, with evidence<\/h2>/);assert.match(fw.innerHTML,/\d+ of \d+ past onboardings/);
@@ -105,9 +106,9 @@ test('published scripts start for new and returning users and every saved view',
     const after=(fw.innerHTML.match(/data-fx-cell="ocio\|contract"[^>]*>([^<]+)</)||[])[1];assert.notEqual(after,before);assert.match(fw.innerHTML,/1 approved/);assert.doesNotMatch(fw.innerHTML,/fw-proposed/);
     w.click(fw,{fxList:'proposed'});w.click(fw,{fxDecide:'0:'});assert.match(fw.innerHTML,/Approve and apply/);w.click(fw,{fxEv:'p0'});assert.match(fw.innerHTML,/added this step by hand \(/);w.click(fw,{fxEv:''});assert.doesNotMatch(fw.innerHTML,/class="fx-ev"/);assert.match(fw.innerHTML,/Waiting for the policy owner/);w.click(fw,{fxList:''});assert.doesNotMatch(fw.innerHTML,/fx-rl /);
     w.click(fw,{fxCell:'omnibus|aml'});assert.match(fw.innerHTML,/learned from \d+ of \d+ past onboardings/);
-    assert.match(fw.innerHTML,/Standard guideline<\/span>/);assert.match(fw.innerHTML,/For Platform/);assert.match(fw.innerHTML,/Does not apply to this client/);
+    assert.match(fw.innerHTML,/Standard operating procedure<\/span>/);assert.match(fw.innerHTML,/For Platform/);assert.match(fw.innerHTML,/Does not apply to this client/);
     // The standard guideline holds every standard in one place, and links to the rules for each activity.
-    w.click(fw,{fxStd:'aml'});assert.match(fw.innerHTML,/Standard onboarding guideline<\/h2>/);assert.match(fw.innerHTML,/fx-std-card sel" id="fx-std-aml"/);assert.equal((fw.innerHTML.match(/class="fx-std-card/g)||[]).length,10);
+    w.click(fw,{fxStd:'aml'});assert.match(fw.innerHTML,/Standard operating procedure<\/h2>/);assert.match(fw.innerHTML,/fx-std-card sel" id="fx-std-aml"/);assert.equal((fw.innerHTML.match(/class="fx-std-card/g)||[]).length,10);
     w.click(fw,{fxRulesFor:'aml'});assert.match(fw.innerHTML,/Showing the rules that change <b>AML\/KYC/);w.click(fw,{fxList:''});
     w.click(fw,{fxCell:'ocio|contract'});assert.match(fw.innerHTML,/Proposed/);
     // The onboarding agents then use the matrix for one client.
@@ -115,6 +116,8 @@ test('published scripts start for new and returning users and every saved view',
     w.click(fw,{fxAct:'skip'});assert.match(fw.innerHTML,/Ready for human review/);assert.match(fw.innerHTML,/Intermediary performs underlying-investor KYC/);
     w.click(fw,{fxAct:'back'});assert.match(fw.innerHTML,/Framework Builder agents/);
     w.click(fw,{fxCol:'custom'});w.click(fw,{fwAttr:'restrictions',fwVal:'tobacco'});assert.match(fw.innerHTML,/Check this combination/);
+    // The framework stays built after visiting another tab.
+    w.click(w.document,{view:'portfolio'});w.click(w.document,{view:'framework'});assert.match(fw.innerHTML,/Built from 146 past onboardings/);assert.doesNotMatch(fw.innerHTML,/fx-cell empty/);
   }
 });
 
@@ -136,8 +139,12 @@ test('Run agents progresses to context and planning checkpoints',()=>{
   for(let i=0;i<12&&!root.innerHTML.includes('Operations confirms the client context');i++)w.click(root,{runAction:'step'});
   assert.match(root.innerHTML,/Operations confirms the client context/);
   w.click(root,{runAction:'confirm-context'});
-  for(let i=0;i<40&&!root.innerHTML.includes('Review the working planning draft');i++)w.click(root,{runAction:'step'});
-  assert.match(root.innerHTML,/Review the working planning draft/);
+  for(let i=0;i<40&&!root.innerHTML.includes('approve what goes to the client');i++)w.click(root,{runAction:'step'});
+  // H2: no review form; each drafted request opens its requirement, risk and precedent evidence.
+  assert.match(root.innerHTML,/approve what goes to the client/);assert.doesNotMatch(root.innerHTML,/Review the working planning draft|Reviewer name/);
+  assert.match(root.innerHTML,/Client requirement/);assert.match(root.innerHTML,/Risk identified/);assert.match(root.innerHTML,/Evidence from previous onboardings/);assert.match(root.innerHTML,/H02 · Northbridge/);
+  const tile=w.document.createElement('article');tile.dataset.runAct='derivs';tile.closest=sel=>sel==='button'?null:tile;for(const fn of root.listeners.click)fn({target:tile});
+  assert.match(root.innerHTML,/H03 · Seabrook/);assert.match(root.innerHTML,/Derivative readiness/);
   assert.match(root.innerHTML,/Agent outputs · 7 of 7 ready/);
 });
 
@@ -169,15 +176,14 @@ test('client requests sent from the agent run show against the requirements',()=
   const st=w.document.getElementById('st-root');w.click(st,{stOpen:'req'});
   assert.match(st.innerHTML,/2 requests sent today/);assert.match(st.innerHTML,/Sent today: Ask the client to confirm the tobacco threshold/);assert.match(st.innerHTML,/Sent today: Tell the client the funding-date impact/);
   // Escalation lists the steps taken first; telling the client of the date impact is now done.
-  w.click(st,{stOpen:'plan'});const path=st.innerHTML.slice(st.innerHTML.indexOf('st-path'));assert.match(path,/Client informed of the date impact<\/span><small>Sent from the agent run/);assert.doesNotMatch(path.slice(0,path.indexOf('</ol>')),/class="next"/);
+  w.click(st,{stOpen:'next'});const path=st.innerHTML.slice(st.innerHTML.indexOf('st-path'));assert.match(path,/Client informed of the date impact<\/span><small>Sent from the agent run/);assert.doesNotMatch(path.slice(0,path.indexOf('</ol>')),/class="next"/);
 });
 
-test('key players can be filtered by internal owner and status',()=>{
-  const w=openWorkspace({view:'output'}),O=w.context.window.SA_ONBOARD,st=w.document.getElementById('st-root');
-  w.click(st,{stOpen:'players'});assert.match(st.innerHTML,/Internal owner/);assert.match(st.innerHTML,/All owners <b>9<\/b>/);
-  w.click(st,{stOwner:'legal'});assert.match(st.innerHTML,/Showing 1 of 9 responsibilities owned by <b>Legal<\/b>/);assert.match(st.innerHTML,/Contracting/);assert.doesNotMatch(st.innerHTML,/<b>Billing<\/b><span/);
-  w.click(st,{stOwner:'',stPstatus:'overdue'});assert.match(st.innerHTML,/status <b>Overdue<\/b>/);assert.doesNotMatch(st.innerHTML,/>Waiting<\/span><small>/);
-  w.click(st,{stOwner:'',stPstatus:''});assert.doesNotMatch(st.innerHTML,/st-filter-note/);
+test('next steps can be filtered by team',()=>{
+  const w=openWorkspace({view:'output'}),st=w.document.getElementById('st-root');
+  w.click(st,{stOpen:'next'});assert.match(st.innerHTML,/All teams/);assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
+  w.click(st,{stOwner:'legal'});assert.equal((st.innerHTML.match(/class="nx-lane"/g)||[]).length,1);assert.match(st.innerHTML,/nx-team">Legal/);
+  w.click(st,{stOwner:''});assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
 });
 
 test('one framework, many variations',()=>{
