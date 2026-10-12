@@ -704,3 +704,14 @@ button.vm-doc-n:hover,button.vm-attr:hover{border-color:#5eead4;box-shadow:0 0 0
 .nx-none{margin:0;font-size:.8rem;color:#7f91ab}
 .nx-resp .panel{margin-top:0}
 @media(max-width:1000px){.nx-who-grid{grid-template-columns:1fr}}
+/* Next steps: one section per tab */
+.nx-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 12px;padding:4px;border:1px solid #1f2c45;border-radius:12px;background:#0b1426}
+.nx-tabs button{flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:.88rem;font-weight:700;color:#9fb0c6;background:none;border:0;border-radius:9px;padding:9px 14px;cursor:pointer}
+.nx-tabs button b{font-size:.72rem;color:#06101e;background:#475569;border-radius:999px;padding:0 7px}
+.nx-tabs button:hover{color:#fff;background:#111c33}
+.nx-tabs button.on{color:#fff;background:#0f9488}.nx-tabs button.on b{background:#ccfbf1}
+h4.nx-sub{margin:0 0 8px!important}
+.nx-split>div>section>h4.nx-sub{margin-top:0!important}
+.nx-split .st-detail{margin-top:0!important}
+.nx-split .nx-who-grid{grid-template-columns:1fr 1fr}.nx-split .nx-who-col.now{grid-row:span 2}
+@media(max-width:1000px){.nx-split .nx-who-grid{grid-template-columns:1fr}.nx-tabs button{flex:1 1 45%}}

@@ -140,7 +140,11 @@ function mount(root,opt={}){
   const C=comms(s),cl=`<section class="nx-comms"><h4><i>4</i>Communications timeline <small>escalations and client messages, in date order</small></h4><ol>${C.map(c=>{const st=c.day<O.AS_OF?'done':c.day===O.AS_OF?'today':'next';return `<li class="${st} ${c.kind}"><span class="nx-d">${O.fmt(c.day)}</span><span class="nx-dot"></span><div><b>${c.sent?'✓ ':st==='done'?'✓ ':''}${esc(c.what)}</b><small>${esc(c.about)}</small></div><em>${st==='done'?'Done':st==='today'?'Today':'Next'} · ${c.kind==='client'?'Client':'Internal'}</em></li>`;}).join('')}</ol></section>`;
   const P=players(s,true),who=whoPanel(s,P);
   const resp=`<section class="nx-resp"><h4><i>5</i>All responsibilities <small>owner, client contact and escalation point for each area</small></h4>${playersTable(s)}</section>`;
-  return `${filters}${head}${who}${act}<div class="nx-split"><div>${tl}</div>${taskDetail(s)}</div>${cl}${resp}`;}
+  // One section at a time, chosen from tabs; the task detail sits beside the sections that select a task.
+  const TABS=[['who','Who must act now',P.now.length],['act','Act first',a.length],['timeline','Timeline by team',rows.length],['comms','Communications',C.length],['resp','All responsibilities',O.PLAYERS.length]];
+  const tab=TABS.some(t=>t[0]===state.nxTab)?state.nxTab:'who',body={who,act,timeline:tl,comms:cl,resp}[tab].replace(/<h4><i>\d<\/i>[^<]*<small>/,'<h4 class="nx-sub"><small>');
+  const nav=`<nav class="nx-tabs" role="tablist">${TABS.map(([id,l,n])=>`<button type="button" role="tab" aria-selected="${tab===id}" class="${tab===id?'on':''}" data-st-nxtab="${id}">${l}<b>${n}</b></button>`).join('')}</nav>`;
+  return `${filters}${head}${nav}${['who','act','timeline'].includes(tab)?`<div class="nx-split"><div>${body}</div>${taskDetail(s)}</div>`:body}`;}
  // Who must act now, by person: who acts, who is stuck and on whom, and which client contacts must hear from us.
  function whoPanel(s,P){const role=w=>{const p=O.PLAYERS.find(x=>x.internal===w);return p?team(p.team):O.PLAYERS.some(x=>x.ext===w||(x.ext||'').includes(w))?'Client side':'Internal'};
   const person=(w,t,kind)=>{const r=s.map[t.id],imp=O.impact(t.id),why=kind==='blocked'?`Waiting on ${r.openDeps.join(', ')}`:kind==='contact'?`About ${t.id}, ${r.overdue} days overdue`:r.status==='overdue'?`${r.overdue} days overdue`:`Due ${O.fmt(r.forecast)}`;
@@ -203,6 +207,7 @@ function mount(root,opt={}){
   state.lastOpen=state.open;document.body?.classList?.toggle('ob-lock',Boolean(state.open));}
  function onClick(e){const b=e.target.closest('button,[data-st-task],[data-st-close]');if(b&&b.dataset.view)return;if(!b||!root.contains(b)||b.dataset.source)return;const d=b.dataset;
   if(d.stOpen){state.open=ALIAS[d.stOpen]||d.stOpen;render();return;}
+  if(d.stNxtab){state.nxTab=d.stNxtab;render();return;}
   if(d.stOwner!==undefined||d.stPstatus!==undefined){if(d.stOwner!==undefined)state.owner=d.stOwner||null;if(d.stPstatus!==undefined)state.pstatus=d.stPstatus||null;render();return;}
   if(d.stClose!==undefined){state.open=null;render();return;}
   if(d.stStage){state.stage=Number(d.stStage);const first=O.schedule().stages[state.stage].tasks.find(t=>!t.done)||O.schedule().stages[state.stage].tasks[0];state.task=first.id;render();return;}

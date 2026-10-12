@@ -56,7 +56,10 @@ test('published scripts start for new and returning users and every saved view',
     assert.doesNotMatch(st.innerHTML,/ob-drawer|Escalation and communication|What the client asked for/);
     const open=(id,re)=>{w.click(st,{stOpen:id});assert.match(st.innerHTML,/ob-drawer/);assert.match(st.innerHTML,re);};
     open('req',/What the client asked for/);assert.match(st.innerHTML,/In the contract/);assert.match(st.innerHTML,/Expectation/);
-    open('next',/Who must act now/);assert.match(st.innerHTML,/Must be contacted/);assert.match(st.innerHTML,/All responsibilities/);assert.match(st.innerHTML,/Act first/);for(const part of [/Timeline by team/,/Communications timeline/,/Escalation and communication/,/Account funded/,/Client target/,/Forecast funding/])assert.match(st.innerHTML,part);
+    open('next',/Who must act now/);assert.match(st.innerHTML,/Must be contacted/);assert.match(st.innerHTML,/Escalation and communication/);assert.doesNotMatch(st.innerHTML,/class="nx-lane"/);
+    w.click(st,{stNxtab:'act'});assert.match(st.innerHTML,/nx-card/);assert.doesNotMatch(st.innerHTML,/nx-who-col/);
+    w.click(st,{stNxtab:'timeline'});for(const part of [/class="nx-lane"/,/Client target/,/Forecast funding/])assert.match(st.innerHTML,part);
+    w.click(st,{stNxtab:'comms'});assert.match(st.innerHTML,/Account funded/);w.click(st,{stNxtab:'resp'});assert.match(st.innerHTML,/Escalation point/);w.click(st,{stNxtab:'timeline'});
     open('plan',/Act first/);
     open('whatif',/If a task slips/);w.click(st,{stSimDays:'5'});assert.match(st.innerHTML,/Who gets notified/);
     w.click(st,{stSim:'O4'});assert.match(st.innerHTML,/Unchanged: the delay is absorbed by slack/);
@@ -181,7 +184,7 @@ test('client requests sent from the agent run show against the requirements',()=
 
 test('next steps can be filtered by team',()=>{
   const w=openWorkspace({view:'output'}),st=w.document.getElementById('st-root');
-  w.click(st,{stOpen:'next'});assert.match(st.innerHTML,/All teams/);assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
+  w.click(st,{stOpen:'next'});w.click(st,{stNxtab:'timeline'});assert.match(st.innerHTML,/All teams/);assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
   w.click(st,{stOwner:'legal'});assert.equal((st.innerHTML.match(/class="nx-lane"/g)||[]).length,1);assert.match(st.innerHTML,/nx-team">Legal/);
   w.click(st,{stOwner:''});assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
 });
