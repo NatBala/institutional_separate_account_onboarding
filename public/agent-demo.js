@@ -1,14 +1,15 @@
 const E=window.AGENT_DEMO,C=window.CORPUS;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const key='sa-corpus-demo-v1';let state={view:'portfolio',scenario:'initial',sent:[],excluded:[],revision:1,approval:null,notes:[],edits:{},levels:null};
-try{Object.assign(state,JSON.parse(localStorage.getItem(key)||'{}'));if(!E.dates[state.scenario])state.scenario='initial';}catch(e){}
+// A page refresh starts the demo fresh: workspace state lives in memory only. Clear anything an earlier version saved.
+try{localStorage.removeItem(key);localStorage.removeItem('sa-framework-v1');}catch(e){}
 // Views from earlier releases map onto the story tabs.
 state.view=({system:'agents',run:'agents',plan:'agents',status:'output',requirements:'output',whatif:'output',workflow:'output'})[state.view]||state.view;
 // Display theme: Midnight (dark) or Executive paper. Kept per browser; Reset workspace leaves it alone.
 const THEMES=[['midnight','Midnight'],['paper','Paper']];
 let theme='midnight';try{theme=localStorage.getItem('sa-theme')||'midnight';}catch(e){}
 function applyTheme(){if(document.documentElement)document.documentElement.dataset.theme=theme;}applyTheme();
-function save(){localStorage.setItem(key,JSON.stringify(state));}
+function save(){}
 function notify(s){const t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',3800);}
 function revise(){state.revision++;state.approval=null;save();}
 const head=(title,sub,actions='')=>`<div class="pagehead"><div><h1>${title}</h1><p>${sub}</p></div><div class="actions">${actions}</div></div>`;

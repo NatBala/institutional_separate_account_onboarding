@@ -135,9 +135,9 @@ const CANDS=(()=>{const r=rng(7),out=MINED.rules.map(x=>({...x,kept:MINED.learne
  for(const a of O.ATTRS)for(const [v] of a.options)for(const act of O.ACTIVITIES){if(O.RULES.some(x=>x[0]===a.id&&x[1]===v&&x[2]===act.id)||r()>0.42)continue;const n=HISTORY.filter(h=>has(h.cfg,a.id,v)).length;if(n<3)continue;const hits=Math.round(n*(0.04+r()*0.5));out.push({a:a.id,v,act:act.id,effect:null,n,hits,support:hits/n,kept:false});}
  const rr=rng(11);for(let i=out.length-1;i>0;i--){const j=Math.floor(rr()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;})();
 const markup='<div id="fw-root" class="fx"></div>';
-// The framework stays built when the presenter moves to another tab and back; Reset workspace clears it.
-const STORE='sa-framework-v1';
-const loadSaved=()=>{try{return JSON.parse(localStorage.getItem(STORE)||'null');}catch(e){return null;}};
+// The framework stays built when the presenter moves to another tab and back; a page refresh or Reset workspace clears it.
+const MEM={};
+const loadSaved=()=>MEM.saved||null;
 function mount(root,opt={}){
  const state={col:null,cell:null,step:-1,custom:JSON.parse(JSON.stringify(O.PROFILES.find(p=>p.id==='cit').cfg)),playing:false,bt:-1,building:false,alp:false,list:null,ev:null,listAct:null,stdAct:null,cardSeen:false,decided:{},view:'matrix',mapCol:'cit',vmSel:null};
  const built=()=>state.bt>=TOTAL,colIx=c=>BCOLS.findIndex(x=>x[0]===c),f5=()=>state.bt-PSTART[5];
@@ -148,7 +148,7 @@ function mount(root,opt={}){
  const saved=loadSaved();
  if(saved?.built){state.bt=TOTAL;state.decided=saved.decided||{};state.view=saved.view||'matrix';state.mapCol=saved.mapCol||'cit';if(saved.custom)state.custom=saved.custom;state.cardSeen=true;
   if(saved.alp){state.alp=true;state.col='alpenridge';state.step=DOCS.alpenridge.length+11;state.hoSeen=true;}}
- function persist(){try{localStorage.setItem(STORE,JSON.stringify({built:state.bt>=0,alp:state.alp,decided:state.decided,view:state.view,mapCol:state.mapCol,custom:state.custom}));}catch(e){}}
+ function persist(){MEM.saved=JSON.parse(JSON.stringify({built:state.bt>=0,alp:state.alp,decided:state.decided,view:state.view,mapCol:state.mapCol,custom:state.custom}));}
  const cfgFor=col=>col==='custom'?state.custom:O.PROFILES.find(p=>p.id===col).cfg;
  // A proposed rule the policy owner approves is applied like any learned rule: it adds its step for every matching client.
  const approved=()=>MINED.proposals.map((p,i)=>({...p,i})).filter(p=>state.decided[p.i]==='approved');

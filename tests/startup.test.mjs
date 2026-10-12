@@ -38,11 +38,11 @@ function openWorkspace(saved={}) {
   return {document,context,timers,click,app:document.getElementById('app')};
 }
 
-test('published scripts start for new and returning users and every saved view',()=>{
-  // Views from earlier releases map onto the three steps or fall back to the portfolio.
-  const views=['portfolio','agents','output','framework','status','requirements','plan','whatif','system','run','workflow','live','riskmap','brief'];
-  for(const scenario of ['initial','clarified','cash'])for(const view of views){
-    const w=openWorkspace({view,scenario});
+test('published scripts start fresh on every load and every tab works',()=>{
+  // Saved state from an earlier visit is ignored: a refresh always opens the portfolio with nothing sent.
+  {
+    const w=openWorkspace({view:'framework',sent:['tobacco'],scenario:'cash'});
+    assert.match(w.app.innerHTML,/data-view="portfolio"[^>]*aria-current="page"/);
     for(const tab of [/Onboarding portfolio/,/Multi-agent system/,/Agent output/,/One framework, many variations/])assert.match(w.app.innerHTML,tab);
     assert.doesNotMatch(w.app.innerHTML,/Requirements evidence|Live agent workspace|Operator view|data-st-tab|How the plan was built/);
     w.click(w.document,{view:'portfolio'});const st=w.document.getElementById('st-root');
@@ -180,7 +180,8 @@ test('Alpenridge status: RAG by stage, issue impact on the funding date, delay c
 });
 
 test('client requests sent from the agent run show against the requirements',()=>{
-  const w=openWorkspace({view:'output',sent:['tobacco','date']}),O=w.context.window.SA_ONBOARD;
+  const w=openWorkspace(),O=w.context.window.SA_ONBOARD;
+  w.click(w.document,{view:'agents'});const run=w.document.getElementById('agent-runner-root');w.click(run,{runSend:'tobacco'});w.click(run,{runSend:'date'});w.click(w.document,{view:'output'});
   assert.equal(O.actions().length,6);assert.equal(O.actions()[1].id,'reporting');
   const st=w.document.getElementById('st-root');w.click(st,{stOpen:'req'});
   assert.match(st.innerHTML,/2 requests sent today/);assert.match(st.innerHTML,/Sent today: Ask the client to confirm the tobacco threshold/);assert.match(st.innerHTML,/Sent today: Tell the client the funding-date impact/);
@@ -189,7 +190,7 @@ test('client requests sent from the agent run show against the requirements',()=
 });
 
 test('next steps can be filtered by team',()=>{
-  const w=openWorkspace({view:'output'}),st=w.document.getElementById('st-root');
+  const w=openWorkspace();w.click(w.document,{view:'output'});const st=w.document.getElementById('st-root');
   w.click(st,{stOpen:'next'});w.click(st,{stNxtab:'timeline'});assert.match(st.innerHTML,/All teams/);assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
   w.click(st,{stOwner:'legal'});assert.equal((st.innerHTML.match(/class="nx-lane"/g)||[]).length,1);assert.match(st.innerHTML,/nx-team">Legal/);
   w.click(st,{stOwner:''});assert((st.innerHTML.match(/class="nx-lane"/g)||[]).length>3);
