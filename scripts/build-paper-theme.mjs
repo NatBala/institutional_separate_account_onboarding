@@ -24,6 +24,10 @@ function remap(v){return v.replace(COLOR,m=>{if(m==='white')return fmt(mapColor(
  if(m[0]==='#'){let hx=m.slice(1);if(hx.length===3)hx=hx.split('').map(c=>c+c).join('');return fmt(mapColor(...[0,2,4].map(i=>parseInt(hx.slice(i,i+2),16)),hx.length===8?parseInt(hx.slice(6),16)/255:1));}
  const n=m.match(/[\d.]+/g).map(Number);return fmt(mapColor(n[0],n[1],n[2],n[3]??1));});}
 
+// A fill is "coloured" when it is a saturated, mostly opaque colour or one of the accent/status variables.
+function colouredBg(v){if(/var\(--(wr-(low|med|high)|teal|red|amber|green|a-[a-z]+|sys-[a-z-]+)\)/.test(v))return true;
+ return [...v.matchAll(new RegExp(COLOR.source,'g'))].some(([m])=>{if(m==='white')return false;let r,g,b,a=1;if(m[0]==='#'){let hx=m.slice(1);if(hx.length===3)hx=hx.split('').map(c=>c+c).join('');[r,g,b]=[0,2,4].map(i=>parseInt(hx.slice(i,i+2),16));if(hx.length===8)a=parseInt(hx.slice(6),16)/255;}else{const n=m.match(/[\d.]+/g).map(Number);[r,g,b]=n;a=n[3]??1;}return a>=0.6&&(Math.max(r,g,b)-Math.min(r,g,b))/255>=0.2;});}
+function whiteish(v){const m=v.match(new RegExp(COLOR.source));if(!m)return false;if(m[0]==='white')return true;if(m[0][0]==='#'){let hx=m[0].slice(1);if(hx.length===3)hx=hx.split('').map(c=>c+c).join('');return [0,2,4].every(i=>parseInt(hx.slice(i,i+2),16)>=225);}return m[0].match(/[\d.]+/g).slice(0,3).every(x=>+x>=225);}
 // Minimal CSS reader: rules, @media blocks (recursed); other at-rules are skipped.
 function block(css,i){let d=0;for(let j=i;j<css.length;j++){if(css[j]==='{')d++;else if(css[j]==='}'&&--d===0)return j;}return css.length;}
 function decls(body){const out=[];let cur='',par=0,q='';for(const c of body){if(q){cur+=c;if(c===q)q='';continue;}if(c==='"'||c==="'"){q=c;cur+=c;continue;}if(c==='(')par++;if(c===')')par--;if(c===';'&&par===0){out.push(cur);cur='';}else cur+=c;}if(cur.trim())out.push(cur);return out.map(x=>x.trim()).filter(Boolean);}
@@ -32,7 +36,10 @@ function walk(css){let out='',i=0;css=css.replace(/\/\*[\s\S]*?\*\//g,'');
  while(i<css.length){const open=css.indexOf('{',i);if(open<0)break;const head=css.slice(i,open).trim(),end=block(css,open),body=css.slice(open+1,end);i=end+1;
   if(head.startsWith('@media')){const inner=walk(body);if(inner)out+=`${head}{${inner}}\n`;continue;}
   if(head.startsWith('@'))continue;
-  const ds=decls(body).filter(d=>HAS.test(d)).map(d=>{const k=d.indexOf(':');return d.slice(0,k).trim()+':'+remap(d.slice(k+1));});
+  const all=decls(body),bg=all.find(d=>/^background(-color)?\s*:/.test(d)),onColour=bg&&colouredBg(bg.slice(bg.indexOf(':')+1));
+  // White text on a coloured fill (buttons, badges, active segments) stays white; everything else is remapped.
+  // Colour declarations that use variables are re-emitted too, so the scoped rules keep the same cascade as the originals.
+  const ds=all.filter(d=>HAS.test(d)||/^(background(-color)?|color|fill|stroke|border(-[a-z]+)*|outline|box-shadow)\s*:.*var\(--/.test(d)).map(d=>{const k=d.indexOf(':'),prop=d.slice(0,k).trim(),val=d.slice(k+1);return prop==='color'&&onColour&&whiteish(val)?`color:#fffdf8${/!important/.test(val)?'!important':''}`:prop+':'+remap(val);});
   if(ds.length)out+=`${scopeSel(head)}{${ds.join(';')}}\n`;}
  return out;}
 
@@ -57,7 +64,7 @@ ${S} .metric strong,${S} .fx-kpi strong{font-weight:600;color:${P.ink}!important
 ${S} .metric strong small{font-family:'IBM Plex Sans',sans-serif;font-size:.8rem;opacity:.75}
 ${S} .metric span,${S} .fx-kpi span{font-variant:small-caps;letter-spacing:.04em;color:${P.muted}!important}
 ${S} .panel h3,${S} .fx-mhead h3{font-weight:600;color:${P.ink}!important}
-${S} th{background:transparent!important;font-variant:small-caps;letter-spacing:.05em;color:${P.gold}!important;border-bottom:1.5px solid ${P.rule}!important}
+${S} thead th{background:transparent!important;font-variant:small-caps;letter-spacing:.05em;color:${P.gold}!important;border-bottom:1.5px solid ${P.rule}!important}
 ${S} .rail{background:${P.rail}!important;border-right:1px solid ${P.railrule}!important}
 ${S} .rail .brand{color:${P.railink}!important}${S} .rail .brand small{font-family:'IBM Plex Sans',sans-serif;font-style:italic;color:${P.railmuted}!important}
 ${S} .rail .nav{color:${P.railink}!important}${S} .rail .nav:hover{background:rgba(255,255,255,.06)!important}
@@ -78,6 +85,15 @@ ${S} .run-mail-doc{background:${P.card}!important;color:${P.ink}!important;borde
 ${S} .run-mail-doc dt{color:${P.muted}!important}${S} .run-mail-doc dd,${S} .run-mail-body{color:${P.ink}!important}${S} .run-mail-doc dl{border-bottom-color:${P.hair}!important}
 ${S} .run-mail-doc .cite{background:#f3ead6!important;border-color:${P.rule}!important;color:${P.ink}!important}
 ${S} .st-chip.on b,${S} .nx-tabs button.on b{color:${P.ink}!important;background:#e9dfc9!important}
+${S} .run-agent{background:${P.card}!important;color:${P.ink}!important;border:1px solid ${P.hair}!important;box-shadow:0 6px 16px -14px ${P.shadow}}
+${S} .run-agent strong{color:${P.ink}!important}${S} .run-agent small{color:${P.muted}!important}
+${S} .run-agent .run-avatar{background:#f3ead6!important;color:${P.ink}!important}
+${S} .run-agent[data-status=active]{border-color:${P.accent}!important;background:#eef2f8!important;box-shadow:0 0 0 3px rgba(31,58,99,.15)!important}
+${S} .run-agent[data-status=active] .run-avatar{background:${P.accent}!important;color:#fff!important}
+${S} .run-agent[data-status=complete]{border-left:4px solid ${P.gold}!important}${S} .run-agent[data-status=complete] .run-avatar{background:${P.gold}!important;color:#fff!important}
+${S} .run-human{background:${P.card}!important;color:${P.ink}!important;border-color:${P.rule}!important}
+${S} .run-human.waiting{background:#fbf1dc!important;border-color:${P.gold2}!important;color:${P.ink}!important}${S} .run-human.done{background:#eaf3ee!important;border-color:#2e6b4f!important;color:${P.ink}!important}
+${S} .fx-table th.sel button,${S} .fx-table th.sel small,${S} .fx-table th.sel b{color:#fffdf8!important}
 ${S} .theme-switch button.on{background:${P.gold2}!important;color:#1b2a44!important}
 `;
 let out=`/* Generated by scripts/build-paper-theme.mjs: the Executive paper theme. Do not edit by hand. */\n`;
