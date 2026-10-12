@@ -4,6 +4,7 @@ An institutional separate-account onboarding workspace built around the fictiona
 
 ## Included
 
+- Two display themes, switched in the side panel: **Midnight** (dark) and **Paper** (ivory, serif headings, gold rules). The Paper theme is generated from the app's stylesheets by `node scripts/build-paper-theme.mjs`; re-run it after changing any stylesheet. Its fonts (IBM Plex Sans, Source Serif 4) are bundled in `fonts/` under the SIL Open Font License.
 - The current browser experience, in four steps:
   1. **Onboarding portfolio**: every onboarding in flight (synthetic book): volume, split by vehicle and client type, the bottleneck stage, risk concentration and accounts behind schedule. Alpenridge leads into the framework.
   2. **One framework, many variations**: six Framework Builder agents learn the onboarding rules from 146 closed onboardings in a live console (progress, counters and a streaming log for each agent), a policy owner approves new rules, and the matrix fills in. A **Variation map** view shows, for any client type or any mix you pick, the client's documents → its seven attributes → the ten standard activities, with one line per learned rule coloured by effect; activities with no line stay standard. Alpenridge then arrives as a new client: its attributes are extracted, the matrix and the map show what changes for it, and a button hands over to the agents.

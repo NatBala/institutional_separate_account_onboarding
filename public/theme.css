@@ -57,3 +57,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .shell.rail-min .rail nav{margin-top:22px}
 .shell.rail-min .nav{justify-content:center;padding:12px 0}.shell.rail-min .nav span{min-width:0;opacity:.85}
 @media(max-width:760px){.rail-toggle{display:none}.shell.rail-min .brand,.shell.rail-min .nav-label{display:revert}}
+/* Theme switch in the side panel */
+.theme-switch{display:flex;align-items:center;gap:4px;margin-bottom:10px;padding:3px;border:1px solid #23324f;border-radius:999px;width:max-content}
+.theme-switch span{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#8fa3bd;padding:0 6px 0 8px}
+.theme-switch button{font:inherit;font-size:.74rem;font-weight:700;color:#b6c4d6;background:none;border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
+.theme-switch button.on{background:#0f9488;color:#fff}
+.shell.rail-min .theme-switch{display:none}

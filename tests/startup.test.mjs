@@ -75,6 +75,8 @@ test('published scripts start for new and returning users and every saved view',
     w.click(root,{levelSet:'reporting:0'});assert.match(root.innerHTML,/Reporting service: (High|Medium) → Low|Onboarding duration/);assert.doesNotMatch(root.innerHTML,/steps? added/);
     w.click(st,{stClose:''});assert.doesNotMatch(st.innerHTML,/ob-drawer/);
     // The left panel collapses and remembers it.
+    // Theme switch: Midnight and Paper.
+    assert.match(w.app.innerHTML,/data-theme-set="paper"/);w.click(w.document,{themeSet:'paper'});assert.equal(w.document.documentElement?.dataset?.theme??'paper','paper');w.click(w.document,{themeSet:'midnight'});
     assert.match(w.app.innerHTML,/data-rail/);w.click(w.document,{rail:''});w.click(w.document,{view:'output'});assert.match(w.app.innerHTML,/shell rail-min/);w.click(w.document,{rail:''});
     w.click(w.document,{view:'framework'});const fw=w.document.getElementById('fw-root');
     // Starts with an empty matrix; Alpenridge is not in it yet.
@@ -148,6 +150,8 @@ test('Run agents progresses to context and planning checkpoints',()=>{
   assert.match(root.innerHTML,/Client requirement/);assert.match(root.innerHTML,/Risk identified/);assert.match(root.innerHTML,/Evidence from previous onboardings/);assert.match(root.innerHTML,/H02 · Northbridge/);
   const tile=w.document.createElement('article');tile.dataset.runAct='derivs';tile.closest=sel=>sel==='button'?null:tile;for(const fn of root.listeners.click)fn({target:tile});
   assert.match(root.innerHTML,/H03 · Seabrook/);assert.match(root.innerHTML,/Derivative readiness/);
+  // The full email and readable sources.
+  assert.match(root.innerHTML,/Subject<\/dt>/);assert.match(root.innerHTML,/staged derivatives amendment for review/);assert.match(root.innerHTML,/Kind regards/);assert.match(root.innerHTML,/run-src-item/);
   assert.match(root.innerHTML,/Agent outputs · 7 of 7 ready/);
 });
 
